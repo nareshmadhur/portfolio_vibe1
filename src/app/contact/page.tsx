@@ -1,18 +1,27 @@
-import ContactSection from "@/components/sections/ContactSection";
-import SectionTitle from "@/components/shared/SectionTitle";
-import SectionWrapper from "@/components/shared/SectionWrapper";
 
+import ContactSection from "@/components/sections/ContactSection";
+import SectionWrapper from "@/components/shared/SectionWrapper";
+import { siteContent } from "@/lib/constants";
+
+/**
+ * Metadata for the Contact Me page.
+ */
 export const metadata = {
-  title: "Contact Me | Tri-Folio",
-  description: "Get in touch for inquiries related to engineering, music, or photography.",
+  title: siteContent.metadata.contactTitle,
+  description: siteContent.metadata.contactDescription,
 };
 
+/**
+ * Page component for the contact form.
+ * @returns {JSX.Element} The Contact page.
+ */
 export default function ContactPage() {
   return (
     <SectionWrapper>
-      {/* SectionTitle is inside ContactSection now, so we can remove it here if we want only the card title */}
-      {/* <SectionTitle>Contact Me</SectionTitle> */}
+      {/* SectionTitle is now part of ContactSection for better encapsulation */}
       <ContactSection />
     </SectionWrapper>
   );
 }
+
+    

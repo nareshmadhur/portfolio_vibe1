@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -7,15 +8,21 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import Logo from './Logo';
 import { cn } from '@/lib/utils';
+import { siteContent } from '@/lib/constants';
 
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/bi-ai', label: 'BI/AI Projects' },
-  { href: '/music', label: 'Music' },
-  { href: '/photography', label: 'Photography' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/', label: siteContent.nav.home },
+  { href: '/bi-ai', label: siteContent.nav.biAiProjects },
+  { href: '/music', label: siteContent.nav.music },
+  { href: '/photography', label: siteContent.nav.photography },
+  { href: '/contact', label: siteContent.nav.contact },
 ];
 
+/**
+ * Navigation bar component for the application.
+ * Provides links to different sections of the site and a mobile-responsive menu.
+ * @returns {JSX.Element | null} The Navbar component, or null if not mounted (to prevent hydration mismatch).
+ */
 export default function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -29,7 +36,7 @@ export default function Navbar() {
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   if (!isMounted) {
-    return null; // Avoid hydration mismatch
+    return null; // Avoid hydration mismatch by not rendering on the server initially for mobile menu state.
   }
 
   return (
@@ -63,7 +70,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
                 className={cn(
                   "text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium",
                   pathname === link.href ? "bg-primary/10 text-primary font-semibold" : "hover:bg-accent/50"
@@ -78,3 +85,5 @@ export default function Navbar() {
     </header>
   );
 }
+
+    

@@ -3,13 +3,24 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Photo } from '@/lib/constants';
+import { siteContent } from '@/lib/constants';
 import { ExternalLink } from 'lucide-react';
 import { Button } from '../ui/button';
 
+/**
+ * Props for the PhotoItem component.
+ */
 interface PhotoItemProps {
+  /** The photo object containing details like title, image URL, Flickr URL, etc. */
   photo: Photo;
 }
 
+/**
+ * Component to display a single photography item in a card format.
+ * Shows the photo, title, description, and a link to view it on Flickr.
+ * @param {PhotoItemProps} props - The props for the component.
+ * @returns {JSX.Element} The PhotoItem component.
+ */
 export default function PhotoItem({ photo }: PhotoItemProps) {
   return (
     <Card className="overflow-hidden group shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -33,8 +44,14 @@ export default function PhotoItem({ photo }: PhotoItemProps) {
         {photo.description && <CardDescription className="text-sm h-10 overflow-y-auto">{photo.description}</CardDescription>}
       </CardHeader>
        <CardFooter>
-         <Button variant="link" asChild className="p-0 h-auto text-accent hover:text-accent/80"><Link href={photo.flickrUrl} target="_blank" rel="noopener noreferrer">View on Flickr <ExternalLink className="ml-1 h-3 w-3" /></Link></Button>
+         <Button variant="link" asChild className="p-0 h-auto text-accent hover:text-accent/80">
+           <Link href={photo.flickrUrl} target="_blank" rel="noopener noreferrer">
+             {siteContent.photoItem.viewOnFlickrLink} <ExternalLink className="ml-1 h-3 w-3" />
+           </Link>
+         </Button>
       </CardFooter>
     </Card>
   );
 }
+
+    

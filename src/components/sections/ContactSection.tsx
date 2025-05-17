@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -10,11 +10,11 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { submitContactForm, type ContactFormState } from '@/app/actions';
-import { useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Loader2 } from 'lucide-react';
-import { useFormStatus } from 'react-dom'; // Added import for useFormStatus
+import { useFormStatus } from 'react-dom';
+import { siteContent } from '@/lib/constants';
 
 const contactFormSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -30,18 +30,27 @@ const initialState: ContactFormState = {
   success: false,
 };
 
+/**
+ * Submit button component for the contact form.
+ * Displays a loader and "Sending..." text when the form is pending.
+ * @returns {JSX.Element} The SubmitButton component.
+ */
 function SubmitButton() {
   // @ts-ignore TODO: useFormStatus is not yet available in React 19 types in this project
-  const { pending } = useFormStatus ? useFormStatus() : { pending: false }; // Changed React.useFormStatus to useFormStatus
+  const { pending } = useFormStatus ? useFormStatus() : { pending: false };
   return (
     <Button type="submit" disabled={pending} className="w-full md:w-auto">
       {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-      {pending ? 'Sending...' : 'Send Message'}
+      {pending ? siteContent.contactPage.form.sendingButton : siteContent.contactPage.form.sendButton}
     </Button>
   );
 }
 
-
+/**
+ * Contact section component containing the contact form.
+ * Handles form submission using React Server Actions and displays toasts for feedback.
+ * @returns {JSX.Element} The ContactSection component.
+ */
 export default function ContactSection() {
   const [state, formAction] = useActionState(submitContactForm, initialState);
   const { toast } = useToast();
@@ -59,7 +68,7 @@ export default function ContactSection() {
   useEffect(() => {
     if (state.message) {
       toast({
-        title: state.success ? 'Success!' : 'Error',
+        title: state.success ? siteContent.contactPage.form.successMessageTitle : siteContent.contactPage.form.errorMessageTitle,
         description: state.message,
         variant: state.success ? 'default' : 'destructive',
       });
@@ -77,9 +86,9 @@ export default function ContactSection() {
   return (
     <Card className="max-w-2xl mx-auto shadow-xl">
       <CardHeader>
-        <CardTitle className="text-2xl text-left">Contact Me</CardTitle>
+        <CardTitle className="text-2xl text-left">{siteContent.contactPage.form.title}</CardTitle>
         <CardDescription className="text-left">
-          Have a question or want to work together? Fill out the form below.
+          {siteContent.contactPage.form.description}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -90,9 +99,9 @@ export default function ContactSection() {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="name">Full Name</FormLabel>
+                  <FormLabel htmlFor="name">{siteContent.contactPage.form.nameLabel}</FormLabel>
                   <FormControl>
-                    <Input id="name" placeholder="Your Name" {...field} />
+                    <Input id="name" placeholder={siteContent.contactPage.form.namePlaceholder} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -103,9 +112,9 @@ export default function ContactSection() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="email">Email Address</FormLabel>
+                  <FormLabel htmlFor="email">{siteContent.contactPage.form.emailLabel}</FormLabel>
                   <FormControl>
-                    <Input id="email" type="email" placeholder="your.email@example.com" {...field} />
+                    <Input id="email" type="email" placeholder={siteContent.contactPage.form.emailPlaceholder} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -116,9 +125,9 @@ export default function ContactSection() {
               name="subject"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="subject">Subject</FormLabel>
+                  <FormLabel htmlFor="subject">{siteContent.contactPage.form.subjectLabel}</FormLabel>
                   <FormControl>
-                    <Input id="subject" placeholder="Regarding your project..." {...field} />
+                    <Input id="subject" placeholder={siteContent.contactPage.form.subjectPlaceholder} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -129,9 +138,9 @@ export default function ContactSection() {
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="message">Message</FormLabel>
+                  <FormLabel htmlFor="message">{siteContent.contactPage.form.messageLabel}</FormLabel>
                   <FormControl>
-                    <Textarea id="message" placeholder="Your message here..." rows={5} {...field} />
+                    <Textarea id="message" placeholder={siteContent.contactPage.form.messagePlaceholder} rows={5} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -146,3 +155,5 @@ export default function ContactSection() {
     </Card>
   );
 }
+
+    

@@ -3,58 +3,65 @@ import HeroSection from "@/components/sections/HeroSection";
 import SectionTitle from "@/components/shared/SectionTitle";
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Button } from "@/components/ui/button";
-import { homePageCardSections, homePageAbout, homePageContact, homePagePortfolioTitle } from "@/lib/constants";
+import { siteContent, userProfile } from "@/lib/constants";
 import Link from "next/link";
 import HomePageSectionCard from "@/components/shared/HomePageSectionCard";
 
+/**
+ * The main homepage component for the Tri-Folio application.
+ * It showcases the hero section, about me, portfolio highlights, and a contact call-to-action.
+ * @returns {JSX.Element} The Home page component.
+ */
 export default function Home() {
   return (
     <>
       <HeroSection />
 
       <SectionWrapper contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0 text-left">
-        <SectionTitle>{homePageAbout.title}</SectionTitle>
+        <SectionTitle>{siteContent.homePage.about.title}</SectionTitle>
         <p className="text-lg max-w-3xl text-foreground/90">
-          {homePageAbout.description}
+          {`Hi, I'm ${userProfile.name}. ${userProfile.shortBio}`}
         </p>
       </SectionWrapper>
 
       <SectionWrapper contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0 text-left">
-        <SectionTitle>{homePagePortfolioTitle}</SectionTitle>
+        <SectionTitle>{siteContent.homePage.portfolioTitle}</SectionTitle>
         <div className="mt-8 grid grid-cols-1 gap-10 md:gap-12">
           <HomePageSectionCard
-            title={homePageCardSections.biAi.title}
-            description={homePageCardSections.biAi.description}
-            imageUrl={homePageCardSections.biAi.imageUrl}
-            imageAiHint={homePageCardSections.biAi.imageAiHint}
-            linkUrl={homePageCardSections.biAi.linkUrl}
+            title={siteContent.homePage.sections.biAi.title}
+            description={siteContent.homePage.sections.biAi.description}
+            imageUrl={siteContent.homePage.sections.biAi.imageUrl}
+            imageAiHint={siteContent.homePage.sections.biAi.imageAiHint}
+            linkUrl={siteContent.homePage.sections.biAi.linkUrl}
           />
           <HomePageSectionCard
-            title={homePageCardSections.music.title}
-            description={homePageCardSections.music.description}
-            imageUrl={homePageCardSections.music.imageUrl}
-            imageAiHint={homePageCardSections.music.imageAiHint}
-            linkUrl={homePageCardSections.music.linkUrl}
+            title={siteContent.homePage.sections.music.title}
+            description={siteContent.homePage.sections.music.description}
+            imageUrl={siteContent.homePage.sections.music.imageUrl}
+            imageAiHint={siteContent.homePage.sections.music.imageAiHint}
+            linkUrl={siteContent.homePage.sections.music.linkUrl}
           />
           <HomePageSectionCard
-            title={homePageCardSections.photography.title}
-            description={homePageCardSections.photography.description}
-            imageUrl={homePageCardSections.photography.imageUrl}
-            imageAiHint={homePageCardSections.photography.imageAiHint}
-            linkUrl={homePageCardSections.photography.linkUrl}
+            title={siteContent.homePage.sections.photography.title}
+            description={siteContent.homePage.sections.photography.description}
+            imageUrl={siteContent.homePage.sections.photography.imageUrl}
+            imageAiHint={siteContent.homePage.sections.photography.imageAiHint}
+            linkUrl={siteContent.homePage.sections.photography.linkUrl}
           />
         </div>
       </SectionWrapper>
 
       <SectionWrapper contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0 text-left">
-        <SectionTitle>{homePageContact.title}</SectionTitle>
+        <SectionTitle>{siteContent.homePage.contact.title}</SectionTitle>
         <p className="text-lg max-w-2xl text-foreground/90 mb-8">
-          {homePageContact.description}
+          {siteContent.homePage.contact.description}
         </p>
         <div className="text-left">
-          <Button size="lg" asChild><Link href="/contact">Contact Me</Link></Button>
+          <Button size="lg" asChild><Link href="/contact">{siteContent.homePage.contact.buttonText}</Link></Button>
         </div>
       </SectionWrapper>
     </>
   );
 }
+
+    

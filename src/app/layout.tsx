@@ -1,9 +1,11 @@
+
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { Toaster } from "@/components/ui/toaster"
+import { siteContent, userProfile } from '@/lib/constants';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -15,11 +17,21 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+/**
+ * Default metadata for the application.
+ * Titles and descriptions are sourced from `siteContent.metadata`.
+ */
 export const metadata: Metadata = {
-  title: 'Tri-Folio | Engineer, Musician, Photographer',
-  description: 'Portfolio of an engineer, musician, and photographer specializing in BI/AI, YouTube music, and Flickr photography.',
+  title: siteContent.metadata.defaultTitle,
+  description: siteContent.metadata.defaultDescription,
 };
 
+/**
+ * Root layout for the entire application.
+ * Sets up HTML structure, global styles, fonts, navigation, and footer.
+ * @param {Readonly<{ children: React.ReactNode }>} props - The children to render within the layout.
+ * @returns {JSX.Element} The root HTML structure for the application.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -38,3 +50,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+    

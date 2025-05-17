@@ -1,11 +1,25 @@
+
 import { musicVideos } from '@/lib/constants';
 import YouTubePlayer from '@/components/shared/YouTubePlayer';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
+/**
+ * Props for the MusicShowcase component.
+ */
 interface MusicShowcaseProps {
+  /**
+   * If true, displays a limited number of music videos (e.g., for a homepage preview).
+   * Defaults to false.
+   */
   isPreview?: boolean;
 }
 
+/**
+ * Component to display a showcase of music videos.
+ * Can show all videos or a limited preview.
+ * @param {MusicShowcaseProps} props - The props for the component.
+ * @returns {JSX.Element} The MusicShowcase component.
+ */
 export default function MusicShowcase({ isPreview = false }: MusicShowcaseProps) {
   const videosToShow = isPreview ? musicVideos.slice(0, 2) : musicVideos; // Show 2 in preview for better layout
 
@@ -25,3 +39,5 @@ export default function MusicShowcase({ isPreview = false }: MusicShowcaseProps)
     </div>
   );
 }
+
+    
