@@ -132,21 +132,21 @@ export const userProfile = {
 export const homePageCardSections = {
   biAi: {
     title: "BI & AI Ventures",
-    description: "Explore innovative projects at the intersection of Business Intelligence and Artificial Intelligence. Discover solutions leveraging data analytics and machine learning.",
+    description: "Explore innovative projects leveraging data analytics and machine learning at the intersection of Business Intelligence and AI.",
     imageUrl: "https://placehold.co/800x600.png",
     imageAiHint: "AI data",
     linkUrl: "/bi-ai",
   },
   music: {
     title: "Sonic Explorations",
-    description: "Dive into a world of original compositions and diverse musical expressions. Experience unique soundscapes from synthwave to acoustic melodies.",
+    description: "Dive into a world of original compositions, from synthwave to acoustic melodies.",
     imageUrl: "https://placehold.co/800x600.png",
     imageAiHint: "music studio",
     linkUrl: "/music",
   },
   photography: {
     title: "Visual Narratives",
-    description: "Journey through captivating visual stories and moments frozen in time. View a collection of landscapes, portraits, and urban scenes.",
+    description: "Journey through captivating visual stories, from landscapes to urban scenes.",
     imageUrl: "https://placehold.co/800x600.png",
     imageAiHint: "camera lens",
     linkUrl: "/photography",

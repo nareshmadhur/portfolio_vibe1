@@ -19,7 +19,7 @@ export default function Home() {
         </p>
       </SectionWrapper>
 
-      <div className="my-8 md:my-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4">
+      <div className="my-12 md:my-16 grid grid-cols-1 gap-10 md:gap-12 px-4">
         <HomePageSectionCard
           title={homePageCardSections.biAi.title}
           description={homePageCardSections.biAi.description}
