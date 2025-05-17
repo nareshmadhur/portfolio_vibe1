@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function HeroSection() {
   return (
-    <section className="relative py-20 md:py-32 min-h-[70vh] flex items-center justify-start text-left">
+    <section className="relative py-20 md:py-32 min-h-[70vh] flex items-end justify-start text-left"> {/* Changed items-center to items-end */}
       <Image
         src="https://placehold.co/1920x1080.png"
         alt="Hero background"
