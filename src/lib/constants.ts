@@ -49,16 +49,41 @@ export interface Photo {
  * Contains personal information about the user/owner of the portfolio.
  */
 export const userProfile = {
+
   name: "Naresh Madhur",
   title: "BI & AI Engineer | Musician | Photographer",
-  bio: "A passionate and results-driven professional with expertise in Business Intelligence and Artificial Intelligence, complemented by a creative spirit expressed through music and photography. Constantly exploring the intersection of technology and art.",
-  shortBio: "BI/AI Engineer, Musician, and Photographer exploring the synergy between technology and creativity.",
-  contactEmail: "alex.innovator@example.com",
+  bio: "A passionate and results-driven professional with expertise in Business Intelligence and Artificial Intelligence, complemented by a creative spirit expressed through music and photography. Born in Kerala, India, I am proficient in English and Malayalam, with working knowledge of Tulu, Tamil, Kannada, Dutch, and Hindi. My career has spanned roles at METRO Global Solution Center in India and Makro Nederland, focusing on data strategies, team leadership, and delivering impactful BI and Data Science solutions. I am also an avid musician, specializing in Carnatic Guitar and vocals, and a dedicated photographer capturing visual narratives.",
+  shortBio: "BI/AI Engineer, Musician, and Photographer exploring the synergy between technology and creativity, with a background in data strategy and a passion for the arts.",
+  contactEmail: "naresh.madhur@example.com", // Placeholder email
   socialLinks: {
-    linkedin: "https://linkedin.com/in/example",
+    linkedin: "https://linkedin.com/in/nareshmadhur", // Placeholder LinkedIn
     github: "https://github.com/example",
-    youtube: "https://youtube.com/c/examplechannel",
-    flickr: "https://flickr.com/photos/example",
+    youtube: "https://www.youtube.com/@NareshMadhurOriginals", // Using one of the provided YouTube links
+    flickr: "https://www.flickr.com/photos/nareshmadhur",
+  },
+  education: [
+    "Amrita University Coimbatore - B.tech in Computer Science Engineering",
+    "Several schools in Kerala, India.",
+  ],
+  career: [
+    "Makro Nederland: BI & AI Engineer (2019 - Present)",
+    "METRO Global Solution Center, India: Senior Analyst & Team Lead (2013 - 2019)",
+    "METRO Global Solution Center, India: Analyst (2010 - 2013)",
+  ],
+  music: {
+    instruments: ["Carnatic Guitar", "Vocals"],
+    description: "An avid musician specializing in Carnatic Guitar and vocals. I also have experience in teaching music.",
+    youtubeChannels: [
+      { name: "Naresh Madhur Originals", url: "https://www.youtube.com/@NareshMadhurOriginals", exampleVideo: "https://www.youtube.com/watch?v=R_K21W0J_2s" },
+      { name: "Naresh Madhur Covers", url: "https://www.youtube.com/@nareshmadhurcovers", exampleVideo: "https://www.youtube.com/watch?v=C5zJd56G4o4" },
+    ],
+  },
+  photography: {
+    description: "Dedicated photographer capturing visual narratives. I primarily use Fujifilm cameras and process my RAW files with Rawtherapee.",
+    flickrProfileUrl: "https://www.flickr.com/photos/nareshmadhur",
+    examplePhotos: [
+      { title: "Example Photo 1", url: "https://placehold.co/600x400.png", flickrUrl: "https://www.flickr.com/photos/nareshmadhur/example_id_1" },
+    ]
   }
 };
 
