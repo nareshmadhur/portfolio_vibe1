@@ -1,4 +1,4 @@
 import { config } from 'dotenv';
 config();
 
-import '@/ai/flows/seo-keyword-suggestions.ts';
+// Intentionally empty as seo-keyword-suggestions.ts was removed

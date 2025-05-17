@@ -126,9 +126,3 @@ export const userProfile = {
     flickr: "https://flickr.com/photos/example",
   }
 };
-
-export const seoKeywordInputs = {
-  engineeringProjects: biAiProjects.map(p => `${p.title}: ${p.description} Technologies: ${p.technologies.join(', ')}`),
-  musicContent: musicVideos.map(m => `${m.title}: ${m.description}`),
-  photographyContent: photographyItems.map(p => `${p.title}: ${p.description}`),
-};

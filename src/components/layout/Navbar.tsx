@@ -14,7 +14,6 @@ const navLinks = [
   { href: '/music', label: 'Music' },
   { href: '/photography', label: 'Photography' },
   { href: '/contact', label: 'Contact' },
-  { href: '/seo-keywords', label: 'SEO Tool' }, // For showcasing GenAI
 ];
 
 export default function Navbar() {

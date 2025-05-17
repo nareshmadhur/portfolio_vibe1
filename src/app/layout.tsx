@@ -18,7 +18,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'Tri-Folio | Engineer, Musician, Photographer',
   description: 'Portfolio of an engineer, musician, and photographer specializing in BI/AI, YouTube music, and Flickr photography.',
-  keywords: "BI, AI, Business Intelligence, Artificial Intelligence, Music, YouTube, Photography, Flickr, Portfolio, Engineer"
 };
 
 export default function RootLayout({
