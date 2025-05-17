@@ -1,66 +1,54 @@
 
 import HeroSection from "@/components/sections/HeroSection";
-import BiAiPortfolio from "@/components/sections/BiAiPortfolio";
-import MusicShowcase from "@/components/sections/MusicShowcase";
-import PhotographyGallery from "@/components/sections/PhotographyGallery";
 import SectionTitle from "@/components/shared/SectionTitle";
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Button } from "@/components/ui/button";
-import { userProfile } from "@/lib/constants";
+import { homePageCardSections, homePageAbout, homePageContact } from "@/lib/constants";
 import Link from "next/link";
+import HomePageSectionCard from "@/components/shared/HomePageSectionCard";
 
 export default function Home() {
   return (
     <>
       <HeroSection />
 
-      <SectionWrapper contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0">
-        <SectionTitle>About Me</SectionTitle>
-        <p className="text-lg max-w-3xl text-foreground/90 text-left">
-          {userProfile.bio}
+      <SectionWrapper contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0 text-left">
+        <SectionTitle>{homePageAbout.title}</SectionTitle>
+        <p className="text-lg max-w-3xl text-foreground/90">
+          {homePageAbout.description}
         </p>
       </SectionWrapper>
 
-      <SectionWrapper
-        className="bg-transparent"
-        backgroundImageUrl="https://placehold.co/1920x1080.png?text=AI+Projects+BG"
-        data-ai-hint="technology abstract"
-        minHeightClass="min-h-[500px]"
-      >
-        <SectionTitle>BI & AI Projects</SectionTitle>
-        <BiAiPortfolio isPreview={true} />
-        <div className="text-center mt-8">
-          <Button asChild variant="outline"><Link href="/bi-ai">View All Projects</Link></Button>
-        </div>
-      </SectionWrapper>
+      <div className="my-8 md:my-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4">
+        <HomePageSectionCard
+          title={homePageCardSections.biAi.title}
+          description={homePageCardSections.biAi.description}
+          imageUrl={homePageCardSections.biAi.imageUrl}
+          imageAiHint={homePageCardSections.biAi.imageAiHint}
+          linkUrl={homePageCardSections.biAi.linkUrl}
+        />
+        <HomePageSectionCard
+          title={homePageCardSections.music.title}
+          description={homePageCardSections.music.description}
+          imageUrl={homePageCardSections.music.imageUrl}
+          imageAiHint={homePageCardSections.music.imageAiHint}
+          linkUrl={homePageCardSections.music.linkUrl}
+        />
+        <HomePageSectionCard
+          title={homePageCardSections.photography.title}
+          description={homePageCardSections.photography.description}
+          imageUrl={homePageCardSections.photography.imageUrl}
+          imageAiHint={homePageCardSections.photography.imageAiHint}
+          linkUrl={homePageCardSections.photography.linkUrl}
+        />
+      </div>
 
-      <SectionWrapper> {/* Music showcase without background image for now */}
-        <SectionTitle>Music Showcase</SectionTitle>
-        <MusicShowcase isPreview={true} />
-         <div className="text-center mt-8">
-          <Button asChild variant="outline"><Link href="/music">More Music</Link></Button>
-        </div>
-      </SectionWrapper>
-
-      <SectionWrapper
-        className="bg-transparent"
-        backgroundImageUrl="https://placehold.co/1920x1080.png?text=Photography+BG"
-        data-ai-hint="nature landscape"
-        minHeightClass="min-h-[500px]"
-      >
-        <SectionTitle>Photography Gallery</SectionTitle>
-        <PhotographyGallery isPreview={true} />
-        <div className="text-center mt-8">
-          <Button asChild variant="outline"><Link href="/photography">Explore Gallery</Link></Button>
-        </div>
-      </SectionWrapper>
-
-      <SectionWrapper contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0">
-        <SectionTitle>Get In Touch</SectionTitle>
-        <p className="text-lg max-w-2xl text-foreground/90 mb-8 text-left">
-          Interested in collaborating or have a question? Feel free to reach out!
+      <SectionWrapper contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0 text-left">
+        <SectionTitle>{homePageContact.title}</SectionTitle>
+        <p className="text-lg max-w-2xl text-foreground/90 mb-8">
+          {homePageContact.description}
         </p>
-        <div className="text-center">
+        <div className="text-left">
           <Button size="lg" asChild><Link href="/contact">Contact Me</Link></Button>
         </div>
       </SectionWrapper>
