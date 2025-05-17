@@ -17,16 +17,18 @@ export default function HeroSection() {
         data-ai-hint="abstract technology"
         priority
       />
-      <div className="absolute inset-0 bg-black/30 z-0"></div> {/* Optional: Dark overlay for better text contrast on light images */}
+      {/* Gradient overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent z-0"></div>
       <div className="container mx-auto px-4 relative z-10">
-        <div className="bg-card/80 dark:bg-card/70 p-6 md:p-10 rounded-lg shadow-xl backdrop-blur-md max-w-2xl">
-          <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4">
+        {/* Content Wrapper */}
+        <div className="max-w-2xl">
+          <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">
             {userProfile.name}
           </h1>
-          <p className="text-xl md:text-2xl text-foreground/80 mb-6">
+          <p className="text-xl md:text-2xl text-primary-foreground/90 mb-6">
             {userProfile.title}
           </p>
-          <p className="text-lg text-muted-foreground mb-8">
+          <p className="text-lg text-primary-foreground/80 mb-8">
             {userProfile.bio}
           </p>
           <div className="flex justify-start space-x-3 mb-8">
