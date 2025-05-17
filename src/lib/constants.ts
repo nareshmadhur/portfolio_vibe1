@@ -132,7 +132,7 @@ export const userProfile = {
 export const homePageCardSections = {
   biAi: {
     title: "BI & AI Ventures",
-    description: "Explore innovative projects leveraging data analytics and machine learning at the intersection of Business Intelligence and AI.",
+    description: "Explore innovative projects at the intersection of Business Intelligence and AI.",
     imageUrl: "https://placehold.co/800x600.png",
     imageAiHint: "AI data",
     linkUrl: "/bi-ai",
@@ -146,7 +146,7 @@ export const homePageCardSections = {
   },
   photography: {
     title: "Visual Narratives",
-    description: "Journey through captivating visual stories, from landscapes to urban scenes.",
+    description: "Journey through captivating visual stories, from urban scenes to landscapes.",
     imageUrl: "https://placehold.co/800x600.png",
     imageAiHint: "camera lens",
     linkUrl: "/photography",
@@ -157,6 +157,8 @@ export const homePageAbout = {
   title: "About Me",
   description: `Hi, I'm ${userProfile.name}. ${userProfile.shortBio}`
 };
+
+export const homePagePortfolioTitle = "Portfolio Highlights";
 
 export const homePageContact = {
   title: "Let's Connect",
