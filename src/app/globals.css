@@ -67,7 +67,7 @@ body {
     --popover-foreground: 0 0% 85%; /* Light Gray */
 
     --primary: 0 0% 75%; /* Lighter Gray for primary actions */
-    --primary-foreground: 0 0% 10%; /* Dark Gray text on primary */
+    --primary-foreground: 0 0% 98%; /* Near White (was 85%) */
 
     --secondary: 0 0% 20%; /* Darker Gray */
     --secondary-foreground: 0 0% 80%; /* Lighter Gray text */

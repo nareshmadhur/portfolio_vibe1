@@ -25,10 +25,10 @@ export default function HeroSection() {
           <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">
             {userProfile.name}
           </h1>
-          <p className="text-xl md:text-2xl text-primary-foreground/90 mb-6">
+          <p className="text-xl md:text-2xl text-primary-foreground/90 mb-6 font-normal">
             {userProfile.title}
           </p>
-          <p className="text-lg text-primary-foreground/80 mb-8">
+          <p className="text-lg text-primary-foreground/80 mb-8 font-light">
             {userProfile.bio}
           </p>
           <div className="flex justify-start space-x-3 mb-8">
