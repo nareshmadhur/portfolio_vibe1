@@ -1,6 +1,7 @@
+
 'use client';
 
-import { useActionState } from 'react'; // Changed from 'react-dom' and useFormState
+import { useActionState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -13,6 +14,7 @@ import { useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Loader2 } from 'lucide-react';
+import { useFormStatus } from 'react-dom'; // Added import for useFormStatus
 
 const contactFormSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -30,7 +32,7 @@ const initialState: ContactFormState = {
 
 function SubmitButton() {
   // @ts-ignore TODO: useFormStatus is not yet available in React 19 types in this project
-  const { pending } = React.useFormStatus ? React.useFormStatus() : { pending: false };
+  const { pending } = useFormStatus ? useFormStatus() : { pending: false }; // Changed React.useFormStatus to useFormStatus
   return (
     <Button type="submit" disabled={pending} className="w-full md:w-auto">
       {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
@@ -41,7 +43,7 @@ function SubmitButton() {
 
 
 export default function ContactSection() {
-  const [state, formAction] = useActionState(submitContactForm, initialState); // Changed from useFormState
+  const [state, formAction] = useActionState(submitContactForm, initialState);
   const { toast } = useToast();
 
   const form = useForm<ContactFormValues>({
@@ -75,8 +77,8 @@ export default function ContactSection() {
   return (
     <Card className="max-w-2xl mx-auto shadow-xl">
       <CardHeader>
-        <CardTitle className="text-2xl text-left">Contact Me</CardTitle> {/* Ensured text-left */}
-        <CardDescription className="text-left"> {/* Ensured text-left */}
+        <CardTitle className="text-2xl text-left">Contact Me</CardTitle>
+        <CardDescription className="text-left">
           Have a question or want to work together? Fill out the form below.
         </CardDescription>
       </CardHeader>
