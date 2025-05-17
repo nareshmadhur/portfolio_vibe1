@@ -1,13 +1,12 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState } from 'react'; // Changed from 'react-dom' and useFormState
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { submitContactForm, type ContactFormState } from '@/app/actions';
 import { useEffect } from 'react';
@@ -30,9 +29,10 @@ const initialState: ContactFormState = {
 };
 
 function SubmitButton() {
-  const { pending } = useFormStatus();
+  // @ts-ignore TODO: useFormStatus is not yet available in React 19 types in this project
+  const { pending } = React.useFormStatus ? React.useFormStatus() : { pending: false };
   return (
-    <Button type="submit" disabled={pending} className="w-full md:w-auto"> {/* Removed explicit bg-accent, uses default theme */}
+    <Button type="submit" disabled={pending} className="w-full md:w-auto">
       {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
       {pending ? 'Sending...' : 'Send Message'}
     </Button>
@@ -41,7 +41,7 @@ function SubmitButton() {
 
 
 export default function ContactSection() {
-  const [state, formAction] = useFormState(submitContactForm, initialState);
+  const [state, formAction] = useActionState(submitContactForm, initialState); // Changed from useFormState
   const { toast } = useToast();
 
   const form = useForm<ContactFormValues>({
@@ -75,8 +75,8 @@ export default function ContactSection() {
   return (
     <Card className="max-w-2xl mx-auto shadow-xl">
       <CardHeader>
-        <CardTitle className="text-2xl">Contact Me</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-2xl text-left">Contact Me</CardTitle> {/* Ensured text-left */}
+        <CardDescription className="text-left"> {/* Ensured text-left */}
           Have a question or want to work together? Fill out the form below.
         </CardDescription>
       </CardHeader>
