@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function HeroSection() {
   return (
     <section className="py-16 md:py-24 bg-gradient-to-br from-primary/10 via-background to-background">
-      <div className="container mx-auto px-4 text-center">
+      <div className="container mx-auto px-4 text-center"> {/* Overall container remains centered */}
         <div className="mb-8 flex justify-center">
            <Image 
             src="https://placehold.co/150x150.png" 
@@ -24,7 +24,8 @@ export default function HeroSection() {
         <p className="text-xl md:text-2xl text-foreground/80 mb-8 max-w-2xl mx-auto">
           {userProfile.title}
         </p>
-        <p className="text-lg text-muted-foreground mb-10 max-w-3xl mx-auto">
+        {/* Bio paragraph text is left-aligned, but the block itself is centered */}
+        <p className="text-lg text-muted-foreground mb-10 max-w-3xl mx-auto text-left"> 
           {userProfile.bio}
         </p>
         <div className="flex justify-center space-x-4 mb-10">

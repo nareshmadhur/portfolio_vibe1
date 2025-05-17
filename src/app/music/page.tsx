@@ -15,7 +15,7 @@ export default function MusicPage() {
   return (
     <SectionWrapper>
       <SectionTitle>Music Showcase</SectionTitle>
-      <p className="text-center text-lg mb-10 text-muted-foreground max-w-2xl mx-auto">
+      <p className="text-lg mb-10 text-muted-foreground max-w-2xl text-left"> {/* Removed text-center mx-auto, added text-left */}
         Dive into my musical world. Here you'll find a collection of my original tracks, covers, and live performances. 
       </p>
       <MusicShowcase />

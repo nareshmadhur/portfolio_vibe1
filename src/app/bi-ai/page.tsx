@@ -11,7 +11,7 @@ export default function BiAiPage() {
   return (
     <SectionWrapper>
       <SectionTitle>BI & AI Projects</SectionTitle>
-      <p className="text-center text-lg mb-10 text-muted-foreground max-w-2xl mx-auto">
+      <p className="text-lg mb-10 text-muted-foreground max-w-2xl text-left"> {/* Removed text-center mx-auto, added text-left */}
         A showcase of my work in Business Intelligence, Data Analytics, and Artificial Intelligence. Each project highlights different skills and technologies I've utilized to solve complex problems and deliver actionable insights.
       </p>
       <BiAiPortfolio />

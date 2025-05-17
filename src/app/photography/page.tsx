@@ -16,7 +16,7 @@ export default function PhotographyPage() {
   return (
     <SectionWrapper>
       <SectionTitle>Photography Gallery</SectionTitle>
-      <p className="text-center text-lg mb-10 text-muted-foreground max-w-2xl mx-auto">
+      <p className="text-lg mb-10 text-muted-foreground max-w-2xl text-left"> {/* Removed text-center mx-auto, added text-left */}
         Welcome to my visual journal. Here, I share moments captured through my lens, from cityscapes to natural wonders. Each photo tells a story.
       </p>
       <PhotographyGallery />

@@ -15,13 +15,13 @@ export default function Home() {
 
       <SectionWrapper>
         <SectionTitle>About Me</SectionTitle>
-        <p className="text-lg text-center max-w-3xl mx-auto text-foreground/90">
+        <p className="text-lg max-w-3xl text-foreground/90 text-left"> {/* Removed text-center mx-auto, added text-left */}
           {userProfile.bio}
         </p>
       </SectionWrapper>
       
       <SectionWrapper className="bg-primary/5">
-        <SectionTitle>BI & AI Projects</SectionTitle>
+        <SectionTitle>BI & AI Projects</SectionTitle> {/* Will be left aligned by default */}
         <BiAiPortfolio isPreview={true} />
         <div className="text-center mt-8">
           <Button asChild variant="outline">
@@ -31,7 +31,7 @@ export default function Home() {
       </SectionWrapper>
 
       <SectionWrapper>
-        <SectionTitle>Music Showcase</SectionTitle>
+        <SectionTitle>Music Showcase</SectionTitle> {/* Will be left aligned by default */}
         <MusicShowcase isPreview={true} />
          <div className="text-center mt-8">
           <Button asChild variant="outline">
@@ -41,7 +41,7 @@ export default function Home() {
       </SectionWrapper>
 
       <SectionWrapper className="bg-accent/5">
-        <SectionTitle>Photography Gallery</SectionTitle>
+        <SectionTitle>Photography Gallery</SectionTitle> {/* Will be left aligned by default */}
         <PhotographyGallery isPreview={true} />
         <div className="text-center mt-8">
           <Button asChild variant="outline">
@@ -51,8 +51,8 @@ export default function Home() {
       </SectionWrapper>
       
       <SectionWrapper>
-        <SectionTitle>Get In Touch</SectionTitle>
-        <p className="text-lg text-center max-w-2xl mx-auto text-foreground/90 mb-8">
+        <SectionTitle>Get In Touch</SectionTitle> {/* Will be left aligned by default */}
+        <p className="text-lg max-w-2xl text-foreground/90 mb-8 text-left"> {/* Removed text-center mx-auto, added text-left */}
           Interested in collaborating or have a question? Feel free to reach out!
         </p>
         <div className="text-center">

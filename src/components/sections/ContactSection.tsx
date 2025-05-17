@@ -75,8 +75,8 @@ export default function ContactSection() {
   return (
     <Card className="max-w-2xl mx-auto shadow-xl">
       <CardHeader>
-        <CardTitle className="text-2xl text-center">Contact Me</CardTitle>
-        <CardDescription className="text-center">
+        <CardTitle className="text-2xl">Contact Me</CardTitle> {/* Removed text-center */}
+        <CardDescription> {/* Removed text-center */}
           Have a question or want to work together? Fill out the form below.
         </CardDescription>
       </CardHeader>
