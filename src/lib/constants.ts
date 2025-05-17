@@ -49,7 +49,7 @@ export interface Photo {
  * Contains personal information about the user/owner of the portfolio.
  */
 export const userProfile = {
-  name: "Alex Innovator",
+  name: "Naresh Madhur",
   title: "BI & AI Engineer | Musician | Photographer",
   bio: "A passionate and results-driven professional with expertise in Business Intelligence and Artificial Intelligence, complemented by a creative spirit expressed through music and photography. Constantly exploring the intersection of technology and art.",
   shortBio: "BI/AI Engineer, Musician, and Photographer exploring the synergy between technology and creativity.",
@@ -70,7 +70,7 @@ export const userProfile = {
  */
 export const siteContent = {
   global: {
-    appName: "Tri-Folio",
+    appName: "Naresh Madhur",
     footer: {
       copyright: `© ${new Date().getFullYear()} ${userProfile.name}. All rights reserved.`,
       tagline: "Designed with passion.",
