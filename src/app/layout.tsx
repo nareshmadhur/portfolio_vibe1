@@ -1,20 +1,17 @@
 
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Roboto_Condensed } from 'next/font/google'; // Changed from Geist
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { Toaster } from "@/components/ui/toaster"
 import { siteContent, userProfile } from '@/lib/constants';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+// Setup new font: Roboto Condensed
+const robotoCondensed = Roboto_Condensed({
+  variable: '--font-roboto-condensed',
   subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+  weight: ['300', '400', '700'], // Load light, regular, and bold weights
 });
 
 /**
@@ -39,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
+      <body className={`${robotoCondensed.variable} antialiased flex flex-col min-h-screen`}>
         <Navbar />
         <main className="flex-grow container mx-auto px-4 py-8">
           {children}
@@ -50,5 +47,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-    

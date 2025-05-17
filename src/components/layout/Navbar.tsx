@@ -10,6 +10,10 @@ import Logo from './Logo';
 import { cn } from '@/lib/utils';
 import { siteContent } from '@/lib/constants';
 
+/**
+ * Array of navigation links to be displayed in the Navbar.
+ * Sourced from `siteContent.nav`.
+ */
 const navLinks = [
   { href: '/', label: siteContent.nav.home },
   { href: '/bi-ai', label: siteContent.nav.biAiProjects },
@@ -21,7 +25,8 @@ const navLinks = [
 /**
  * Navigation bar component for the application.
  * Provides links to different sections of the site and a mobile-responsive menu.
- * @returns {JSX.Element | null} The Navbar component, or null if not mounted (to prevent hydration mismatch).
+ * Uses `useEffect` to manage mounted state for mobile menu to prevent hydration issues.
+ * @returns {JSX.Element | null} The Navbar component, or null if not mounted.
  */
 export default function Navbar() {
   const pathname = usePathname();
@@ -32,17 +37,21 @@ export default function Navbar() {
     setIsMounted(true);
   }, []);
 
-
+  /**
+   * Toggles the visibility of the mobile menu.
+   */
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
+  // Avoid hydration mismatch by not rendering on the server initially for mobile menu state.
   if (!isMounted) {
-    return null; // Avoid hydration mismatch by not rendering on the server initially for mobile menu state.
+    return null;
   }
 
   return (
     <header className="bg-card shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Logo />
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-4 items-center">
           {navLinks.map((link) => (
             <Link
@@ -57,12 +66,14 @@ export default function Navbar() {
             </Link>
           ))}
         </nav>
+        {/* Mobile Menu Button */}
         <div className="md:hidden">
           <Button variant="ghost" size="icon" onClick={toggleMobileMenu} aria-label="Toggle menu">
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
         </div>
       </div>
+      {/* Mobile Navigation Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-card absolute w-full shadow-lg z-40">
           <nav className="flex flex-col space-y-1 px-2 pt-2 pb-3">
@@ -85,5 +96,3 @@ export default function Navbar() {
     </header>
   );
 }
-
-    

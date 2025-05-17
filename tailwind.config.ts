@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 import defaultTheme from 'tailwindcss/defaultTheme';
 
@@ -11,8 +12,8 @@ export default {
   theme: {
   	extend: {
       fontFamily: {
-        sans: ['var(--font-geist-sans)', ...defaultTheme.fontFamily.sans],
-        mono: ['var(--font-geist-mono)', ...defaultTheme.fontFamily.mono],
+        sans: ['var(--font-roboto-condensed)', ...defaultTheme.fontFamily.sans], // Updated to Roboto Condensed
+        // mono: ['var(--font-geist-mono)', ...defaultTheme.fontFamily.mono], // Removed Geist Mono, can add another if needed
       },
   		colors: {
   			background: 'hsl(var(--background))',

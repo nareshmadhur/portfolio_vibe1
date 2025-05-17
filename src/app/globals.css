@@ -3,8 +3,15 @@
 @tailwind utilities;
 
 body {
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-roboto-condensed), Arial, Helvetica, sans-serif; /* Updated font */
+  font-weight: 300; /* Default to light weight for thinner aesthetic */
 }
+
+/* Headings and bold text will use heavier weights via Tailwind utilities */
+h1, h2, h3, h4, h5, h6, strong, b, .font-semibold, .font-bold {
+  font-family: var(--font-roboto-condensed), Arial, Helvetica, sans-serif; /* Ensure headings also use the new font */
+}
+
 
 @layer base {
   :root {
@@ -18,7 +25,7 @@ body {
     --popover-foreground: 0 0% 20%; /* Dark Gray */
 
     --primary: 0 0% 35%; /* Medium-Dark Gray */
-    --primary-foreground: 0 0% 98%; /* Near White */
+    --primary-foreground: 0 0% 98%; /* Near White - Kept light for hero text on dark gradient */
 
     --secondary: 0 0% 90%; /* Light Gray */
     --secondary-foreground: 0 0% 25%; /* Dark Gray */
@@ -67,7 +74,7 @@ body {
     --popover-foreground: 0 0% 85%; /* Light Gray */
 
     --primary: 0 0% 75%; /* Lighter Gray for primary actions */
-    --primary-foreground: 0 0% 98%; /* Near White (was 85%) */
+    --primary-foreground: 0 0% 98%; /* Near White (was 85%, then 95%) - making sure this is bright */
 
     --secondary: 0 0% 20%; /* Darker Gray */
     --secondary-foreground: 0 0% 80%; /* Lighter Gray text */

@@ -1,10 +1,15 @@
 
 /**
  * @fileoverview Centralized store for application constants, including UI text,
- * project data, music video data, photography items, and image URLs.
+ * project data, music video data, photography items, user profile, and image URLs.
+ * This file is the primary repository for content that might change or need translation.
  */
 
 // --- Data Interfaces ---
+
+/**
+ * Defines the structure for a project item in the portfolio.
+ */
 export interface Project {
   id: string;
   title: string;
@@ -16,6 +21,9 @@ export interface Project {
   dataAiHint?: string;
 }
 
+/**
+ * Defines the structure for a music video item.
+ */
 export interface MusicVideo {
   id: string;
   youtubeVideoId: string;
@@ -23,6 +31,9 @@ export interface MusicVideo {
   description: string;
 }
 
+/**
+ * Defines the structure for a photography item in the gallery.
+ */
 export interface Photo {
   id:string;
   title: string;
@@ -33,6 +44,10 @@ export interface Photo {
 }
 
 // --- User Profile Data ---
+
+/**
+ * Contains personal information about the user/owner of the portfolio.
+ */
 export const userProfile = {
   name: "Alex Innovator",
   title: "BI & AI Engineer | Musician | Photographer",
@@ -48,6 +63,11 @@ export const userProfile = {
 };
 
 // --- Site Content (UI Text Strings & Image URLs) ---
+
+/**
+ * Object containing all user-facing text and key image URLs for the website.
+ * Organized by section for easy management.
+ */
 export const siteContent = {
   global: {
     appName: "Tri-Folio",
@@ -65,20 +85,18 @@ export const siteContent = {
   },
   heroSection: {
     getInTouchButton: "Get in Touch",
-    backgroundImageUrl: "https://placehold.co/1920x1080.png",
+    backgroundImageUrl: "https://placehold.co/1920x1080.png", // Centralized image URL
     backgroundImageAiHint: "abstract technology",
   },
   homePage: {
     about: {
       title: "About Me",
-      // No background image for this section as per user request
-      backgroundImageUrl: undefined,
+      backgroundImageUrl: undefined, // No background image for this section
       backgroundImageAiHint: undefined,
     },
     portfolioTitle: "Portfolio Highlights", // Title for the section containing cards
     portfolioHighlightsWrapper: { // For the SectionWrapper around the portfolio cards
-      // No background image for this wrapper as per user request
-      backgroundImageUrl: undefined,
+      backgroundImageUrl: undefined, // No background image for this wrapper
       backgroundImageAiHint: undefined,
     },
     sections: { // These are for the HomePageSectionCard components themselves
@@ -108,8 +126,7 @@ export const siteContent = {
       title: "Let's Connect",
       description: "Interested in collaborating or have a question? I'd love to hear from you.",
       buttonText: "Contact Me",
-      // No background image for this section as per user request
-      backgroundImageUrl: undefined,
+      backgroundImageUrl: undefined, // No background image for this section
       backgroundImageAiHint: undefined,
     },
   },
@@ -155,7 +172,7 @@ export const siteContent = {
   photoItem: {
     viewOnFlickrLink: "View on Flickr",
   },
-  metadata: {
+  metadata: { // Text used for page metadata (titles, descriptions for SEO)
     defaultTitle: `Tri-Folio | ${userProfile.title}`,
     defaultDescription: `Portfolio of an engineer, musician, and photographer specializing in BI/AI, YouTube music, and Flickr photography.`,
     biAiTitle: "BI & AI Projects | Tri-Folio",
@@ -171,6 +188,10 @@ export const siteContent = {
 
 
 // --- Project Data ---
+/**
+ * Array of Business Intelligence and AI projects.
+ * Each object conforms to the `Project` interface.
+ */
 export const biAiProjects: Project[] = [
   {
     id: 'project-1',
@@ -178,7 +199,7 @@ export const biAiProjects: Project[] = [
     description: 'A machine learning model that predicts sales trends with high accuracy, helping businesses optimize inventory and marketing strategies.',
     technologies: ['Python', 'TensorFlow', 'Scikit-learn', 'Flask', 'React'],
     githubUrl: 'https://github.com/example/sales-forecaster',
-    liveDemoUrl: '#',
+    liveDemoUrl: '#', // Use '#' or actual URL if available
     imageUrl: 'https://placehold.co/600x400.png',
     dataAiHint: 'AI analytics',
   },
@@ -187,6 +208,7 @@ export const biAiProjects: Project[] = [
     title: 'BI Dashboard for Retail Analytics',
     description: 'An interactive business intelligence dashboard providing real-time insights into retail performance, customer behavior, and product trends.',
     technologies: ['Tableau', 'SQL', 'Python', 'ETL'],
+    liveDemoUrl: '#', // Example: No GitHub for this, only live demo
     imageUrl: 'https://placehold.co/600x400.png',
     dataAiHint: 'dashboard chart',
   },
@@ -202,35 +224,43 @@ export const biAiProjects: Project[] = [
 ];
 
 // --- Music Video Data ---
+/**
+ * Array of music videos to be showcased.
+ * Each object conforms to the `MusicVideo` interface.
+ */
 export const musicVideos: MusicVideo[] = [
   {
     id: 'music-1',
-    youtubeVideoId: 'dQw4w9WgXcQ', // Example Video ID
+    youtubeVideoId: 'dQw4w9WgXcQ', // Example: Rick Astley - Never Gonna Give You Up
     title: 'Original Composition - "Synthwave Dreams"',
     description: 'An original synthwave track accompanied by a retro-futuristic music video.',
   },
   {
     id: 'music-2',
-    youtubeVideoId: '3JZ_D3ELwOQ', // Example Video ID
+    youtubeVideoId: '3JZ_D3ELwOQ', // Example: Lofi Girl - beats to relax/study to (placeholder)
     title: 'Acoustic Cover - "Chill Vibes"',
     description: 'A relaxing acoustic guitar cover of a popular lofi hip hop beat.',
   },
   {
     id: 'music-3',
-    youtubeVideoId: '5qap5aO4i9A', // Example Video ID
+    youtubeVideoId: '5qap5aO4i9A', // Example: A jazz performance (placeholder)
     title: 'Live Performance - "Jazz Night"',
     description: 'Live recording of a jazz piano performance at a local venue.',
   },
 ];
 
 // --- Photography Data ---
+/**
+ * Array of photography items for the gallery.
+ * Each object conforms to the `Photo` interface.
+ */
 export const photographyItems: Photo[] = [
   {
     id: 'photo-1',
     title: 'City Sunset',
     description: 'A breathtaking sunset over the city skyline, captured from a rooftop.',
     imageUrl: 'https://placehold.co/600x400.png',
-    flickrUrl: 'https://www.flickr.com/photos/username/photoid', // Example Flickr URL
+    flickrUrl: 'https://www.flickr.com/photos/example/photoid1', // Example Flickr URL
     dataAiHint: 'city sunset',
   },
   {
@@ -238,7 +268,7 @@ export const photographyItems: Photo[] = [
     title: 'Forest Path',
     description: 'A serene forest path in autumn, with golden leaves covering the ground.',
     imageUrl: 'https://placehold.co/600x400.png',
-    flickrUrl: 'https://www.flickr.com/photos/username/photoid', // Example Flickr URL
+    flickrUrl: 'https://www.flickr.com/photos/example/photoid2',
     dataAiHint: 'forest path',
   },
   {
@@ -246,7 +276,7 @@ export const photographyItems: Photo[] = [
     title: 'Mountain Peaks',
     description: 'Majestic snow-capped mountain peaks under a clear blue sky.',
     imageUrl: 'https://placehold.co/600x400.png',
-    flickrUrl: 'https://www.flickr.com/photos/username/photoid', // Example Flickr URL
+    flickrUrl: 'https://www.flickr.com/photos/example/photoid3',
     dataAiHint: 'mountain landscape',
   },
   {
@@ -254,9 +284,7 @@ export const photographyItems: Photo[] = [
     title: 'Coastal Waves',
     description: 'Powerful waves crashing against a rocky coastline during a storm.',
     imageUrl: 'https://placehold.co/600x400.png',
-    flickrUrl: 'https://www.flickr.com/photos/username/photoid', // Example Flickr URL
+    flickrUrl: 'https://www.flickr.com/photos/example/photoid4',
     dataAiHint: 'ocean waves',
   },
 ];
-
-    
