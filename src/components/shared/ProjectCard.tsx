@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -41,18 +42,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       <CardFooter className="border-t pt-4">
         <div className="flex space-x-2 w-full">
           {project.githubUrl && (
-            <Button variant="outline" size="sm" asChild className="flex-1">
-              <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                <Github className="mr-2 h-4 w-4" /> GitHub
-              </Link>
-            </Button>
+            <Button variant="outline" size="sm" asChild className="flex-1"><Link href={project.githubUrl} target="_blank" rel="noopener noreferrer"><Github className="mr-2 h-4 w-4" /> GitHub</Link></Button>
           )}
           {project.liveDemoUrl && (
-            <Button variant="default" size="sm" asChild className="flex-1">
-              <Link href={project.liveDemoUrl} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
-              </Link>
-            </Button>
+            <Button variant="default" size="sm" asChild className="flex-1"><Link href={project.liveDemoUrl} target="_blank" rel="noopener noreferrer"><ExternalLink className="mr-2 h-4 w-4" /> Live Demo</Link></Button>
           )}
         </div>
       </CardFooter>

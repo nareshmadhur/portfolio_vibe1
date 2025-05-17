@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -32,11 +33,7 @@ export default function PhotoItem({ photo }: PhotoItemProps) {
         {photo.description && <CardDescription className="text-sm h-10 overflow-y-auto">{photo.description}</CardDescription>}
       </CardHeader>
        <CardFooter>
-         <Button variant="link" asChild className="p-0 h-auto text-accent hover:text-accent/80">
-            <Link href={photo.flickrUrl} target="_blank" rel="noopener noreferrer">
-                View on Flickr <ExternalLink className="ml-1 h-3 w-3" />
-            </Link>
-         </Button>
+         <Button variant="link" asChild className="p-0 h-auto text-accent hover:text-accent/80"><Link href={photo.flickrUrl} target="_blank" rel="noopener noreferrer">View on Flickr <ExternalLink className="ml-1 h-3 w-3" /></Link></Button>
       </CardFooter>
     </Card>
   );

@@ -1,3 +1,4 @@
+
 import PhotographyGallery from "@/components/sections/PhotographyGallery";
 import SectionTitle from "@/components/shared/SectionTitle";
 import SectionWrapper from "@/components/shared/SectionWrapper";
@@ -16,17 +17,13 @@ export default function PhotographyPage() {
   return (
     <SectionWrapper>
       <SectionTitle>Photography Gallery</SectionTitle>
-      <p className="text-lg mb-10 text-muted-foreground max-w-2xl text-left"> {/* Removed text-center mx-auto, added text-left */}
+      <p className="text-lg mb-10 text-muted-foreground max-w-2xl text-left">
         Welcome to my visual journal. Here, I share moments captured through my lens, from cityscapes to natural wonders. Each photo tells a story.
       </p>
       <PhotographyGallery />
       {userProfile.socialLinks.flickr && (
         <div className="text-center mt-12">
-          <Button size="lg" asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
-            <Link href={userProfile.socialLinks.flickr} target="_blank" rel="noopener noreferrer">
-              <Camera className="mr-2 h-5 w-5" /> View More on Flickr
-            </Link>
-          </Button>
+          <Button size="lg" asChild variant="default"><Link href={userProfile.socialLinks.flickr} target="_blank" rel="noopener noreferrer"><Camera className="mr-2 h-5 w-5" /> View More on Flickr</Link></Button>
         </div>
       )}
     </SectionWrapper>

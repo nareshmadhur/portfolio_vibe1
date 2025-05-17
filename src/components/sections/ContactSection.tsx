@@ -32,7 +32,7 @@ const initialState: ContactFormState = {
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" disabled={pending} className="w-full md:w-auto bg-accent hover:bg-accent/90 text-accent-foreground">
+    <Button type="submit" disabled={pending} className="w-full md:w-auto"> {/* Removed explicit bg-accent, uses default theme */}
       {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
       {pending ? 'Sending...' : 'Send Message'}
     </Button>
@@ -75,8 +75,8 @@ export default function ContactSection() {
   return (
     <Card className="max-w-2xl mx-auto shadow-xl">
       <CardHeader>
-        <CardTitle className="text-2xl">Contact Me</CardTitle> {/* Removed text-center */}
-        <CardDescription> {/* Removed text-center */}
+        <CardTitle className="text-2xl">Contact Me</CardTitle>
+        <CardDescription>
           Have a question or want to work together? Fill out the form below.
         </CardDescription>
       </CardHeader>
