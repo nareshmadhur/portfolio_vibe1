@@ -71,13 +71,15 @@ export const siteContent = {
   homePage: {
     about: {
       title: "About Me",
-      backgroundImageUrl: "https://placehold.co/1920x1080.png", // Optional background for this section
-      backgroundImageAiHint: "subtle texture",
+      // No background image for this section as per user request
+      backgroundImageUrl: undefined,
+      backgroundImageAiHint: undefined,
     },
     portfolioTitle: "Portfolio Highlights", // Title for the section containing cards
     portfolioHighlightsWrapper: { // For the SectionWrapper around the portfolio cards
-      backgroundImageUrl: "https://placehold.co/1920x1080.png", // Optional background
-      backgroundImageAiHint: "portfolio background",
+      // No background image for this wrapper as per user request
+      backgroundImageUrl: undefined,
+      backgroundImageAiHint: undefined,
     },
     sections: { // These are for the HomePageSectionCard components themselves
       biAi: {
@@ -106,8 +108,9 @@ export const siteContent = {
       title: "Let's Connect",
       description: "Interested in collaborating or have a question? I'd love to hear from you.",
       buttonText: "Contact Me",
-      backgroundImageUrl: "https://placehold.co/1920x1080.png", // Optional background for this section
-      backgroundImageAiHint: "connect abstract",
+      // No background image for this section as per user request
+      backgroundImageUrl: undefined,
+      backgroundImageAiHint: undefined,
     },
   },
   biAiPage: {

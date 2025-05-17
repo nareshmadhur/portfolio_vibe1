@@ -18,9 +18,10 @@ export default function Home() {
       <HeroSection />
 
       <SectionWrapper
-        backgroundImageUrl={siteContent.homePage.about.backgroundImageUrl}
-        data-ai-hint={siteContent.homePage.about.backgroundImageAiHint}
-        minHeightClass="min-h-[300px]" // Example min height if bg is used
+        // No background image for "About Me" as per user request
+        // backgroundImageUrl={siteContent.homePage.about.backgroundImageUrl}
+        // data-ai-hint={siteContent.homePage.about.backgroundImageAiHint}
+        contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0 text-left"
       >
         <SectionTitle>{siteContent.homePage.about.title}</SectionTitle>
         <p className="text-lg max-w-3xl text-foreground/90">
@@ -29,8 +30,10 @@ export default function Home() {
       </SectionWrapper>
 
       <SectionWrapper
-        backgroundImageUrl={siteContent.homePage.portfolioHighlightsWrapper.backgroundImageUrl}
-        data-ai-hint={siteContent.homePage.portfolioHighlightsWrapper.backgroundImageAiHint}
+        // No background image for "Portfolio Highlights" wrapper as per user request
+        // backgroundImageUrl={siteContent.homePage.portfolioHighlightsWrapper.backgroundImageUrl}
+        // data-ai-hint={siteContent.homePage.portfolioHighlightsWrapper.backgroundImageAiHint}
+        contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0 text-left"
       >
         <SectionTitle>{siteContent.homePage.portfolioTitle}</SectionTitle>
         <div className="mt-8 grid grid-cols-1 gap-10 md:gap-12">
@@ -59,9 +62,10 @@ export default function Home() {
       </SectionWrapper>
 
       <SectionWrapper
-        backgroundImageUrl={siteContent.homePage.contact.backgroundImageUrl}
-        data-ai-hint={siteContent.homePage.contact.backgroundImageAiHint}
-        minHeightClass="min-h-[300px]" // Example min height if bg is used
+        // No background image for "Let's Connect" as per user request
+        // backgroundImageUrl={siteContent.homePage.contact.backgroundImageUrl}
+        // data-ai-hint={siteContent.homePage.contact.backgroundImageAiHint}
+        contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0 text-left"
       >
         <SectionTitle>{siteContent.homePage.contact.title}</SectionTitle>
         <p className="text-lg max-w-2xl text-foreground/90 mb-8">
