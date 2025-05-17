@@ -15,12 +15,12 @@ export default function HeroSection() {
   return (
     <section className="relative py-20 md:py-32 min-h-[70vh] flex items-end justify-start text-left">
       <Image
-        src="https://placehold.co/1920x1080.png"
+        src={siteContent.heroSection.backgroundImageUrl}
         alt="Hero background"
         layout="fill"
         objectFit="cover"
         className="absolute inset-0 z-0"
-        data-ai-hint="abstract technology"
+        data-ai-hint={siteContent.heroSection.backgroundImageAiHint}
         priority // Prioritize loading for LCP
       />
       {/* Gradient overlay for text readability */}

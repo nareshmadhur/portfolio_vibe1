@@ -17,14 +17,21 @@ export default function Home() {
     <>
       <HeroSection />
 
-      <SectionWrapper contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0 text-left">
+      <SectionWrapper
+        backgroundImageUrl={siteContent.homePage.about.backgroundImageUrl}
+        data-ai-hint={siteContent.homePage.about.backgroundImageAiHint}
+        minHeightClass="min-h-[300px]" // Example min height if bg is used
+      >
         <SectionTitle>{siteContent.homePage.about.title}</SectionTitle>
         <p className="text-lg max-w-3xl text-foreground/90">
           {`Hi, I'm ${userProfile.name}. ${userProfile.shortBio}`}
         </p>
       </SectionWrapper>
 
-      <SectionWrapper contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0 text-left">
+      <SectionWrapper
+        backgroundImageUrl={siteContent.homePage.portfolioHighlightsWrapper.backgroundImageUrl}
+        data-ai-hint={siteContent.homePage.portfolioHighlightsWrapper.backgroundImageAiHint}
+      >
         <SectionTitle>{siteContent.homePage.portfolioTitle}</SectionTitle>
         <div className="mt-8 grid grid-cols-1 gap-10 md:gap-12">
           <HomePageSectionCard
@@ -51,7 +58,11 @@ export default function Home() {
         </div>
       </SectionWrapper>
 
-      <SectionWrapper contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0 text-left">
+      <SectionWrapper
+        backgroundImageUrl={siteContent.homePage.contact.backgroundImageUrl}
+        data-ai-hint={siteContent.homePage.contact.backgroundImageAiHint}
+        minHeightClass="min-h-[300px]" // Example min height if bg is used
+      >
         <SectionTitle>{siteContent.homePage.contact.title}</SectionTitle>
         <p className="text-lg max-w-2xl text-foreground/90 mb-8">
           {siteContent.homePage.contact.description}
