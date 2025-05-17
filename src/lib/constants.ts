@@ -285,7 +285,7 @@ export const photographyItems: Photo[] = [
     title: 'City Sunset',
     description: 'A breathtaking sunset over the city skyline, captured from a rooftop.',
     imageUrl: 'https://placehold.co/600x400.png',
-    flickrUrl: 'https://www.flickr.com/photos/example/photoid1', // Example Flickr URL
+    flickrUrl: 'https://flic.kr/p/2q3ki8V', // Example Flickr URL
     dataAiHint: 'city sunset',
   },
   {
@@ -293,7 +293,7 @@ export const photographyItems: Photo[] = [
     title: 'Forest Path',
     description: 'A serene forest path in autumn, with golden leaves covering the ground.',
     imageUrl: 'https://placehold.co/600x400.png',
-    flickrUrl: 'https://www.flickr.com/photos/example/photoid2',
+    flickrUrl: 'https://www.flickr.com/photos/68265102@N05/53846502717/',
     dataAiHint: 'forest path',
   },
   {
@@ -301,7 +301,7 @@ export const photographyItems: Photo[] = [
     title: 'Mountain Peaks',
     description: 'Majestic snow-capped mountain peaks under a clear blue sky.',
     imageUrl: 'https://placehold.co/600x400.png',
-    flickrUrl: 'https://www.flickr.com/photos/example/photoid3',
+    flickrUrl: 'https://flic.kr/p/2q3ki9X',
     dataAiHint: 'mountain landscape',
   },
   {
