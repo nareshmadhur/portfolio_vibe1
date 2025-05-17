@@ -1,4 +1,3 @@
-
 import type { HTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -12,6 +11,7 @@ interface SectionTitleProps extends HTMLAttributes<HTMLHeadingElement> {
 
 /**
  * A reusable component for displaying section titles.
+ * Ensures responsive text sizing.
  * @param {SectionTitleProps} props - The props for the component.
  * @returns {JSX.Element} The SectionTitle component.
  */
@@ -19,7 +19,7 @@ export default function SectionTitle({ children, className, ...props }: SectionT
   return (
     <h2
       className={cn(
-        "text-3xl font-bold text-primary mb-6 md:mb-8", // Default styling
+        "text-2xl sm:text-3xl font-bold text-primary mb-6 md:mb-8", // Adjusted for better mobile scaling
         className // Allow overriding or extending classes
       )}
       {...props}
@@ -28,5 +28,3 @@ export default function SectionTitle({ children, className, ...props }: SectionT
     </h2>
   );
 }
-
-    

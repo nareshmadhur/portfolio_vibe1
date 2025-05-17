@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { userProfile, siteContent } from "@/lib/constants";
 import { ArrowDown, Github, Linkedin, Youtube, Mail } from "lucide-react";
@@ -9,21 +8,24 @@ import Link from "next/link";
  * Hero section component for the homepage.
  * Displays the user's name, title, bio, social links, and a call-to-action button,
  * overlaid on a background image with a gradient.
+ * Content is aligned to the bottom of the section.
  * @returns {JSX.Element} The HeroSection component.
  */
 export default function HeroSection() {
   return (
     <section className="relative py-20 md:py-32 min-h-[70vh] flex items-end justify-start text-left">
       {/* Background Image */}
-      <Image
-        src={siteContent.heroSection.backgroundImageUrl}
-        alt="Hero background"
-        layout="fill"
-        objectFit="cover"
-        className="absolute inset-0 z-0"
-        data-ai-hint={siteContent.heroSection.backgroundImageAiHint}
-        priority // Prioritize loading for LCP
-      />
+      {siteContent.heroSection.backgroundImageUrl && (
+        <Image
+          src={siteContent.heroSection.backgroundImageUrl}
+          alt="Hero background"
+          layout="fill"
+          objectFit="cover"
+          className="absolute inset-0 z-0"
+          data-ai-hint={siteContent.heroSection.backgroundImageAiHint}
+          priority // Prioritize loading for LCP
+        />
+      )}
       {/* Gradient overlay for text readability */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent z-0"></div>
       
@@ -36,7 +38,7 @@ export default function HeroSection() {
           <p className="text-xl md:text-2xl text-primary-foreground/90 mb-6 font-normal">
             {userProfile.title}
           </p>
-          <p className="text-lg text-primary-foreground/80 mb-8 font-light">
+          <p className="text-base md:text-lg text-primary-foreground/80 mb-8 font-light">
             {userProfile.bio}
           </p>
           {/* Social Media Links */}
