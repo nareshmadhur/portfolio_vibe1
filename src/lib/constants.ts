@@ -104,7 +104,7 @@ export const YOUTUBE_CHANNEL_URLS = userProfile.music.youtubeChannels.map(channe
  */
 export const siteContent = {
   global: {
-    appName: "Naresh Madhur",
+    appName: "Naresh Madhur", // Updated App Name
     footer: {
       copyright: `© ${new Date().getFullYear()} ${userProfile.name}. All rights reserved.`,
       tagline: "Designed with passion.",
@@ -126,12 +126,12 @@ export const siteContent = {
   homePage: {
     about: {
       title: "About Me",
-      backgroundImageUrl: undefined, // No background image for "About Me" section wrapper
+      backgroundImageUrl: undefined,
       backgroundImageAiHint: undefined,
     },
     portfolioTitle: "Portfolio Highlights",
     portfolioHighlightsWrapper: {
-        backgroundImageUrl: undefined, // No background image for the wrapper of portfolio cards
+        backgroundImageUrl: undefined,
         backgroundImageAiHint: undefined,
     },
     sections: {
@@ -161,7 +161,7 @@ export const siteContent = {
       title: "Let's Connect",
       description: "Interested in collaborating or have a question? I'd love to hear from you.",
       buttonText: "Contact Me",
-      backgroundImageUrl: undefined, // No background image for "Contact" section wrapper
+      backgroundImageUrl: undefined,
       backgroundImageAiHint: undefined,
     },
   },
@@ -184,7 +184,7 @@ export const siteContent = {
         enrollButton: "Enroll in Course",
       },
     },
-    onlineCourseUrl: "https://naresh-madhur-onlinecourses.thinkific.com/courses/carnatic-guitar-beginners", 
+    onlineCourseUrl: "https://naresh-madhur-onlinecourses.thinkific.com/courses/carnatic-guitar-beginners",
     musicVideosChannelId: "UCwwHtswu_PJFCDzB7eZk_iA",
     guitarTeachingChannelId: "UC7AXqJQpf8DFPrEFi16Az1Q",
   },
@@ -339,5 +339,3 @@ export const photographyItems: Photo[] = [
     dataAiHint: 'ocean waves',
   },
 ];
-
-    

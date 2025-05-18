@@ -27,7 +27,7 @@ export default function Home() {
         >
           <SectionTitle>{siteContent.homePage.about.title}</SectionTitle>
           <p className="text-lg max-w-3xl text-foreground/90">
-            {`Hi, I'm ${userProfile.name}. ${userProfile.shortBio}`}
+            {userProfile.shortBio}
           </p>
         </SectionWrapper>
       </AnimatedSection>
