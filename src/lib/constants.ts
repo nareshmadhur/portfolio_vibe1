@@ -51,8 +51,8 @@ export interface Photo {
 export const userProfile = {
   name: "Naresh Madhur",
   titles: ["AI Enthusiast", "Musician", "Photographer"], // Array for animated titles
-  bio: "As a BI & AI Engineer, I transform complex data into actionable insights and innovative solutions. My technical proficiency is enriched by my creative pursuits as a musician, specializing in Carnatic Guitar and vocals, and as a photographer capturing compelling visual narratives. This portfolio highlights my dedication to blending analytical rigor with artistic expression. Explore my projects in engineering, music, and photography.",
-  shortBio: "A BI/AI Engineer, Musician, and Photographer, Naresh explores the confluence of technology and creativity. With a foundation in data strategy and a passion for the arts, he brings a unique perspective to his diverse projects.",
+  bio: "Works in the Data Science industry, with hands deep into artistic pursuit of music and photography.",
+  shortBio: "Driven by a relentless pursuit of excellence, novelty, and quality, Naresh actively engages with the latest advancements in his fields of passion. His dedication extends from globally teaching music to immersive street photography, reflecting a commitment to high-caliber work in all endeavors. Discover more about his diverse projects below.",
   contactEmail: "nareshmadhur@gmail.com",
   socialLinks: {
     linkedin: "https://linkedin.com/in/nareshmadhur",
@@ -144,14 +144,14 @@ export const siteContent = {
       },
       music: {
         title: "Musical Pusuits",
-        description: "Listen and Watch musical performances with guitar and vocals",
+        description: "Listen and Watch musical performances with guitar and vocals.",
         imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/guitar-65Wzc1cVPra94zU6ikj0S731rWZqh4.jpg",
         imageAiHint: "music studio",
         linkUrl: "/music",
       },
       photography: {
         title: "Photography",
-        description: "See pictures captured during his visits across the world",
+        description: "See pictures captured during his visits across the world.",
         imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSCF1726-8UZLZmtCQTAMWVScGAWwSGjZcJBMvG.jpeg",
         imageAiHint: "camera lens",
         linkUrl: "/photography",
@@ -251,7 +251,7 @@ export const biAiProjects: Project[] = [
     technologies: ['Python', 'TensorFlow', 'Scikit-learn', 'Flask', 'React'],
     githubUrl: 'https://github.com/example/sales-forecaster',
     liveDemoUrl: '#',
-    imageUrl: 'https://placehold.co/600x400.png',
+    imageUrl: 'https://placehold.co/800x450.png',
     dataAiHint: 'AI analytics',
   },
   {
@@ -260,7 +260,7 @@ export const biAiProjects: Project[] = [
     description: 'An interactive business intelligence dashboard providing real-time insights into retail performance, customer behavior, and product trends.',
     technologies: ['Tableau', 'SQL', 'Python', 'ETL'],
     liveDemoUrl: '#',
-    imageUrl: 'https://placehold.co/600x400.png',
+    imageUrl: 'https://placehold.co/800x450.png',
     dataAiHint: 'dashboard chart',
   },
   {
@@ -269,7 +269,7 @@ export const biAiProjects: Project[] = [
     description: 'Developed an NLP system allowing users to query databases using plain English, significantly improving data accessibility for non-technical users.',
     technologies: ['Python', 'NLTK', 'spaCy', 'SQLAlchemy'],
     githubUrl: 'https://github.com/example/nlq-database',
-    imageUrl: 'https://placehold.co/600x400.png',
+    imageUrl: 'https://placehold.co/800x450.png',
     dataAiHint: 'NLP code',
   },
 ];
