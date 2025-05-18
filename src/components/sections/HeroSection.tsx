@@ -28,10 +28,10 @@ export default function HeroSection() {
   const [isDeleting, setIsDeleting] = useState(false);
 
   // Adjusted speeds for a faster animation
-  const typingSpeed = 100; // Was 150
-  const deletingSpeed = 50;  // Was 75
-  const pauseDuration = 1500; // Pause after typing a full title, was 2000
-  const shortPauseDuration = 300; // Pause after deleting, before typing next, was 500
+  const typingSpeed = 100; 
+  const deletingSpeed = 50;
+  const pauseDuration = 1500; 
+  const shortPauseDuration = 300; 
 
   useEffect(() => {
     // If there's only one title or no titles, just display it without animation
@@ -73,13 +73,13 @@ export default function HeroSection() {
 
 
   return (
-    <section className="relative min-h-[70vh] flex items-end justify-start text-left pt-10">
+    <section className="relative min-h-[80vh] flex items-end justify-start text-left"> {/* Increased min-h, removed pt-10 */}
       {/* Background Image */}
       {siteContent.heroSection.backgroundImageUrl && (
         <Image
           src={siteContent.heroSection.backgroundImageUrl}
           alt={siteContent.heroSection.backgroundImageAlt || "Hero background"}
-          fill // Changed layout="fill" to fill for Next.js 13+
+          fill
           objectFit="cover"
           className="absolute inset-0 z-0"
           data-ai-hint={siteContent.heroSection.backgroundImageAiHint || "landscape"}
@@ -90,7 +90,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent z-0"></div>
 
       {/* Content Container */}
-      <div className="container mx-auto px-4 relative z-10 pb-20 md:pb-24"> {/* Added bottom padding here */}
+      <div className="container mx-auto px-4 relative z-10 pb-20 md:pb-24"> {/* Bottom padding here helps lift content from edge */}
         <div className="max-w-2xl">
           <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">
             {userProfile.name}
