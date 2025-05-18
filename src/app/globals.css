@@ -53,7 +53,7 @@ h1, h2, h3, h4, h5, h6, strong, b, .font-semibold, .font-bold {
     --chart-5: 0 0% 30%;
 
     /* Grayscale Sidebar colors */
-    --sidebar-background: 0 0% 96%; 
+    --sidebar-background: 0 0% 96%;
     --sidebar-foreground: 0 0% 20%;
     --sidebar-primary: 0 0% 35%;
     --sidebar-primary-foreground: 0 0% 98%;
@@ -73,8 +73,8 @@ h1, h2, h3, h4, h5, h6, strong, b, .font-semibold, .font-bold {
     --popover: 0 0% 8%; /* Very Dark Gray */
     --popover-foreground: 0 0% 85%; /* Light Gray */
 
-    --primary: 0 0% 75%; /* Lighter Gray for primary actions */
-    --primary-foreground: 0 0% 98%; /* Near White (was 85%, then 95%) - making sure this is bright */
+    --primary: 0 0% 30%; /* Darker Gray for primary button background in dark mode */
+    --primary-foreground: 0 0% 98%; /* Near White (text on primary buttons) */
 
     --secondary: 0 0% 20%; /* Darker Gray */
     --secondary-foreground: 0 0% 80%; /* Lighter Gray text */
@@ -84,7 +84,7 @@ h1, h2, h3, h4, h5, h6, strong, b, .font-semibold, .font-bold {
 
     --accent: 0 0% 65%; /* Medium-Light Gray accent */
     --accent-foreground: 0 0% 10%; /* Dark Gray text on accent */
-    
+
     --destructive: 0 0% 45%; /* Medium-Dark Gray for destructive actions */
     --destructive-foreground: 0 0% 85%; /* Light Gray text */
 
@@ -98,7 +98,7 @@ h1, h2, h3, h4, h5, h6, strong, b, .font-semibold, .font-bold {
     --chart-3: 0 0% 50%;
     --chart-4: 0 0% 60%;
     --chart-5: 0 0% 70%;
-    
+
     /* Grayscale Sidebar dark theme */
     --sidebar-background: 0 0% 10%;
     --sidebar-foreground: 0 0% 85%;
