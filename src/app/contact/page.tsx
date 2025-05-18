@@ -2,6 +2,7 @@
 import ContactSection from "@/components/sections/ContactSection";
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { siteContent } from "@/lib/constants";
+import AnimatedSection from "@/components/shared/AnimatedSection";
 
 /**
  * Metadata for the Contact Me page.
@@ -18,10 +19,10 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <SectionWrapper>
-      {/* SectionTitle is now part of ContactSection for better encapsulation */}
-      <ContactSection />
+      <AnimatedSection>
+        {/* SectionTitle is now part of ContactSection for better encapsulation */}
+        <ContactSection />
+      </AnimatedSection>
     </SectionWrapper>
   );
 }
-
-    
