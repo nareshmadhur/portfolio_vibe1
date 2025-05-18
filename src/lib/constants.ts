@@ -86,6 +86,16 @@ export const userProfile = {
   }
 };
 
+/**
+ * @description Array of YouTube channel URLs for the music section.
+ */
+export const YOUTUBE_CHANNEL_URLS = userProfile.music.youtubeChannels.map(channel => ({
+  name: channel.name,
+  url: channel.url,
+}));
+
+
+
 // --- Site Content (UI Text Strings & Image URLs) ---
 
 /**
@@ -102,8 +112,8 @@ export const siteContent = {
   },
   nav: {
     home: "Home",
-    biAiProjects: "BI/AI Projects",
-    music: "Music",
+    biAiProjects: "Tech. Pursuits",
+    music: "Music & Teaching",
     photography: "Photography",
     contact: "Contact",
   },
@@ -162,6 +172,20 @@ export const siteContent = {
     title: "Music Showcase",
     description: "Dive into my musical world. Here you'll find a collection of my original tracks, covers, and live performances.",
     visitYouTubeButton: "Visit my YouTube Channel",
+ sections: {
+ videos: {
+ title: "Music Videos and Covers",
+ description: "Explore my music videos and covers on YouTube.",
+ },
+ course: {
+ title: "My Online Guitar Course",
+ description: "Learn to play guitar with my comprehensive online course.",
+ },
+ },
+ onlineCourseUrl: "https://naresh-madhur-onlinecourses.thinkific.com/courses/carnatic-guitar-beginners", 
+ musicVideosChannelId: "UCwwHtswu_PJFCDzB7eZk_iA", // Replace with your Music channel ID if needed for specific embeds
+ guitarTeachingChannelId: "UC7AXqJQpf8DFPrEFi16Az1Q", // Replace with your Guitar teaching channel ID if needed for specific embeds
+
   },
   photographyPage: {
     title: "Photography Gallery",
@@ -209,6 +233,8 @@ export const siteContent = {
     contactDescription: "Get in touch for inquiries related to engineering, music, or photography.",
   }
 };
+
+export const MUSIC_COURSE_URL = siteContent.musicPage.onlineCourseUrl;
 
 
 // --- Project Data ---
