@@ -33,7 +33,7 @@ export default function Home() {
         contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0 text-left"
       >
         <SectionTitle>{siteContent.homePage.portfolioTitle}</SectionTitle>
-        <div className="mt-8 grid grid-cols-1 gap-10 md:gap-12">
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <HomePageSectionCard
             title={siteContent.homePage.sections.biAi.title}
             description={siteContent.homePage.sections.biAi.description}
