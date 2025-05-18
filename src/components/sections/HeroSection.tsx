@@ -27,10 +27,11 @@ export default function HeroSection() {
   const [currentText, setCurrentText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const typingSpeed = 150;
-  const deletingSpeed = 75;
-  const pauseDuration = 2000; // Pause after typing a full title
-  const shortPauseDuration = 500; // Pause after deleting, before typing next
+  // Adjusted speeds for a faster animation
+  const typingSpeed = 100; // Was 150
+  const deletingSpeed = 50;  // Was 75
+  const pauseDuration = 1500; // Pause after typing a full title, was 2000
+  const shortPauseDuration = 300; // Pause after deleting, before typing next, was 500
 
   useEffect(() => {
     // If there's only one title or no titles, just display it without animation
@@ -39,7 +40,7 @@ export default function HeroSection() {
       return;
     }
 
-    let timeoutId;
+    let timeoutId: NodeJS.Timeout;
 
     if (isDeleting) {
       // Handle deleting
@@ -78,7 +79,7 @@ export default function HeroSection() {
         <Image
           src={siteContent.heroSection.backgroundImageUrl}
           alt={siteContent.heroSection.backgroundImageAlt || "Hero background"}
-          layout="fill"
+          fill // Changed layout="fill" to fill for Next.js 13+
           objectFit="cover"
           className="absolute inset-0 z-0"
           data-ai-hint={siteContent.heroSection.backgroundImageAiHint || "landscape"}
@@ -89,7 +90,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent z-0"></div>
 
       {/* Content Container */}
-      <div className="container mx-auto px-4 relative z-10 pb-20 md:pb-24">
+      <div className="container mx-auto px-4 relative z-10 pb-20 md:pb-24"> {/* Added bottom padding here */}
         <div className="max-w-2xl">
           <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">
             {userProfile.name}
