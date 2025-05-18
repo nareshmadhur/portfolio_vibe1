@@ -51,7 +51,7 @@ export interface Photo {
 export const userProfile = {
   name: "Naresh Madhur",
   title: "AI Enthusiast | Musician | Photographer",
- bio: "Naresh Madhur operates in the Data Science domain, delivering solutions to support business objectives.\nHis technical expertise is complemented by his creative endeavors as a musician, focusing on Carnatic Guitar and vocals, and as a photographer capturing evocative visual stories. This portfolio showcases his commitment to harmonizing analytical precision with artistic flair. Discover his work across engineering, music, and photography.",
+ bio: "Works in the Data Science space, with his hands deep into artistic pursuit of music and photography.",
  shortBio: "A BI/AI Engineer, Musician, and Photographer, Naresh explores the confluence of technology and creativity. With a foundation in data strategy and a passion for the arts, he brings a unique perspective to his diverse projects.",
  contactEmail: "nareshmadhur@gmail.com",
   socialLinks: {
@@ -125,22 +125,22 @@ export const siteContent = {
     },
     sections: {
       biAi: {
-        title: "BI & AI Ventures",
-        description: "Innovative projects at the intersection of Business Intelligence and AI.",
+        title: "Data Science Explorations",
+        description: "More about Naresh's tech use cases and explorations.",
         imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSC09308%20%281%29-UdBMIYLlILXq18JM2yBKnYyLlZ5SXK.jpeg", // Updated size
         imageAiHint: "AI data",
         linkUrl: "/bi-ai",
       },
       music: {
-        title: "Sonic Explorations",
-        description: "Original compositions, from synthwave to acoustic melodies.",
+        title: "Musical Pusuits",
+        description: "Listen and Watch musical performances with guitar and vocals",
         imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/guitar-65Wzc1cVPra94zU6ikj0S731rWZqh4.jpg", // Updated size
         imageAiHint: "music studio",
         linkUrl: "/music",
       },
       photography: {
-        title: "Visual Narratives",
-        description: "Captivating visual stories, from urban scenes to landscapes.",
+        title: "Photography",
+        description: "See pictures captured during his visits across the world",
         imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSCF1726-8UZLZmtCQTAMWVScGAWwSGjZcJBMvG.jpeg", // Updated size
         imageAiHint: "camera lens",
         linkUrl: "/photography",
