@@ -115,33 +115,33 @@ export const siteContent = {
   homePage: {
     about: {
       title: "About Me",
-      backgroundImageUrl: undefined, // No background image for "About Me"
+      backgroundImageUrl: undefined,
       backgroundImageAiHint: undefined,
     },
     portfolioTitle: "Portfolio Highlights",
     portfolioHighlightsWrapper: {
-      backgroundImageUrl: undefined, // No background image for "Portfolio Highlights" wrapper
-      backgroundImageAiHint: undefined,
+        backgroundImageUrl: undefined,
+        backgroundImageAiHint: undefined,
     },
     sections: {
       biAi: {
         title: "BI & AI Ventures",
         description: "Innovative projects at the intersection of Business Intelligence and AI.",
-        imageUrl: "https://placehold.co/800x600.png",
+        imageUrl: "https://placehold.co/800x450.png", // Updated size
         imageAiHint: "AI data",
         linkUrl: "/bi-ai",
       },
       music: {
         title: "Sonic Explorations",
         description: "Original compositions, from synthwave to acoustic melodies.",
-        imageUrl: "https://placehold.co/800x600.png",
+        imageUrl: "https://placehold.co/800x450.png", // Updated size
         imageAiHint: "music studio",
         linkUrl: "/music",
       },
       photography: {
         title: "Visual Narratives",
         description: "Captivating visual stories, from urban scenes to landscapes.",
-        imageUrl: "https://placehold.co/800x600.png",
+        imageUrl: "https://placehold.co/800x450.png", // Updated size
         imageAiHint: "camera lens",
         linkUrl: "/photography",
       }
@@ -150,7 +150,7 @@ export const siteContent = {
       title: "Let's Connect",
       description: "Interested in collaborating or have a question? I'd love to hear from you.",
       buttonText: "Contact Me",
-      backgroundImageUrl: undefined, // No background image for "Let's Connect"
+      backgroundImageUrl: undefined,
       backgroundImageAiHint: undefined,
     },
   },

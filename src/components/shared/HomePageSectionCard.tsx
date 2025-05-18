@@ -30,15 +30,14 @@ interface HomePageSectionCardProps {
 /**
  * A full-width card component for homepage sections.
  * Displays a background image, title, and description, linking to a detail page.
+ * Includes hover effects for interactivity.
  * @param {HomePageSectionCardProps} props - The props for the component.
  * @returns {JSX.Element} The HomePageSectionCard component.
  */
 export default function HomePageSectionCard({ title, description, imageUrl, imageAiHint, linkUrl, className }: HomePageSectionCardProps) {
   return (
     <Link href={linkUrl} className={cn(
-      "relative block group overflow-hidden rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out aspect-video hover:-translate-y-2", // Reverted to aspect-video for testing, kept hover:translate
-      "border-2 border-red-500", // TEMPORARY: Bright border for visibility testing
-      "hover:bg-red-500", // TEMPORARY: Obvious hover background for testing
+      "relative block group overflow-hidden rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out aspect-video hover:-translate-y-2",
       className
     )}>
       <Image
@@ -50,7 +49,7 @@ export default function HomePageSectionCard({ title, description, imageUrl, imag
         data-ai-hint={imageAiHint}
         priority={false} // Not LCP usually
       />
-      {/* Adjusted gradient to be darker at the top and bottom for text readability */}
+      {/* Adjusted gradient to be darker for text readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/40 group-hover:from-black/90 transition-all duration-300" />
       <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
         <h2 className="text-2xl md:text-3xl font-semibold mb-2 text-primary-foreground group-hover:text-primary-foreground/90 transition-colors">{title}</h2>
