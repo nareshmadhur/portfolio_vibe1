@@ -1,4 +1,7 @@
-
+/**
+ * @fileoverview Defines the PhotoItem component.
+ * Displays a single photography item in a card format.
+ */
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -23,7 +26,7 @@ interface PhotoItemProps {
  */
 export default function PhotoItem({ photo }: PhotoItemProps) {
   return (
-    <Card className="overflow-hidden group shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+    <Card className="overflow-hidden group shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ease-in-out">
       <CardContent className="p-0">
         <Link href={photo.flickrUrl} target="_blank" rel="noopener noreferrer" className="block relative aspect-video">
           <Image

@@ -1,4 +1,7 @@
-
+/**
+ * @fileoverview Defines the main homepage component for the Tri-Folio application.
+ * It showcases the hero section, about me, portfolio highlights, and a contact call-to-action.
+ */
 import HeroSection from "@/components/sections/HeroSection";
 import SectionTitle from "@/components/shared/SectionTitle";
 import SectionWrapper from "@/components/shared/SectionWrapper";
@@ -18,9 +21,6 @@ export default function Home() {
       <HeroSection />
 
       <SectionWrapper
-        // No background image for "About Me" as per user request
-        // backgroundImageUrl={siteContent.homePage.about.backgroundImageUrl}
-        // data-ai-hint={siteContent.homePage.about.backgroundImageAiHint}
         contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0 text-left"
       >
         <SectionTitle>{siteContent.homePage.about.title}</SectionTitle>
@@ -30,9 +30,6 @@ export default function Home() {
       </SectionWrapper>
 
       <SectionWrapper
-        // No background image for "Portfolio Highlights" wrapper as per user request
-        // backgroundImageUrl={siteContent.homePage.portfolioHighlightsWrapper.backgroundImageUrl}
-        // data-ai-hint={siteContent.homePage.portfolioHighlightsWrapper.backgroundImageAiHint}
         contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0 text-left"
       >
         <SectionTitle>{siteContent.homePage.portfolioTitle}</SectionTitle>
@@ -62,9 +59,6 @@ export default function Home() {
       </SectionWrapper>
 
       <SectionWrapper
-        // No background image for "Let's Connect" as per user request
-        // backgroundImageUrl={siteContent.homePage.contact.backgroundImageUrl}
-        // data-ai-hint={siteContent.homePage.contact.backgroundImageAiHint}
         contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0 text-left"
       >
         <SectionTitle>{siteContent.homePage.contact.title}</SectionTitle>
@@ -78,5 +72,3 @@ export default function Home() {
     </>
   );
 }
-
-    

@@ -1,4 +1,3 @@
-
 /**
  * @fileoverview Defines the HomePageSectionCard component.
  * This component displays a full-width card for a section on the homepage,
@@ -37,7 +36,7 @@ interface HomePageSectionCardProps {
 export default function HomePageSectionCard({ title, description, imageUrl, imageAiHint, linkUrl, className }: HomePageSectionCardProps) {
   return (
     <Link href={linkUrl} className={cn(
-      "relative block group overflow-hidden rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 aspect-[2/1] hover:-translate-y-1", // Changed aspect ratio and added hover effect
+      "relative block group overflow-hidden rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out aspect-[2/1] hover:-translate-y-2",
       className
     )}>
       <Image
@@ -53,7 +52,7 @@ export default function HomePageSectionCard({ title, description, imageUrl, imag
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/40 group-hover:from-black/90 transition-all duration-300" />
       <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
         <h2 className="text-2xl md:text-3xl font-semibold mb-2 text-primary-foreground group-hover:text-primary-foreground/90 transition-colors">{title}</h2>
-        <p className="text-sm sm:text-base text-primary-foreground/80 group-hover:text-primary-foreground/90 transition-colors line-clamp-2">{description}</p>
+        <p className="text-sm sm:text-base text-primary-foreground/80 group-hover:text-primary-foreground/70 transition-colors line-clamp-2">{description}</p>
       </div>
     </Link>
   );

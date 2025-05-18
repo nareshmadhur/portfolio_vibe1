@@ -1,4 +1,8 @@
-
+/**
+ * @fileoverview Defines the ProjectCard component.
+ * Displays a single project in a card format, showing project image, title,
+ * description, technologies used, and links to GitHub/live demo.
+ */
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -24,16 +28,16 @@ interface ProjectCardProps {
  */
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <Card className="flex flex-col h-full overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+    <Card className="flex flex-col h-full overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ease-in-out">
       {project.imageUrl && (
-        <div className="relative w-full h-48">
+        <div className="relative w-full h-48 group">
           <Image
             src={project.imageUrl}
             alt={project.title} // Use project title for alt text
             layout="fill"
             objectFit="cover"
             data-ai-hint={project.dataAiHint}
-            className="group-hover:brightness-110 transition-all duration-300" // Added subtle image interaction
+            className="group-hover:brightness-110 transition-all duration-300"
           />
         </div>
       )}
