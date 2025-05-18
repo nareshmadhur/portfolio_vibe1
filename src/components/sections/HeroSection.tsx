@@ -1,3 +1,12 @@
+
+/**
+ * @fileoverview Defines the HeroSection component.
+ * This component displays the main hero section of the website,
+ * featuring a background image, gradient overlay, user's name, title,
+ * bio, social links, and a call-to-action button.
+ * Content is aligned to the bottom-left of the section.
+ */
+
 import { Button } from "@/components/ui/button";
 import { userProfile, siteContent } from "@/lib/constants";
 import { ArrowDown, Github, Linkedin, Youtube, Mail } from "lucide-react";
@@ -8,7 +17,7 @@ import Link from "next/link";
  * Hero section component for the homepage.
  * Displays the user's name, title, bio, social links, and a call-to-action button,
  * overlaid on a background image with a gradient.
- * Content is aligned to the bottom of the section.
+ * Content is aligned to the bottom-left of the section.
  * @returns {JSX.Element} The HeroSection component.
  */
 export default function HeroSection() {
@@ -26,9 +35,9 @@ export default function HeroSection() {
           priority // Prioritize loading for LCP
         />
       )}
-      {/* Gradient overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent z-0"></div>
-      
+      {/* Gradient overlay for text readability (bottom-to-top) */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent z-0"></div>
+
       {/* Content Container */}
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-2xl">
@@ -52,7 +61,9 @@ export default function HeroSection() {
             {userProfile.socialLinks.youtube && (
               <Button variant="outline" size="icon" asChild><Link href={userProfile.socialLinks.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Youtube className="h-5 w-5" /></Link></Button>
             )}
-            <Button variant="outline" size="icon" asChild><Link href={`mailto:${userProfile.contactEmail}`} aria-label="Email"><Mail className="h-5 w-5" /></Link></Button>
+            {userProfile.contactEmail && (
+                 <Button variant="outline" size="icon" asChild><Link href={`mailto:${userProfile.contactEmail}`} aria-label="Email"><Mail className="h-5 w-5" /></Link></Button>
+            )}
           </div>
           {/* Call to Action Button */}
           <Button size="lg" asChild><Link href="/contact">{siteContent.heroSection.getInTouchButton}<ArrowDown className="ml-2 h-5 w-5 animate-bounce" /></Link></Button>
