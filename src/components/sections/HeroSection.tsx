@@ -22,19 +22,17 @@ import Link from "next/link";
  * @returns {JSX.Element} The HeroSection component.
  */
 export default function HeroSection() {
-  const titles = userProfile.titles || ["Engineer | Musician | Photographer"]; // Fallback if titles array isn't defined
+  const titles = userProfile.titles || ["Engineer | Musician | Photographer"];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Adjusted speeds for a faster animation
-  const typingSpeed = 100; 
+  const typingSpeed = 100;
   const deletingSpeed = 50;
-  const pauseDuration = 1500; 
-  const shortPauseDuration = 300; 
+  const pauseDuration = 1500;
+  const shortPauseDuration = 300;
 
   useEffect(() => {
-    // If there's only one title or no titles, just display it without animation
     if (titles.length <= 1) {
       setCurrentText(titles[0] || '');
       return;
@@ -43,7 +41,6 @@ export default function HeroSection() {
     let timeoutId: NodeJS.Timeout;
 
     if (isDeleting) {
-      // Handle deleting
       if (currentText === '') {
         timeoutId = setTimeout(() => {
           setIsDeleting(false);
@@ -55,7 +52,6 @@ export default function HeroSection() {
         }, deletingSpeed);
       }
     } else {
-      // Handle typing
       const fullText = titles[currentIndex % titles.length];
       if (currentText === fullText) {
         timeoutId = setTimeout(() => {
@@ -73,7 +69,7 @@ export default function HeroSection() {
 
 
   return (
-    <section className="relative min-h-[80vh] flex items-end justify-start text-left"> {/* Increased min-h, removed pt-10 */}
+    <section className="relative min-h-[75vh] flex items-end justify-start text-left"> {/* Adjusted min-height */}
       {/* Background Image */}
       {siteContent.heroSection.backgroundImageUrl && (
         <Image
@@ -81,16 +77,17 @@ export default function HeroSection() {
           alt={siteContent.heroSection.backgroundImageAlt || "Hero background"}
           fill
           objectFit="cover"
+          objectPosition="center top" // Prioritize the top-center of the image
           className="absolute inset-0 z-0"
           data-ai-hint={siteContent.heroSection.backgroundImageAiHint || "landscape"}
-          priority // Prioritize loading for LCP
+          priority
         />
       )}
       {/* Gradient overlay for text readability (bottom-to-top) */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent z-0"></div>
 
       {/* Content Container */}
-      <div className="container mx-auto px-4 relative z-10 pb-20 md:pb-24"> {/* Bottom padding here helps lift content from edge */}
+      <div className="container mx-auto px-4 relative z-10 pb-20 md:pb-24">
         <div className="max-w-2xl">
           <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">
             {userProfile.name}
