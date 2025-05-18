@@ -1,4 +1,3 @@
-
 /**
  * @fileoverview Defines the HeroSection component.
  * This component displays the main hero section of the website,
@@ -14,7 +13,6 @@ import { userProfile, siteContent } from "@/lib/constants";
 import { ArrowDown, Github, Linkedin, Youtube, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from '@/lib/utils';
 
 /**
  * Hero section component for the homepage.
@@ -26,44 +24,52 @@ import { cn } from '@/lib/utils';
 export default function HeroSection() {
   const titles = userProfile.titles || ["Engineer | Musician | Photographer"]; // Fallback if titles array isn't defined
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [animationState, setAnimationState] = useState<'visible' | 'exiting' | 'entering'>('visible');
+  const [currentText, setCurrentText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const typingSpeed = 150;
+  const deletingSpeed = 75;
+  const pauseDuration = 2000; // Pause after typing a full title
+  const shortPauseDuration = 500; // Pause after deleting, before typing next
 
   useEffect(() => {
-    if (titles.length <= 1) return; // No animation if only one or no titles
+    // If there's only one title or no titles, just display it without animation
+    if (titles.length <= 1) {
+      setCurrentText(titles[0] || '');
+      return;
+    }
 
-    const cycleDuration = 3500; // Total time for one title to be displayed and transition (e.g., 3s visible + 0.5s transition)
-    const animationDuration = 500; // Duration of the fade/slide animation in ms
+    let timeoutId;
 
-    const intervalId = setInterval(() => {
-      setAnimationState('exiting'); // Start the exit animation
+    if (isDeleting) {
+      // Handle deleting
+      if (currentText === '') {
+        timeoutId = setTimeout(() => {
+          setIsDeleting(false);
+          setCurrentIndex((prevIndex) => (prevIndex + 1) % titles.length);
+        }, shortPauseDuration);
+      } else {
+        timeoutId = setTimeout(() => {
+          setCurrentText(prev => prev.substring(0, prev.length - 1));
+        }, deletingSpeed);
+      }
+    } else {
+      // Handle typing
+      const fullText = titles[currentIndex % titles.length];
+      if (currentText === fullText) {
+        timeoutId = setTimeout(() => {
+          setIsDeleting(true);
+        }, pauseDuration);
+      } else {
+        timeoutId = setTimeout(() => {
+          setCurrentText(prev => fullText.substring(0, prev.length + 1));
+        }, typingSpeed);
+      }
+    }
 
-      setTimeout(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % titles.length);
-        // After text content is virtually updated, set state to start entry animation
-        setAnimationState('entering'); 
-        
-        // Use requestAnimationFrame to ensure 'entering' styles are applied before transitioning to 'visible'
-        // This helps ensure the browser has processed the DOM/style changes for the 'entering' state.
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            setAnimationState('visible'); // Trigger the entry animation to the final 'visible' state
-          });
-        });
-      }, animationDuration); // Wait for the exit animation to complete
-    }, cycleDuration);
+    return () => clearTimeout(timeoutId);
+  }, [currentText, isDeleting, currentIndex, titles, typingSpeed, deletingSpeed, pauseDuration, shortPauseDuration]);
 
-    return () => clearInterval(intervalId); // Cleanup interval on component unmount
-  }, [titles]);
-
-  // Define base classes and animation-specific classes
-  let titleDynamicClasses = "transition-all duration-500 ease-in-out absolute inset-0";
-  if (animationState === 'visible') {
-    titleDynamicClasses += " opacity-100 translate-y-0";
-  } else if (animationState === 'exiting') {
-    titleDynamicClasses += " opacity-0 -translate-y-3"; // Slide up and fade out
-  } else if (animationState === 'entering') {
-    titleDynamicClasses += " opacity-0 translate-y-3";  // Start from slightly below and faded
-  }
 
   return (
     <section className="relative min-h-[70vh] flex items-end justify-start text-left pt-10">
@@ -75,7 +81,7 @@ export default function HeroSection() {
           layout="fill"
           objectFit="cover"
           className="absolute inset-0 z-0"
-          data-ai-hint={siteContent.heroSection.backgroundImageAiHint}
+          data-ai-hint={siteContent.heroSection.backgroundImageAiHint || "landscape"}
           priority // Prioritize loading for LCP
         />
       )}
@@ -90,13 +96,10 @@ export default function HeroSection() {
           </h1>
           
           {/* Animated Title Container */}
-          <div className="h-8 md:h-10 mb-6 relative overflow-hidden"> {/* Fixed height and overflow for animation stability */}
-            <p className={cn(
-                "text-xl md:text-2xl text-primary-foreground/90 font-normal",
-                titleDynamicClasses
-              )}
-            >
-              {titles[currentIndex]}
+          <div className="h-8 md:h-10 mb-6 relative"> {/* Fixed height for animation stability */}
+            <p className="text-xl md:text-2xl text-primary-foreground/90 font-normal">
+              <span>{currentText}</span>
+              <span className="typewriter-caret">&nbsp;</span> {/* Blinking caret */}
             </p>
           </div>
 
@@ -125,5 +128,3 @@ export default function HeroSection() {
     </section>
   );
 }
-
-    

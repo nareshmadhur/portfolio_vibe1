@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -126,3 +127,23 @@ h1, h2, h3, h4, h5, h6, strong, b, .font-semibold, .font-bold {
     @apply transition-colors duration-200 ease-in-out;
   }
 }
+
+/* Typewriter blinking caret animation */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: hsl(var(--primary-foreground)) }
+}
+
+.typewriter-caret {
+  border-right: 0.1em solid hsl(var(--primary-foreground)); /* Adjust thickness as needed */
+  animation: blink-caret 0.75s step-end infinite;
+  display: inline-block; /* Allows margin-left to work correctly */
+  margin-left: 0.05em; /* Small space between text and caret */
+  height: 1em; /* Ensure it has some height even if text is empty */
+}
+
+/* Adjust height of typewriter-caret if it appears too tall or short next to text */
+.text-xl .typewriter-caret, .text-2xl .typewriter-caret { 
+  height: 1.2em; /* Or match line-height if more precise control needed */
+}
+
