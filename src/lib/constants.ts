@@ -53,11 +53,11 @@ export const userProfile = {
   title: "BI & AI Engineer | Musician | Photographer",
   bio: "As a BI & AI Engineer, I transform complex data into actionable insights and innovative solutions. My technical proficiency is enriched by my creative pursuits as a musician, specializing in Carnatic Guitar and vocals, and as a photographer capturing compelling visual narratives. This portfolio highlights my dedication to blending analytical rigor with artistic expression. Explore my projects in engineering, music, and photography.",
   shortBio: "BI/AI Engineer, Musician, and Photographer exploring the synergy between technology and creativity, with a background in data strategy and a passion for the arts.",
-  contactEmail: "naresh.madhur@example.com", // Placeholder email
+  contactEmail: "nareshmadhur@gmail.com", // Placeholder email
   socialLinks: {
     linkedin: "https://linkedin.com/in/nareshmadhur",
     github: "https://github.com/example",
-    youtube: "https://www.youtube.com/@NareshMadhurOriginals",
+    youtube: "https://www.youtube.com/@NareshMadhur",
     flickr: "https://www.flickr.com/photos/nareshmadhur",
   },
   education: [
@@ -73,8 +73,8 @@ export const userProfile = {
     instruments: ["Carnatic Guitar", "Vocals"],
     description: "An avid musician specializing in Carnatic Guitar and vocals. I also have experience in teaching music.",
     youtubeChannels: [
-      { name: "Naresh Madhur Originals", url: "https://www.youtube.com/@NareshMadhurOriginals", exampleVideo: "https://www.youtube.com/watch?v=R_K21W0J_2s" },
-      { name: "Naresh Madhur Covers", url: "https://www.youtube.com/@nareshmadhurcovers", exampleVideo: "https://www.youtube.com/watch?v=C5zJd56G4o4" },
+      { name: "Music Videos", url: "https://www.youtube.com/@NareshMadhur", exampleVideo: "https://www.youtube.com/watch?v=R_K21W0J_2s" },
+      { name: "Guitar musings & lessons", url: "https://www.youtube.com/@nareshmadhurcovers", exampleVideo: "https://www.youtube.com/watch?v=C5zJd56G4o4" },
     ],
   },
   photography: {
@@ -127,21 +127,21 @@ export const siteContent = {
       biAi: {
         title: "BI & AI Ventures",
         description: "Innovative projects at the intersection of Business Intelligence and AI.",
-        imageUrl: "https://placehold.co/800x450.png", // Updated size
+        imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSC09308%20%281%29-UdBMIYLlILXq18JM2yBKnYyLlZ5SXK.jpeg", // Updated size
         imageAiHint: "AI data",
         linkUrl: "/bi-ai",
       },
       music: {
         title: "Sonic Explorations",
         description: "Original compositions, from synthwave to acoustic melodies.",
-        imageUrl: "https://placehold.co/800x450.png", // Updated size
+        imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/guitar-65Wzc1cVPra94zU6ikj0S731rWZqh4.jpg", // Updated size
         imageAiHint: "music studio",
         linkUrl: "/music",
       },
       photography: {
         title: "Visual Narratives",
         description: "Captivating visual stories, from urban scenes to landscapes.",
-        imageUrl: "https://placehold.co/800x450.png", // Updated size
+        imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSCF1726-8UZLZmtCQTAMWVScGAWwSGjZcJBMvG.jpeg", // Updated size
         imageAiHint: "camera lens",
         linkUrl: "/photography",
       }

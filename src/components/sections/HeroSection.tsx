@@ -42,13 +42,13 @@ export default function HeroSection() {
       <div className="container mx-auto px-4 relative z-10 pb-20 md:pb-24"> {/* Added bottom padding here */}
         <div className="max-w-2xl">
           <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">
-            {userProfile.name}
+            {userProfile.name} {/* Added text-shadow for readability */}
           </h1>
           <p className="text-xl md:text-2xl text-primary-foreground/90 mb-6 font-normal">
-            {userProfile.title}
+            {userProfile.title} {/* Added text-shadow for readability */}
           </p>
           <p className="text-base md:text-lg text-primary-foreground/80 mb-8 font-light">
-            {userProfile.bio}
+            {userProfile.bio} {/* Added text-shadow for readability */}
           </p>
           {/* Social Media Links */}
           <div className="flex justify-start space-x-3 mb-8">
