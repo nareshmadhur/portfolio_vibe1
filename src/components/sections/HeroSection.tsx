@@ -22,12 +22,12 @@ import Link from "next/link";
  */
 export default function HeroSection() {
   return (
-    <section className="relative py-20 md:py-32 min-h-[70vh] flex items-end justify-start text-left">
+    <section className="relative min-h-[70vh] flex items-end justify-start text-left pt-10"> {/* Adjusted padding */}
       {/* Background Image */}
       {siteContent.heroSection.backgroundImageUrl && (
         <Image
           src={siteContent.heroSection.backgroundImageUrl}
-          alt="Hero background"
+          alt={siteContent.heroSection.backgroundImageAlt || "Hero background"}
           layout="fill"
           objectFit="cover"
           className="absolute inset-0 z-0"
@@ -39,7 +39,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent z-0"></div>
 
       {/* Content Container */}
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-10 pb-20 md:pb-24"> {/* Added bottom padding here */}
         <div className="max-w-2xl">
           <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">
             {userProfile.name}
