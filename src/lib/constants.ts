@@ -50,10 +50,10 @@ export interface Photo {
  */
 export const userProfile = {
   name: "Naresh Madhur",
-  title: "AI Enthusiast | Musician | Photographer",
- bio: "Works in the Data Science space, with his hands deep into artistic pursuit of music and photography.",
- shortBio: "A BI/AI Engineer, Musician, and Photographer, Naresh explores the confluence of technology and creativity. With a foundation in data strategy and a passion for the arts, he brings a unique perspective to his diverse projects.",
- contactEmail: "nareshmadhur@gmail.com",
+  titles: ["AI Enthusiast", "Musician", "Photographer"], // Array for animated titles
+  bio: "As a BI & AI Engineer, I transform complex data into actionable insights and innovative solutions. My technical proficiency is enriched by my creative pursuits as a musician, specializing in Carnatic Guitar and vocals, and as a photographer capturing compelling visual narratives. This portfolio highlights my dedication to blending analytical rigor with artistic expression. Explore my projects in engineering, music, and photography.",
+  shortBio: "A BI/AI Engineer, Musician, and Photographer, Naresh explores the confluence of technology and creativity. With a foundation in data strategy and a passion for the arts, he brings a unique perspective to his diverse projects.",
+  contactEmail: "nareshmadhur@gmail.com",
   socialLinks: {
     linkedin: "https://linkedin.com/in/nareshmadhur",
     github: "https://github.com/nareshmadhur",
@@ -120,38 +120,39 @@ export const siteContent = {
   heroSection: {
     getInTouchButton: "Get in Touch",
     backgroundImageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSCF1608-50OIV9jSs2cnP23gL5PPC6mbqkICF3.jpg",
+    backgroundImageAlt: "Hero background image depicting a landscape or abstract design.",
     backgroundImageAiHint: "nature landscape",
   },
   homePage: {
     about: {
       title: "About Me",
-      backgroundImageUrl: undefined,
+      backgroundImageUrl: undefined, // No background image for "About Me" section wrapper
       backgroundImageAiHint: undefined,
     },
     portfolioTitle: "Portfolio Highlights",
     portfolioHighlightsWrapper: {
-        backgroundImageUrl: undefined,
+        backgroundImageUrl: undefined, // No background image for the wrapper of portfolio cards
         backgroundImageAiHint: undefined,
     },
     sections: {
       biAi: {
         title: "Data Science Explorations",
         description: "More about Naresh's tech use cases and explorations.",
-        imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSC09308%20%281%29-UdBMIYLlILXq18JM2yBKnYyLlZ5SXK.jpeg", // Updated size
+        imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSC09308%20%281%29-UdBMIYLlILXq18JM2yBKnYyLlZ5SXK.jpeg",
         imageAiHint: "AI data",
         linkUrl: "/bi-ai",
       },
       music: {
         title: "Musical Pusuits",
         description: "Listen and Watch musical performances with guitar and vocals",
-        imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/guitar-65Wzc1cVPra94zU6ikj0S731rWZqh4.jpg", // Updated size
+        imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/guitar-65Wzc1cVPra94zU6ikj0S731rWZqh4.jpg",
         imageAiHint: "music studio",
         linkUrl: "/music",
       },
       photography: {
         title: "Photography",
         description: "See pictures captured during his visits across the world",
-        imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSCF1726-8UZLZmtCQTAMWVScGAWwSGjZcJBMvG.jpeg", // Updated size
+        imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSCF1726-8UZLZmtCQTAMWVScGAWwSGjZcJBMvG.jpeg",
         imageAiHint: "camera lens",
         linkUrl: "/photography",
       }
@@ -160,7 +161,7 @@ export const siteContent = {
       title: "Let's Connect",
       description: "Interested in collaborating or have a question? I'd love to hear from you.",
       buttonText: "Contact Me",
-      backgroundImageUrl: undefined,
+      backgroundImageUrl: undefined, // No background image for "Contact" section wrapper
       backgroundImageAiHint: undefined,
     },
   },
@@ -172,20 +173,20 @@ export const siteContent = {
     title: "Music Showcase",
     description: "Dive into my musical world. Here you'll find a collection of my original tracks, covers, and live performances.",
     visitYouTubeButton: "Visit my YouTube Channel",
- sections: {
- videos: {
- title: "Music Videos and Covers",
- description: "Explore my music videos and covers on YouTube.",
- },
- course: {
- title: "My Online Guitar Course",
- description: "Learn to play guitar with my comprehensive online course.",
- },
- },
- onlineCourseUrl: "https://naresh-madhur-onlinecourses.thinkific.com/courses/carnatic-guitar-beginners", 
- musicVideosChannelId: "UCwwHtswu_PJFCDzB7eZk_iA", // Replace with your Music channel ID if needed for specific embeds
- guitarTeachingChannelId: "UC7AXqJQpf8DFPrEFi16Az1Q", // Replace with your Guitar teaching channel ID if needed for specific embeds
-
+    sections: {
+      videos: {
+        title: "Music Videos and Covers",
+        description: "Explore my music videos and covers on YouTube.",
+      },
+      course: {
+        title: "My Online Guitar Course",
+        description: "Learn to play guitar with my comprehensive online course.",
+        enrollButton: "Enroll in Course",
+      },
+    },
+    onlineCourseUrl: "https://naresh-madhur-onlinecourses.thinkific.com/courses/carnatic-guitar-beginners", 
+    musicVideosChannelId: "UCwwHtswu_PJFCDzB7eZk_iA",
+    guitarTeachingChannelId: "UC7AXqJQpf8DFPrEFi16Az1Q",
   },
   photographyPage: {
     title: "Photography Gallery",
@@ -221,16 +222,16 @@ export const siteContent = {
     viewOnFlickrLink: "View on Flickr",
   },
   metadata: {
-    defaultTitle: `Tri-Folio | ${userProfile.title}`,
-    defaultDescription: `Portfolio of an engineer, musician, and photographer specializing in BI/AI, YouTube music, and Flickr photography.`,
-    biAiTitle: "BI & AI Projects | Tri-Folio",
-    biAiDescription: "Explore a collection of Business Intelligence and Artificial Intelligence projects.",
-    musicTitle: "Music Showcase | Tri-Folio",
-    musicDescription: "Listen to original compositions, covers, and live performances.",
-    photographyTitle: "Photography Gallery | Tri-Folio",
-    photographyDescription: "Browse a collection of photographs capturing moments, landscapes, and stories.",
-    contactTitle: "Contact Me | Tri-Folio",
-    contactDescription: "Get in touch for inquiries related to engineering, music, or photography.",
+    defaultTitle: `Naresh Madhur | Portfolio`,
+    defaultDescription: `Portfolio of Naresh Madhur, a BI/AI Engineer, Musician, and Photographer.`,
+    biAiTitle: "BI & AI Projects | Naresh Madhur",
+    biAiDescription: "Explore a collection of Business Intelligence and Artificial Intelligence projects by Naresh Madhur.",
+    musicTitle: "Music Showcase | Naresh Madhur",
+    musicDescription: "Listen to original compositions, covers, and live performances by Naresh Madhur.",
+    photographyTitle: "Photography Gallery | Naresh Madhur",
+    photographyDescription: "Browse a collection of photographs by Naresh Madhur capturing moments, landscapes, and stories.",
+    contactTitle: "Contact Me | Naresh Madhur",
+    contactDescription: "Get in touch with Naresh Madhur for inquiries related to engineering, music, or photography.",
   }
 };
 
@@ -338,3 +339,5 @@ export const photographyItems: Photo[] = [
     dataAiHint: 'ocean waves',
   },
 ];
+
+    
