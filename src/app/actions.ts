@@ -3,6 +3,9 @@
 
 import { z } from 'zod';
 import { siteContent } from '@/lib/constants';
+// To implement actual email sending, you might use a library like Resend:
+// import { Resend } from 'resend';
+// const resend = new Resend(process.env.RESEND_API_KEY); // Ensure RESEND_API_KEY is in your .env
 
 /**
  * Zod schema for validating contact form data.
@@ -58,70 +61,56 @@ export async function submitContactForm(
   // If validation is successful, process the data
   const { name, email, subject, message } = validatedFields.data;
 
-  // TODO: Implement actual email sending logic here.
-  // The validated data is available: name, email, subject, message.
-  // You would typically use a library like Nodemailer (with an SMTP service like Gmail/SendGrid),
-  // or an email API service like Resend, SendGrid API, Mailgun, etc.
-  // to send an email to nareshmadhur@gmail.com with the form details.
-  //
-  // Example using a conceptual EmailService (requires actual implementation and setup):
+  // --- Actual Email Sending Logic Would Go Here ---
+  // This section is a placeholder. To send an email, you'd use a service.
+  // Example using Resend (conceptual - requires setup and API key):
   /*
+  if (!process.env.RESEND_API_KEY) {
+    console.error('Resend API key is not configured.');
+    return {
+      message: 'Email service is not configured. Please contact the administrator.',
+      success: false,
+    };
+  }
+
   try {
-    // Example:
-    // const sendMail = async () => {
-    //   // 1. Configure your chosen email transport (e.g., Nodemailer)
-    //   //    You'll need to install the necessary package (e.g., `npm install nodemailer`)
-    //   //    and configure it with your email provider's credentials (use environment variables!).
-    //   const transporter = nodemailer.createTransport({
-    //     service: 'gmail', // Or your SMTP provider
-    //     auth: {
-    //       user: process.env.GMAIL_USER,
-    //       pass: process.env.GMAIL_APP_PASSWORD, // Use an App Password for Gmail
-    //     },
-    //   });
+    const { data, error } = await resend.emails.send({
+      from: 'Your Portfolio Contact Form <onboarding@resend.dev>', // Replace with your "from" address registered with Resend
+      to: ['nareshmadhur@gmail.com'],
+      subject: `New Contact Form Submission: ${subject}`,
+      reply_to: email,
+      html: `
+        <h1>New Contact Form Submission</h1>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message.replace(/\n/g, '<br>')}</p>
+      `,
+    });
 
-    //   // 2. Define email options
-    //   const mailOptions = {
-    //     from: email, // The sender's email from the form
-    //     to: 'nareshmadhur@gmail.com', // Your email address
-    //     replyTo: email,
-    //     subject: `New Contact Form Submission: ${subject}`,
-    //     html: `
-    //       <h1>New Contact Form Submission</h1>
-    //       <p><strong>Name:</strong> ${name}</p>
-    //       <p><strong>Email:</strong> ${email}</p>
-    //       <p><strong>Subject:</strong> ${subject}</p>
-    //       <p><strong>Message:</strong></p>
-    //       <p>${message.replace(/\n/g, '<br>')}</p>
-    //     `,
-    //   };
+    if (error) {
+      console.error('Failed to send contact form email:', error);
+      return {
+        message: 'Sorry, there was an issue sending your message. Please try again later.',
+        success: false,
+      };
+    }
 
-    //   // 3. Send the email
-    //   await transporter.sendMail(mailOptions);
-    //   console.log('Contact form email sent successfully.');
-    // };
-    //
-    // await sendMail();
-
-    // For now, just log that this is where email sending would happen
-    console.log('Email sending logic would go here. Target: nareshmadhur@gmail.com, Data:', { name, email, subject, message });
-    // Simulate a delay as if an email was sent
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    console.log('Contact form email sent successfully via Resend:', data);
 
   } catch (error) {
-    console.error('Failed to send contact form email:', error);
+    console.error('Unexpected error sending contact form email:', error);
     return {
-      // Provide a user-friendly error message
-      message: 'Sorry, there was an issue sending your message. Please try again later.',
+      message: 'An unexpected error occurred while sending your message. Please try again.',
       success: false,
     };
   }
   */
 
-  // If you are not implementing the try/catch block above yet,
-  // this simulates a delay for the current placeholder behavior.
-  // Remove this line once you have actual email sending logic.
-  console.log('Simulating email send. Target: nareshmadhur@gmail.com, Data:', { name, email, subject, message });
+  // Current placeholder behavior: Log to console and simulate a delay.
+  // REMOVE THIS once you have actual email sending logic implemented above.
+  console.log('Simulating email send (actual sending not implemented). Target: nareshmadhur@gmail.com, Data:', { name, email, subject, message });
   await new Promise(resolve => setTimeout(resolve, 1000));
 
 
@@ -131,4 +120,3 @@ export async function submitContactForm(
     success: true,
   };
 }
-
