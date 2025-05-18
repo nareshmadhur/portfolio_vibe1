@@ -37,7 +37,8 @@ export default function Home() {
           contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0 text-left"
         >
           <SectionTitle>{siteContent.homePage.portfolioTitle}</SectionTitle>
-          <div className="mt-8 grid grid-cols-1 gap-10 md:gap-12">
+          {/* Changed grid to be responsive: 1 column on mobile, 3 on medium screens and up */}
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
             <AnimatedSection delay="delay-100">
               <HomePageSectionCard
                 title={siteContent.homePage.sections.biAi.title}
