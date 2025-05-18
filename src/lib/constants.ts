@@ -51,7 +51,7 @@ export interface Photo {
 export const userProfile = {
   name: "Naresh Madhur",
   title: "BI & AI Engineer | Musician | Photographer",
-  bio: "A passionate and results-driven professional with expertise in Business Intelligence and Artificial Intelligence, complemented by a creative spirit expressed through music and photography. Born in Kerala, India, I am proficient in English and Malayalam, with working knowledge of Tulu, Tamil, Kannada, Dutch, and Hindi. My career has spanned roles at METRO Global Solution Center in India and Makro Nederland, focusing on data strategies, team leadership, and delivering impactful BI and Data Science solutions. I am also an avid musician, specializing in Carnatic Guitar and vocals, and a dedicated photographer capturing visual narratives.",
+  bio: "As a BI & AI Engineer, I transform complex data into actionable insights and innovative solutions. My technical proficiency is enriched by my creative pursuits as a musician, specializing in Carnatic Guitar and vocals, and as a photographer capturing compelling visual narratives. This portfolio highlights my dedication to blending analytical rigor with artistic expression. Explore my projects in engineering, music, and photography.",
   shortBio: "BI/AI Engineer, Musician, and Photographer exploring the synergy between technology and creativity, with a background in data strategy and a passion for the arts.",
   contactEmail: "naresh.madhur@example.com", // Placeholder email
   socialLinks: {
@@ -110,19 +110,17 @@ export const siteContent = {
   heroSection: {
     getInTouchButton: "Get in Touch",
     backgroundImageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSCF1608-50OIV9jSs2cnP23gL5PPC6mbqkICF3.jpg",
-    backgroundImageAiHint: "nature landscape", // You might want to update this hint if the image is different
+    backgroundImageAiHint: "nature landscape",
   },
   homePage: {
     about: {
       title: "About Me",
-      // No background image for "About Me" as per user request
-      backgroundImageUrl: undefined,
+      backgroundImageUrl: undefined, // No background image for "About Me"
       backgroundImageAiHint: undefined,
     },
     portfolioTitle: "Portfolio Highlights",
     portfolioHighlightsWrapper: {
-      // No background image for "Portfolio Highlights" wrapper as per user request
-      backgroundImageUrl: undefined,
+      backgroundImageUrl: undefined, // No background image for "Portfolio Highlights" wrapper
       backgroundImageAiHint: undefined,
     },
     sections: {
@@ -152,8 +150,7 @@ export const siteContent = {
       title: "Let's Connect",
       description: "Interested in collaborating or have a question? I'd love to hear from you.",
       buttonText: "Contact Me",
-      // No background image for "Let's Connect" as per user request
-      backgroundImageUrl: undefined,
+      backgroundImageUrl: undefined, // No background image for "Let's Connect"
       backgroundImageAiHint: undefined,
     },
   },
@@ -315,5 +312,3 @@ export const photographyItems: Photo[] = [
     dataAiHint: 'ocean waves',
   },
 ];
-
-    
