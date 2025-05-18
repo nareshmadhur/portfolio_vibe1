@@ -1,4 +1,1 @@
-import { config } from 'dotenv';
-config();
-
-// Intentionally empty as seo-keyword-suggestions.ts was removed
+// This file is intentionally blank as Genkit has been removed from the project.

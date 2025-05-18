@@ -1,7 +1,1 @@
-import {genkit} from 'genkit';
-import {googleAI} from '@genkit-ai/googleai';
-
-export const ai = genkit({
-  plugins: [googleAI()],
-  model: 'googleai/gemini-1.5-flash-latest', // Changed to gemini-1.5-flash-latest
-});
+// This file is intentionally blank as Genkit has been removed from the project.
