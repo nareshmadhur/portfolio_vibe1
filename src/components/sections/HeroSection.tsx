@@ -27,10 +27,10 @@ export default function HeroSection() {
   const [currentText, setCurrentText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const typingSpeed = 100;
-  const deletingSpeed = 50;
-  const pauseDuration = 1500;
-  const shortPauseDuration = 300;
+  const typingSpeed = 50; // Faster typing
+  const deletingSpeed = 30; // Faster deleting
+  const pauseDuration = 1200; // Shorter pause after typing
+  const shortPauseDuration = 200; // Shorter pause after deleting
 
   useEffect(() => {
     if (titles.length <= 1) {
@@ -69,7 +69,7 @@ export default function HeroSection() {
 
 
   return (
-    <section className="relative min-h-[75vh] flex items-end justify-start text-left"> {/* Adjusted min-height */}
+    <section className="relative min-h-[75vh] flex items-end justify-start text-left"> {/* Ensure items-end for bottom alignment */}
       {/* Background Image */}
       {siteContent.heroSection.backgroundImageUrl && (
         <Image
@@ -87,7 +87,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent z-0"></div>
 
       {/* Content Container */}
-      <div className="container mx-auto px-4 relative z-10 pb-20 md:pb-24">
+      <div className="container mx-auto px-4 relative z-10 pb-12 md:pb-16"> {/* Reduced bottom padding */}
         <div className="max-w-2xl">
           <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">
             {userProfile.name}
