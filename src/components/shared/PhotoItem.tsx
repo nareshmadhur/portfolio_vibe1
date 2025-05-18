@@ -23,7 +23,7 @@ interface PhotoItemProps {
  */
 export default function PhotoItem({ photo }: PhotoItemProps) {
   return (
-    <Card className="overflow-hidden group shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <Card className="overflow-hidden group shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
       <CardContent className="p-0">
         <Link href={photo.flickrUrl} target="_blank" rel="noopener noreferrer" className="block relative aspect-video">
           <Image
@@ -53,5 +53,3 @@ export default function PhotoItem({ photo }: PhotoItemProps) {
     </Card>
   );
 }
-
-    

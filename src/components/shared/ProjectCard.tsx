@@ -24,7 +24,7 @@ interface ProjectCardProps {
  */
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <Card className="flex flex-col h-full overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <Card className="flex flex-col h-full overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
       {project.imageUrl && (
         <div className="relative w-full h-48">
           <Image
@@ -33,6 +33,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             layout="fill"
             objectFit="cover"
             data-ai-hint={project.dataAiHint}
+            className="group-hover:brightness-110 transition-all duration-300" // Added subtle image interaction
           />
         </div>
       )}
@@ -71,5 +72,3 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     </Card>
   );
 }
-
-    
