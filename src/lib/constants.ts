@@ -46,19 +46,18 @@ export interface Photo {
 // --- User Profile Data ---
 
 /**
- * Contains personal information about the user/owner of the portfolio.
+ * @description Contains personal information about the user/owner of the portfolio.
  */
 export const userProfile = {
-
   name: "Naresh Madhur",
   title: "BI & AI Engineer | Musician | Photographer",
   bio: "A passionate and results-driven professional with expertise in Business Intelligence and Artificial Intelligence, complemented by a creative spirit expressed through music and photography. Born in Kerala, India, I am proficient in English and Malayalam, with working knowledge of Tulu, Tamil, Kannada, Dutch, and Hindi. My career has spanned roles at METRO Global Solution Center in India and Makro Nederland, focusing on data strategies, team leadership, and delivering impactful BI and Data Science solutions. I am also an avid musician, specializing in Carnatic Guitar and vocals, and a dedicated photographer capturing visual narratives.",
   shortBio: "BI/AI Engineer, Musician, and Photographer exploring the synergy between technology and creativity, with a background in data strategy and a passion for the arts.",
   contactEmail: "naresh.madhur@example.com", // Placeholder email
   socialLinks: {
-    linkedin: "https://linkedin.com/in/nareshmadhur", // Placeholder LinkedIn
+    linkedin: "https://linkedin.com/in/nareshmadhur",
     github: "https://github.com/example",
-    youtube: "https://www.youtube.com/@NareshMadhurOriginals", // Using one of the provided YouTube links
+    youtube: "https://www.youtube.com/@NareshMadhurOriginals",
     flickr: "https://www.flickr.com/photos/nareshmadhur",
   },
   education: [
@@ -90,7 +89,7 @@ export const userProfile = {
 // --- Site Content (UI Text Strings & Image URLs) ---
 
 /**
- * Object containing all user-facing text and key image URLs for the website.
+ * @description Object containing all user-facing text and key image URLs for the website.
  * Organized by section for easy management.
  */
 export const siteContent = {
@@ -110,21 +109,21 @@ export const siteContent = {
   },
   heroSection: {
     getInTouchButton: "Get in Touch",
-    backgroundImageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/Hero_Title-4D7dPwou1649f4i8sZarTkDZk2iWrM.heic", // Centralized image URL
-    backgroundImageAiHint: "abstract technology",
+    backgroundImageUrl: "https://placehold.co/1920x1080.png", // Reverted to placeholder
+    backgroundImageAiHint: "abstract technology", // Original hint
   },
   homePage: {
     about: {
       title: "About Me",
-      backgroundImageUrl: undefined, // No background image for this section
+      backgroundImageUrl: undefined,
       backgroundImageAiHint: undefined,
     },
-    portfolioTitle: "Portfolio Highlights", // Title for the section containing cards
-    portfolioHighlightsWrapper: { // For the SectionWrapper around the portfolio cards
-      backgroundImageUrl: undefined, // No background image for this wrapper
+    portfolioTitle: "Portfolio Highlights",
+    portfolioHighlightsWrapper: {
+      backgroundImageUrl: undefined,
       backgroundImageAiHint: undefined,
     },
-    sections: { // These are for the HomePageSectionCard components themselves
+    sections: {
       biAi: {
         title: "BI & AI Ventures",
         description: "Innovative projects at the intersection of Business Intelligence and AI.",
@@ -151,7 +150,7 @@ export const siteContent = {
       title: "Let's Connect",
       description: "Interested in collaborating or have a question? I'd love to hear from you.",
       buttonText: "Contact Me",
-      backgroundImageUrl: undefined, // No background image for this section
+      backgroundImageUrl: undefined,
       backgroundImageAiHint: undefined,
     },
   },
@@ -197,7 +196,7 @@ export const siteContent = {
   photoItem: {
     viewOnFlickrLink: "View on Flickr",
   },
-  metadata: { // Text used for page metadata (titles, descriptions for SEO)
+  metadata: {
     defaultTitle: `Tri-Folio | ${userProfile.title}`,
     defaultDescription: `Portfolio of an engineer, musician, and photographer specializing in BI/AI, YouTube music, and Flickr photography.`,
     biAiTitle: "BI & AI Projects | Tri-Folio",
@@ -224,7 +223,7 @@ export const biAiProjects: Project[] = [
     description: 'A machine learning model that predicts sales trends with high accuracy, helping businesses optimize inventory and marketing strategies.',
     technologies: ['Python', 'TensorFlow', 'Scikit-learn', 'Flask', 'React'],
     githubUrl: 'https://github.com/example/sales-forecaster',
-    liveDemoUrl: '#', // Use '#' or actual URL if available
+    liveDemoUrl: '#',
     imageUrl: 'https://placehold.co/600x400.png',
     dataAiHint: 'AI analytics',
   },
@@ -233,7 +232,7 @@ export const biAiProjects: Project[] = [
     title: 'BI Dashboard for Retail Analytics',
     description: 'An interactive business intelligence dashboard providing real-time insights into retail performance, customer behavior, and product trends.',
     technologies: ['Tableau', 'SQL', 'Python', 'ETL'],
-    liveDemoUrl: '#', // Example: No GitHub for this, only live demo
+    liveDemoUrl: '#',
     imageUrl: 'https://placehold.co/600x400.png',
     dataAiHint: 'dashboard chart',
   },
@@ -256,19 +255,19 @@ export const biAiProjects: Project[] = [
 export const musicVideos: MusicVideo[] = [
   {
     id: 'music-1',
-    youtubeVideoId: 'dQw4w9WgXcQ', // Example: Rick Astley - Never Gonna Give You Up
+    youtubeVideoId: 'dQw4w9WgXcQ',
     title: 'Original Composition - "Synthwave Dreams"',
     description: 'An original synthwave track accompanied by a retro-futuristic music video.',
   },
   {
     id: 'music-2',
-    youtubeVideoId: '3JZ_D3ELwOQ', // Example: Lofi Girl - beats to relax/study to (placeholder)
+    youtubeVideoId: '3JZ_D3ELwOQ',
     title: 'Acoustic Cover - "Chill Vibes"',
     description: 'A relaxing acoustic guitar cover of a popular lofi hip hop beat.',
   },
   {
     id: 'music-3',
-    youtubeVideoId: '5qap5aO4i9A', // Example: A jazz performance (placeholder)
+    youtubeVideoId: '5qap5aO4i9A',
     title: 'Live Performance - "Jazz Night"',
     description: 'Live recording of a jazz piano performance at a local venue.',
   },
@@ -285,7 +284,7 @@ export const photographyItems: Photo[] = [
     title: 'City Sunset',
     description: 'A breathtaking sunset over the city skyline, captured from a rooftop.',
     imageUrl: 'https://placehold.co/600x400.png',
-    flickrUrl: 'https://flic.kr/p/2q3ki8V', // Example Flickr URL
+    flickrUrl: 'https://flic.kr/p/2q3ki8V',
     dataAiHint: 'city sunset',
   },
   {
