@@ -21,6 +21,7 @@ interface PhotoItemProps {
 /**
  * Component to display a single photography item in a card format.
  * Shows the photo, title, description, and a link to view it on Flickr.
+ * Includes a hover effect to lift the card.
  * @param {PhotoItemProps} props - The props for the component.
  * @returns {JSX.Element} The PhotoItem component.
  */

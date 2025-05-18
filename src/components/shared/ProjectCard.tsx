@@ -23,6 +23,7 @@ interface ProjectCardProps {
 /**
  * Component to display a single project in a card format.
  * Shows project image, title, description, technologies used, and links to GitHub/live demo.
+ * Includes a hover effect to lift the card and slightly brighten the image.
  * @param {ProjectCardProps} props - The props for the component.
  * @returns {JSX.Element} The ProjectCard component.
  */
