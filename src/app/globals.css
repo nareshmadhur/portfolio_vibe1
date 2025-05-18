@@ -73,8 +73,9 @@ h1, h2, h3, h4, h5, h6, strong, b, .font-semibold, .font-bold {
     --popover: 0 0% 8%; /* Very Dark Gray */
     --popover-foreground: 0 0% 85%; /* Light Gray */
 
-    --primary: 0 0% 30%; /* Darker Gray for primary button background in dark mode */
-    --primary-foreground: 0 0% 98%; /* Near White (text on primary buttons) */
+    /* Primary button: Light gray background with very dark text for high contrast in dark mode */
+    --primary: 0 0% 80%; /* Light Gray button background */
+    --primary-foreground: 0 0% 15%; /* Very Dark Gray text on primary buttons */
 
     --secondary: 0 0% 20%; /* Darker Gray */
     --secondary-foreground: 0 0% 80%; /* Lighter Gray text */
