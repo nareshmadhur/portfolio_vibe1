@@ -109,17 +109,19 @@ export const siteContent = {
   },
   heroSection: {
     getInTouchButton: "Get in Touch",
-    backgroundImageUrl: "https://placehold.co/1920x1080.png", // Reverted to placeholder
-    backgroundImageAiHint: "abstract technology", // Original hint
+    backgroundImageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSCF1608-50OIV9jSs2cnP23gL5PPC6mbqkICF3.jpg",
+    backgroundImageAiHint: "nature landscape", // You might want to update this hint if the image is different
   },
   homePage: {
     about: {
       title: "About Me",
+      // No background image for "About Me" as per user request
       backgroundImageUrl: undefined,
       backgroundImageAiHint: undefined,
     },
     portfolioTitle: "Portfolio Highlights",
     portfolioHighlightsWrapper: {
+      // No background image for "Portfolio Highlights" wrapper as per user request
       backgroundImageUrl: undefined,
       backgroundImageAiHint: undefined,
     },
@@ -150,6 +152,7 @@ export const siteContent = {
       title: "Let's Connect",
       description: "Interested in collaborating or have a question? I'd love to hear from you.",
       buttonText: "Contact Me",
+      // No background image for "Let's Connect" as per user request
       backgroundImageUrl: undefined,
       backgroundImageAiHint: undefined,
     },
@@ -255,19 +258,19 @@ export const biAiProjects: Project[] = [
 export const musicVideos: MusicVideo[] = [
   {
     id: 'music-1',
-    youtubeVideoId: 'dQw4w9WgXcQ',
+    youtubeVideoId: 'dQw4w9WgXcQ', // Example Video ID
     title: 'Original Composition - "Synthwave Dreams"',
     description: 'An original synthwave track accompanied by a retro-futuristic music video.',
   },
   {
     id: 'music-2',
-    youtubeVideoId: '3JZ_D3ELwOQ',
+    youtubeVideoId: '3JZ_D3ELwOQ', // Example Video ID
     title: 'Acoustic Cover - "Chill Vibes"',
     description: 'A relaxing acoustic guitar cover of a popular lofi hip hop beat.',
   },
   {
     id: 'music-3',
-    youtubeVideoId: '5qap5aO4i9A',
+    youtubeVideoId: '5qap5aO4i9A', // Example Video ID
     title: 'Live Performance - "Jazz Night"',
     description: 'Live recording of a jazz piano performance at a local venue.',
   },
@@ -284,7 +287,7 @@ export const photographyItems: Photo[] = [
     title: 'City Sunset',
     description: 'A breathtaking sunset over the city skyline, captured from a rooftop.',
     imageUrl: 'https://placehold.co/600x400.png',
-    flickrUrl: 'https://flic.kr/p/2q3ki8V',
+    flickrUrl: 'https://flic.kr/p/2q3ki8V', // Example Flickr URL
     dataAiHint: 'city sunset',
   },
   {
@@ -292,7 +295,7 @@ export const photographyItems: Photo[] = [
     title: 'Forest Path',
     description: 'A serene forest path in autumn, with golden leaves covering the ground.',
     imageUrl: 'https://placehold.co/600x400.png',
-    flickrUrl: 'https://www.flickr.com/photos/68265102@N05/53846502717/',
+    flickrUrl: 'https://www.flickr.com/photos/68265102@N05/53846502717/', // Example Flickr URL
     dataAiHint: 'forest path',
   },
   {
@@ -300,7 +303,7 @@ export const photographyItems: Photo[] = [
     title: 'Mountain Peaks',
     description: 'Majestic snow-capped mountain peaks under a clear blue sky.',
     imageUrl: 'https://placehold.co/600x400.png',
-    flickrUrl: 'https://flic.kr/p/2q3ki9X',
+    flickrUrl: 'https://flic.kr/p/2q3ki9X', // Example Flickr URL
     dataAiHint: 'mountain landscape',
   },
   {
@@ -308,7 +311,9 @@ export const photographyItems: Photo[] = [
     title: 'Coastal Waves',
     description: 'Powerful waves crashing against a rocky coastline during a storm.',
     imageUrl: 'https://placehold.co/600x400.png',
-    flickrUrl: 'https://www.flickr.com/photos/example/photoid4',
+    flickrUrl: 'https://www.flickr.com/photos/example/photoid4', // Example Flickr URL
     dataAiHint: 'ocean waves',
   },
 ];
+
+    
