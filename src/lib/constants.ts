@@ -110,7 +110,7 @@ export const siteContent = {
   },
   heroSection: {
     getInTouchButton: "Get in Touch",
-    backgroundImageUrl: "https://placehold.co/1920x1080.png", // Centralized image URL
+    backgroundImageUrl: "hhttps://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/Hero_Title-4D7dPwou1649f4i8sZarTkDZk2iWrM.heic", // Centralized image URL
     backgroundImageAiHint: "abstract technology",
   },
   homePage: {
