@@ -59,7 +59,7 @@ export default function Navbar() {
               href={link.href}
               className={cn(
                 "text-foreground hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium",
-                pathname === link.href ? "bg-primary/10 text-primary font-semibold" : "hover:bg-accent/50"
+                pathname === link.href ? "bg-primary/10 text-foreground font-semibold" : "hover:bg-accent/50"
               )}
             >
               {link.label}
@@ -84,7 +84,7 @@ export default function Navbar() {
                 onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
                 className={cn(
                   "text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium",
-                  pathname === link.href ? "bg-primary/10 text-primary font-semibold" : "hover:bg-accent/50"
+                  pathname === link.href ? "bg-primary/10 text-foreground font-semibold" : "hover:bg-accent/50"
                 )}
               >
                 {link.label}

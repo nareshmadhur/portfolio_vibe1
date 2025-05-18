@@ -37,7 +37,7 @@ interface HomePageSectionCardProps {
 export default function HomePageSectionCard({ title, description, imageUrl, imageAiHint, linkUrl, className }: HomePageSectionCardProps) {
   return (
     <Link href={linkUrl} className={cn(
-      "relative block group overflow-hidden rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out aspect-video hover:-translate-y-2",
+      "relative block group overflow-hidden rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out aspect-[16/9] hover:-translate-y-2",
       className
     )}>
       <Image
