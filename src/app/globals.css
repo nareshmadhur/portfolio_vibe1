@@ -24,9 +24,9 @@ h1, h2, h3, h4, h5, h6, strong, b, .font-semibold, .font-bold {
     --popover: 0 0% 100%; /* White */
     --popover-foreground: 0 0% 20%; /* Dark Gray */
 
-    /* For light theme, primary buttons are typically dark with light text */
-    --primary: 0 0% 35%; /* Medium-Dark Gray for button background */
-    --primary-foreground: 0 0% 98%; /* Near White for button text */
+    /* Primary button: Dark gray background with off-white text */
+    --primary: 0 0% 25%; /* Dark Gray for button background */
+    --primary-foreground: 0 0% 95%; /* Off-White for button text */
 
     --secondary: 0 0% 90%; /* Light Gray */
     --secondary-foreground: 0 0% 25%; /* Dark Gray */
@@ -74,9 +74,9 @@ h1, h2, h3, h4, h5, h6, strong, b, .font-semibold, .font-bold {
     --popover: 0 0% 8%; /* Very Dark Gray */
     --popover-foreground: 0 0% 85%; /* Light Gray */
 
-    /* Primary button: Darker gray background with light text for high contrast in dark mode */
-    --primary: 0 0% 30%; /* Dark Gray button background */
-    --primary-foreground: 0 0% 98%; /* Near White text (for buttons AND hero text) */
+    /* Primary button: Very dark gray background with off-white text for high contrast */
+    --primary: 0 0% 15%; /* Very Dark Gray / Almost Black button background */
+    --primary-foreground: 0 0% 95%; /* Off-White text (for buttons AND hero text) */
 
     --secondary: 0 0% 20%; /* Darker Gray */
     --secondary-foreground: 0 0% 80%; /* Lighter Gray text */
@@ -92,7 +92,7 @@ h1, h2, h3, h4, h5, h6, strong, b, .font-semibold, .font-bold {
 
     --border: 0 0% 25%; /* Darker Border */
     --input: 0 0% 18%; /* Dark Input BG */
-    --ring: 0 0% 75%; /* Lighter Gray for focus rings (now using a lighter primary text color) */
+    --ring: 0 0% 75%; /* Lighter Gray for focus rings */
 
     /* Grayscale Chart colors for dark theme */
     --chart-1: 0 0% 30%;
