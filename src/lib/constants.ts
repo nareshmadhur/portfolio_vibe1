@@ -50,13 +50,13 @@ export interface Photo {
  */
 export const userProfile = {
   name: "Naresh Madhur",
-  title: "BI & AI Engineer | Musician | Photographer",
-  bio: "As a BI & AI Engineer, I transform complex data into actionable insights and innovative solutions. My technical proficiency is enriched by my creative pursuits as a musician, specializing in Carnatic Guitar and vocals, and as a photographer capturing compelling visual narratives. This portfolio highlights my dedication to blending analytical rigor with artistic expression. Explore my projects in engineering, music, and photography.",
-  shortBio: "BI/AI Engineer, Musician, and Photographer exploring the synergy between technology and creativity, with a background in data strategy and a passion for the arts.",
-  contactEmail: "nareshmadhur@gmail.com", // Placeholder email
+  title: "AI Enthusiast | Musician | Photographer",
+ bio: "Naresh Madhur operates in the Data Science domain, delivering solutions to support business objectives.\nHis technical expertise is complemented by his creative endeavors as a musician, focusing on Carnatic Guitar and vocals, and as a photographer capturing evocative visual stories. This portfolio showcases his commitment to harmonizing analytical precision with artistic flair. Discover his work across engineering, music, and photography.",
+ shortBio: "A BI/AI Engineer, Musician, and Photographer, Naresh explores the confluence of technology and creativity. With a foundation in data strategy and a passion for the arts, he brings a unique perspective to his diverse projects.",
+ contactEmail: "nareshmadhur@gmail.com",
   socialLinks: {
     linkedin: "https://linkedin.com/in/nareshmadhur",
-    github: "https://github.com/example",
+    github: "https://github.com/nareshmadhur",
     youtube: "https://www.youtube.com/@NareshMadhur",
     flickr: "https://www.flickr.com/photos/nareshmadhur",
   },
