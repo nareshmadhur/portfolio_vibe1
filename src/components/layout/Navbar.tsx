@@ -11,12 +11,20 @@ import { cn } from '@/lib/utils';
 import { siteContent } from '@/lib/constants';
 
 /**
+ * Defines the structure for a navigation link.
+ */
+interface NavLink {
+  href: string;
+  label: string;
+}
+
+/**
  * Array of navigation links to be displayed in the Navbar.
  * Sourced from `siteContent.nav`.
  */
-const navLinks = [
+const navLinks: NavLink[] = [
   { href: '/', label: siteContent.nav.home },
-  { href: '/music', label: siteContent.nav.music }, // Ensured this is second
+  { href: '/music', label: siteContent.nav.music },
   { href: '/bi-ai', label: siteContent.nav.biAiProjects },
   { href: '/photography', label: siteContent.nav.photography },
   { href: '/contact', label: siteContent.nav.contact },

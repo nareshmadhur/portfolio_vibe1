@@ -1,3 +1,4 @@
+
 /**
  * @fileoverview Defines the main homepage component for the Tri-Folio application.
  * It showcases the hero section, about me, portfolio highlights, and a contact call-to-action.
@@ -12,7 +13,7 @@ import HomePageSectionCard from "@/components/shared/HomePageSectionCard";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 
 /**
- * The main homepage component for the Tri-Folio application.
+ * The main homepage component for the application.
  * It showcases the hero section, about me, portfolio highlights, and a contact call-to-action.
  * @returns {JSX.Element} The Home page component.
  */
@@ -37,7 +38,6 @@ export default function Home() {
           contentBgClass="bg-transparent dark:bg-transparent shadow-none backdrop-blur-none p-0 text-left"
         >
           <SectionTitle>{siteContent.homePage.portfolioTitle}</SectionTitle>
-          {/* Changed grid to be responsive: 1 column on mobile, 3 on medium screens and up */}
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
             <AnimatedSection delay="delay-100">
               <HomePageSectionCard

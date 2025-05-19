@@ -127,33 +127,33 @@ export const siteContent = {
   homePage: {
     about: {
       title: "About Me",
-      backgroundImageUrl: undefined,
+      backgroundImageUrl: undefined, // Set to undefined if no bg image needed
       backgroundImageAiHint: undefined,
     },
     portfolioTitle: "Portfolio Highlights",
     portfolioHighlightsWrapper: {
-        backgroundImageUrl: undefined,
+        backgroundImageUrl: undefined, // Set to undefined if no bg image needed
         backgroundImageAiHint: undefined,
     },
     sections: {
       music: {
         title: "Musical Pursuits",
         description: "Explore musical performances, original arrangements, and educational content.",
-        imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/guitar-65Wzc1cVPra94zU6ikj0S731rWZqh4.jpg",
+        imageUrl: "https://placehold.co/800x450.png", // Updated aspect ratio
         imageAiHint: "music studio",
         linkUrl: "/music",
       },
       biAi: {
         title: "Data Science Explorations",
         description: "Discover use cases in BI, Data Analytics, and Artificial Intelligence.",
-        imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSC09308%20%281%29-UdBMIYLlILXq18JM2yBKnYyLlZ5SXK.jpeg",
+        imageUrl: "https://placehold.co/800x450.png", // Updated aspect ratio
         imageAiHint: "AI data",
         linkUrl: "/bi-ai",
       },
       photography: {
         title: "Photography",
         description: "View diverse photographs captured during travels and street explorations.",
-        imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSCF1726-8UZLZmtCQTAMWVScGAWwSGjZcJBMvG.jpeg",
+        imageUrl: "https://placehold.co/800x450.png", // Updated aspect ratio
         imageAiHint: "camera lens",
         linkUrl: "/photography",
       }
@@ -162,7 +162,7 @@ export const siteContent = {
       title: "Let's Connect",
       description: "Interested in collaborating or have a question? I'd love to hear from you.",
       buttonText: "Contact Me",
-      backgroundImageUrl: undefined,
+      backgroundImageUrl: undefined, // Set to undefined if no bg image needed
       backgroundImageAiHint: undefined,
     },
   },
@@ -174,7 +174,7 @@ export const siteContent = {
     title: "Music & Teaching",
     description: "Dive into Naresh Madhur's musical world and teaching endeavors. Explore original tracks, covers, live performances, and educational content.",
     visitYouTubeButton: "Visit Channel",
-    viewPerformanceButton: "Watch Performance", // May not be used if carousel items don't have individual buttons
+    viewPerformanceButton: "Watch Performance",
     sections: {
       youtube: {
         title: "My YouTube Presence",
@@ -209,9 +209,9 @@ export const siteContent = {
           collaborationPromptTitle: "Interested in Collaborating or Connecting?",
           collaborationPromptText: "If you have ideas for musical projects, performances, or just want to talk about music, I'd love to hear from you. Click the button below to send me a message.",
           videos: [
-            { id: 'perf1', videoId: 'rK4F0-Cu0bU', title: 'Live Performance: Kadhal Cricket | Masala Coffee', description: 'A captivating live moment.' },
-            { id: 'perf2', videoId: 'J6k-TBU_0GM', title: 'Live Performance: Aaluma Doluma | Anirudh Ravichander', description: 'Showcasing musical synergy.' },
-            { id: 'perf3', videoId: 'Sy61QG2wGco', title: 'Live Performance: September | Earth, Wind & Fire', description: 'An energetic performance.' },
+            { id: 'perf1', videoId: 'rK4F0-Cu0bU', title: 'Live Performance: Kadhal Cricket | Masala Coffee' },
+            { id: 'perf2', videoId: 'J6k-TBU_0GM', title: 'Live Performance: Aaluma Doluma | Anirudh Ravichander' },
+            { id: 'perf3', videoId: 'Sy61QG2wGco', title: 'Live Performance: September | Earth, Wind & Fire' },
           ] as PerformanceVideo[],
         }
       },
@@ -269,9 +269,6 @@ export const siteContent = {
     contactDescription: `Get in touch with ${userProfile.name} for inquiries related to data science, music, or photography.`,
   }
 };
-
-/** @deprecated Use siteContent.musicPage.sections.teachingJourney.courseUrl instead */
-export const MUSIC_COURSE_URL = siteContent.musicPage.sections.teachingJourney.courseUrl;
 
 
 // --- Project Data ---
@@ -350,9 +347,3 @@ export const photographyItems: Photo[] = [
     dataAiHint: 'ocean waves',
   },
 ];
-
-// Deprecated musicVideos - content is now under siteContent.musicPage
-/** @deprecated Use siteContent.musicPage.sections.youtube.musicVideos and .performances instead */
-export const musicVideos: ExampleVideo[] = [];
-
-    
