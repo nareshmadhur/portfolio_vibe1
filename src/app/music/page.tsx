@@ -255,6 +255,8 @@ export default function MusicPage() {
                         const videoToShow = videoData || (slotIndex === 1 ? activePerformanceVideo : null);
 
                         if (!videoToShow) {
+                          // Render an empty div or a placeholder for slots where video is not available
+                          // This is crucial for maintaining grid structure if numVids < 3
                           return <div key={`empty-slot-${slotIndex}`} className="aspect-video bg-muted/10 rounded-lg" />;
                         }
                         
@@ -263,13 +265,13 @@ export default function MusicPage() {
                             key={videoToShow.id + `_slot_${slotIndex}`} 
                             className={cn(
                               "w-full transition-all duration-300 ease-in-out",
-                              isPlayerSlot ? "md:col-span-1" : "md:col-span-1", // All take 1 col on md+
+                              isPlayerSlot ? "md:col-span-1" : "md:col-span-1", 
                               !isPlayerSlot && "opacity-60 hover:opacity-100 transform scale-90 hover:scale-95"
                             )}
                           >
                             {isPlayerSlot ? (
                               <div
-                                key={activePerformanceVideo.id} // Key for re-render and animation trigger
+                                key={activePerformanceVideo.id} 
                                 className={cn(
                                   "w-full aspect-video rounded-lg overflow-hidden shadow-xl",
                                   slideDirection === 'initial' ? 'animate-fadeIn' :
@@ -358,4 +360,3 @@ export default function MusicPage() {
     </SectionWrapper>
   );
 }
-
