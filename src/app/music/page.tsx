@@ -14,16 +14,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import ContactSection from '@/components/sections/ContactSection';
 
 /**
- * Metadata for the Music & Teaching page.
- */
-export const metadata = {
-  title: siteContent.metadata.musicTitle,
-  description: siteContent.metadata.musicDescription,
-};
-
-/**
  * Page component for showcasing music projects, YouTube channels, performances, and teaching.
- * @returns {JSX.Element} The Music & Teaching page.
+ * @returns {JSX.Element | null} The Music & Teaching page. Returns null if not mounted to avoid hydration mismatch.
  */
 export default function MusicPage() {
   const { title, description, sections } = siteContent.musicPage;
@@ -50,7 +42,8 @@ export default function MusicPage() {
     );
   };
 
-  if (!isMounted) { // Avoid hydration mismatch for carousel state
+  // Avoid hydration mismatch by not rendering on the server initially for carousel state.
+  if (!isMounted) {
     return null;
   }
 
@@ -84,7 +77,7 @@ export default function MusicPage() {
               <CardContent className="space-y-6">
                 <div>
                   <h4 className="text-lg font-semibold mb-2 text-foreground text-left">Featured Video</h4>
-                  <div className="max-w-xl mb-4"> {/* Removed mx-auto for left alignment */}
+                  <div className="max-w-xl mb-4 text-left"> {/* Left aligned */}
                     <YouTubePlayer videoId={youtube.musicVideos.featuredVideoId} title={youtube.musicVideos.featuredVideoTitle} />
                   </div>
                 </div>
@@ -97,13 +90,12 @@ export default function MusicPage() {
                           <CardContent className="p-0">
                             <YouTubePlayer videoId={video.videoId} title={video.title} />
                           </CardContent>
-                          {/* Removed CardHeader with CardTitle for individual video titles */}
                         </Card>
                       ))}
                     </div>
                   </div>
                 )}
-                <div className="text-left"> {/* Ensure button aligns left */}
+                <div className="text-left">
                     <Button asChild variant="secondary">
                     <Link href={youtube.musicVideos.channelUrl} target="_blank" rel="noopener noreferrer">
                         <Youtube className="mr-2 h-5 w-5" /> {siteContent.musicPage.visitYouTubeButton} ({youtube.musicVideos.channelName})
@@ -127,7 +119,7 @@ export default function MusicPage() {
               <CardContent className="space-y-6">
                 <div>
                   <h4 className="text-lg font-semibold mb-2 text-foreground text-left">Featured Lesson</h4>
-                  <div className="max-w-xl mb-4"> {/* Removed mx-auto for left alignment */}
+                  <div className="max-w-xl mb-4 text-left"> {/* Left aligned */}
                     <YouTubePlayer videoId={youtube.guitarTeaching.featuredVideoId} title={youtube.guitarTeaching.featuredVideoTitle} />
                   </div>
                 </div>
@@ -140,13 +132,12 @@ export default function MusicPage() {
                            <CardContent className="p-0">
                             <YouTubePlayer videoId={video.videoId} title={video.title} />
                           </CardContent>
-                           {/* Removed CardHeader with CardTitle for individual video titles */}
                         </Card>
                       ))}
                     </div>
                   </div>
                 )}
-                <div className="text-left"> {/* Ensure button aligns left */}
+                <div className="text-left">
                     <Button asChild variant="secondary">
                     <Link href={youtube.guitarTeaching.channelUrl} target="_blank" rel="noopener noreferrer">
                         <Youtube className="mr-2 h-5 w-5" /> {siteContent.musicPage.visitYouTubeButton} ({youtube.guitarTeaching.channelName})
@@ -159,7 +150,7 @@ export default function MusicPage() {
 
           {/* Live Performances & Collaborations Subsection */}
           <AnimatedSection delay="delay-400">
-            <div className="mt-12"> {/* Added margin top for separation */}
+            <div className="mt-12">
               <h3 className="text-2xl font-semibold mb-4 text-foreground text-left">{youtube.performances.title}</h3>
               <p className="text-md mb-6 text-muted-foreground max-w-3xl text-left">
                 {youtube.performances.description}
@@ -188,7 +179,7 @@ export default function MusicPage() {
                 </div>
               )}
               {/* Contact Form for Collaboration */}
-              <div className="mt-10"> {/* Spacing before contact form */}
+              <div className="mt-10">
                 <h4 className="text-xl font-semibold mb-4 text-foreground text-left">Interested in Collaborating?</h4>
                 <ContactSection />
               </div>
@@ -200,11 +191,11 @@ export default function MusicPage() {
       {/* Teaching Journey & Online Course Section */}
       <AnimatedSection delay="delay-200">
         <SectionWrapper containerClassName="mt-12">
-          <SectionTitle className="text-left">{teachingJourney.title}</SectionTitle> {/* Ensured SectionTitle is left-aligned */}
-          <p className="text-lg mb-8 text-muted-foreground max-w-3xl text-left"> {/* Changed to text-left */}
+          <SectionTitle className="text-left">{teachingJourney.title}</SectionTitle>
+          <p className="text-lg mb-8 text-muted-foreground max-w-3xl text-left">
             {teachingJourney.description}
           </p>
-          <div className="text-left"> {/* Changed to text-left */}
+          <div className="text-left">
             <Button size="lg" asChild>
               <Link href={teachingJourney.courseUrl} target="_blank" rel="noopener noreferrer">
                 <BookOpen className="mr-2 h-5 w-5" /> {teachingJourney.enrollButton}
