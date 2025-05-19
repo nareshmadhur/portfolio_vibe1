@@ -9,6 +9,15 @@
 
 /**
  * Defines the structure for a project item in the portfolio.
+ * @interface Project
+ * @property {string} id - Unique identifier for the project.
+ * @property {string} title - Title of the project.
+ * @property {string} description - Description of the project.
+ * @property {string[]} technologies - Array of technologies used.
+ * @property {string} [githubUrl] - Optional URL to the GitHub repository.
+ * @property {string} [liveDemoUrl] - Optional URL to the live demo.
+ * @property {string} [imageUrl] - Optional URL for the project's image.
+ * @property {string} [dataAiHint] - Optional AI hint for image generation.
  */
 export interface Project {
   id: string;
@@ -23,27 +32,44 @@ export interface Project {
 
 /**
  * Defines the structure for an example video item for YouTube channel sections.
+ * @interface ExampleVideo
+ * @property {string} id - Unique identifier for the video.
+ * @property {string} videoId - YouTube video ID.
+ * @property {string} title - Title for the iframe (accessibility).
+ * @property {string} [description] - Optional description.
  */
 export interface ExampleVideo {
   id: string;
   videoId: string;
-  title: string; // Used for iframe accessibility title
-  description?: string; // Optional, may not be displayed on the card
+  title: string;
+  description?: string;
 }
 
 
 /**
  * Defines the structure for a performance video item.
+ * @interface PerformanceVideo
+ * @property {string} id - Unique identifier for the video.
+ * @property {string} videoId - YouTube video ID.
+ * @property {string} title - Title for the iframe (accessibility).
+ * @property {string} [description] - Optional description.
  */
 export interface PerformanceVideo {
   id: string;
   videoId: string;
-  title: string; // Used for iframe accessibility title
-  description?: string; // Optional, may not be displayed in carousel
+  title: string;
+  description?: string;
 }
 
 /**
  * Defines the structure for a photography item in the gallery.
+ * @interface Photo
+ * @property {string} id - Unique identifier for the photo.
+ * @property {string} title - Title of the photo.
+ * @property {string} description - Description of the photo.
+ * @property {string} imageUrl - URL of the photo image.
+ * @property {string} flickrUrl - URL to the photo on Flickr.
+ * @property {string} dataAiHint - AI hint for image generation.
  */
 export interface Photo {
   id:string;
@@ -62,7 +88,7 @@ export interface Photo {
 export const userProfile = {
   name: "Naresh Madhur",
   titles: ["AI Enthusiast", "Musician", "Photographer"],
-  bio: "Leveraging expertise in Data Science, Naresh Madhur drives impactful business solutions while passionately engaging in the artistic disciplines of music and photography. His work exemplifies a unique synergy of analytical precision and creative expression.",
+  bio: "Leveraging expertise in the Data Science industry, Naresh Madhur drives impactful business solutions while passionately engaging in the artistic disciplines of music and photography.",
   shortBio: "Driven by a relentless pursuit of excellence, novelty, and quality, Naresh actively engages with the latest advancements in his fields of passion. His dedication extends from globally teaching music to immersive street photography, reflecting a commitment to high-caliber work in all endeavors. Discover more about his diverse projects below.",
   contactEmail: "nareshmadhur@gmail.com",
   socialLinks: {
@@ -105,7 +131,7 @@ export const userProfile = {
  */
 export const siteContent = {
   global: {
-    appName: `${userProfile.name} | Portfolio`,
+    appName: `Naresh Madhur | Portfolio`,
     footer: {
       copyright: `© ${new Date().getFullYear()} ${userProfile.name}. All rights reserved.`,
       tagline: "Designed with passion.",
@@ -127,34 +153,34 @@ export const siteContent = {
   homePage: {
     about: {
       title: "About Me",
-      backgroundImageUrl: undefined, // Set to undefined if no bg image needed
+      backgroundImageUrl: undefined,
       backgroundImageAiHint: undefined,
     },
     portfolioTitle: "Portfolio Highlights",
     portfolioHighlightsWrapper: {
-        backgroundImageUrl: undefined, // Set to undefined if no bg image needed
+        backgroundImageUrl: undefined,
         backgroundImageAiHint: undefined,
     },
     sections: {
       music: {
         title: "Musical Pursuits",
         description: "Explore musical performances, original arrangements, and educational content.",
-        imageUrl: "https://placehold.co/800x450.png", // Updated aspect ratio
-        imageAiHint: "music studio",
+        imageUrl: "https://placehold.co/800x450.png",
+        imageAiHint: "guitar stage lights", // Specific hint
         linkUrl: "/music",
       },
       biAi: {
         title: "Data Science Explorations",
         description: "Discover use cases in BI, Data Analytics, and Artificial Intelligence.",
-        imageUrl: "https://placehold.co/800x450.png", // Updated aspect ratio
-        imageAiHint: "AI data",
+        imageUrl: "https://placehold.co/800x450.png",
+        imageAiHint: "data network nodes", // Specific hint
         linkUrl: "/bi-ai",
       },
       photography: {
         title: "Photography",
         description: "View diverse photographs captured during travels and street explorations.",
-        imageUrl: "https://placehold.co/800x450.png", // Updated aspect ratio
-        imageAiHint: "camera lens",
+        imageUrl: "https://placehold.co/800x450.png",
+        imageAiHint: "vintage camera travel", // Specific hint
         linkUrl: "/photography",
       }
     },
@@ -162,7 +188,7 @@ export const siteContent = {
       title: "Let's Connect",
       description: "Interested in collaborating or have a question? I'd love to hear from you.",
       buttonText: "Contact Me",
-      backgroundImageUrl: undefined, // Set to undefined if no bg image needed
+      backgroundImageUrl: undefined,
       backgroundImageAiHint: undefined,
     },
   },
@@ -257,16 +283,16 @@ export const siteContent = {
     viewOnFlickrLink: "View on Flickr",
   },
   metadata: {
-    defaultTitle: `${userProfile.name} | Portfolio`,
-    defaultDescription: `Portfolio of ${userProfile.name}, a Data Scientist, Musician, and Photographer. Explore BI/AI projects, music, and photography.`,
-    biAiTitle: `Tech. Pursuits | ${userProfile.name}`,
-    biAiDescription: `Explore a collection of Business Intelligence and Artificial Intelligence projects by ${userProfile.name}.`,
-    musicTitle: `Music & Teaching | ${userProfile.name}`,
-    musicDescription: `Listen to original compositions, covers, live performances, and explore music teaching by ${userProfile.name}.`,
-    photographyTitle: `Photography Gallery | ${userProfile.name}`,
-    photographyDescription: `Browse a collection of photographs by ${userProfile.name} capturing moments, landscapes, and stories.`,
-    contactTitle: `Contact Me | ${userProfile.name}`,
-    contactDescription: `Get in touch with ${userProfile.name} for inquiries related to data science, music, or photography.`,
+    defaultTitle: `Naresh Madhur | Portfolio`,
+    defaultDescription: `Portfolio of Naresh Madhur, showcasing expertise in Data Science & AI, music, and photography.`,
+    biAiTitle: `Tech. Pursuits | Naresh Madhur`,
+    biAiDescription: `Explore a collection of Business Intelligence and Artificial Intelligence projects by Naresh Madhur.`,
+    musicTitle: `Music & Teaching | Naresh Madhur`,
+    musicDescription: `Listen to original compositions, covers, live performances, and explore music teaching by Naresh Madhur.`,
+    photographyTitle: `Photography Gallery | Naresh Madhur`,
+    photographyDescription: `Browse a collection of photographs by Naresh Madhur capturing moments, landscapes, and stories.`,
+    contactTitle: `Contact Me | Naresh Madhur`,
+    contactDescription: `Get in touch with Naresh Madhur for inquiries related to data science, music, or photography.`,
   }
 };
 
@@ -347,3 +373,4 @@ export const photographyItems: Photo[] = [
     dataAiHint: 'ocean waves',
   },
 ];
+
