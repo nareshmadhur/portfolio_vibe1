@@ -1,21 +1,24 @@
-
-'use client'; // Required for useState and onClick handlers
+'use client'; // Required for useState, useEffect, and onClick handlers
 
 import { useState, useEffect } from 'react';
 import SectionTitle from "@/components/shared/SectionTitle";
 import SectionWrapper from "@/components/shared/SectionWrapper";
-import { siteContent } from "@/lib/constants";
+import { siteContent, userProfile } from "@/lib/constants"; // userProfile might be needed for contact button text
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Youtube, BookOpen, ExternalLink, Music, ChevronLeft, ChevronRight } from "lucide-react";
+import { Youtube, BookOpen, ChevronLeft, ChevronRight, Music } from "lucide-react";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import YouTubePlayer from "@/components/shared/YouTubePlayer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-// Removed ContactSection import as it's no longer directly embedded
+
+/**
+ * @fileoverview Page component for showcasing music projects, YouTube channels, performances, and teaching.
+ * Includes client-side state for carousel functionality.
+ */
 
 /**
  * Page component for showcasing music projects, YouTube channels, performances, and teaching.
- * @returns {JSX.Element | null} The Music & Teaching page. Returns null if not mounted to avoid hydration mismatch.
+ * @returns {JSX.Element | null} The Music & Teaching page. Returns null if not mounted to avoid hydration mismatch for carousel.
  */
 export default function MusicPage() {
   const { title, description, sections } = siteContent.musicPage;
@@ -28,7 +31,7 @@ export default function MusicPage() {
     setIsMounted(true);
   }, []);
 
-  const performanceVideos = youtube.performances.videos;
+  const performanceVideos = youtube.performances.videos || [];
 
   const nextPerformance = () => {
     setCurrentPerformanceIndex((prevIndex) =>
@@ -41,6 +44,23 @@ export default function MusicPage() {
       prevIndex === 0 ? performanceVideos.length - 1 : prevIndex - 1
     );
   };
+
+  // Auto-advance for the performance carousel
+  useEffect(() => {
+    if (!isMounted || performanceVideos.length <= 1) {
+      return; // Don't start interval if not mounted or not enough videos
+    }
+
+    const intervalId = setInterval(() => {
+      setCurrentPerformanceIndex(prevIndex =>
+        prevIndex === performanceVideos.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000); // Auto-advance every 5 seconds
+
+    // Clear interval on component unmount or if dependencies change (e.g., user navigates)
+    return () => clearInterval(intervalId);
+  }, [isMounted, currentPerformanceIndex, performanceVideos.length]);
+
 
   // Avoid hydration mismatch by not rendering on the server initially for carousel state.
   if (!isMounted) {
@@ -58,7 +78,7 @@ export default function MusicPage() {
 
       {/* YouTube Presence Section */}
       <AnimatedSection delay="delay-100">
-        <SectionWrapper containerClassName="space-y-12">
+        <SectionWrapper containerClassName="space-y-12"> {/* Increased spacing for subsections */}
           <SectionTitle>{youtube.title}</SectionTitle>
           <p className="text-md mb-10 text-muted-foreground max-w-2xl text-left -mt-4">
             {youtube.description}
@@ -150,7 +170,7 @@ export default function MusicPage() {
 
           {/* Live Performances & Collaborations Subsection */}
           <AnimatedSection delay="delay-400">
-            <div className="mt-12">
+            <div className="mt-12"> {/* Added margin-top for separation */}
               <h3 className="text-2xl font-semibold mb-4 text-foreground text-left">{youtube.performances.title}</h3>
               <p className="text-md mb-6 text-muted-foreground max-w-3xl text-left">
                 {youtube.performances.description}
@@ -198,7 +218,7 @@ export default function MusicPage() {
           <p className="text-lg mb-8 text-muted-foreground max-w-3xl text-left">
             {teachingJourney.description}
           </p>
-          <div className="text-left">
+          <div className="text-left"> {/* Ensure button is left-aligned */}
             <Button size="lg" asChild>
               <Link href={teachingJourney.courseUrl} target="_blank" rel="noopener noreferrer">
                 <BookOpen className="mr-2 h-5 w-5" /> {teachingJourney.enrollButton}
@@ -210,5 +230,3 @@ export default function MusicPage() {
     </SectionWrapper>
   );
 }
-
-    
