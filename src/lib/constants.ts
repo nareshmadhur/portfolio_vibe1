@@ -183,16 +183,16 @@ export const siteContent = {
           description: "Original songs, covers, and full song arrangements where Naresh performs vocals and music.",
           channelName: "@NareshMadhur",
           channelUrl: "https://www.youtube.com/@NareshMadhur",
-          exampleVideoId: "T3bU2f2pXzQ", // Updated: Nee Kavithaigala
-          exampleVideoTitle: "Nee Kavithaigala - Performance by Naresh Madhur",
+          exampleVideoId: "mWC9ra1V0zw", // Updated
+          exampleVideoTitle: "Kadhal Sadugudu - Alaipayuthey | Cover by Naresh Madhur", // Updated
         },
         guitarTeaching: {
           title: "Guitar & Music Lessons",
           description: "In-depth guitar lessons, Carnatic music insights, and tips for aspiring musicians.",
           channelName: "@nareshteaches",
           channelUrl: "https://www.youtube.com/@nareshteaches",
-          exampleVideoId: "081LZAw5k74", // Updated: Carnatic Guitar lessons for beginners - Demo
-          exampleVideoTitle: "Carnatic Guitar Lessons Demo",
+          exampleVideoId: "SASDA2AkFFk", // Updated
+          exampleVideoTitle: "Carnatic Guitar Lesson - Varnam Basics", // Updated
         },
         performances: {
           title: "Live Performances & Collaborations",
