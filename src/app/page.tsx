@@ -41,20 +41,20 @@ export default function Home() {
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
             <AnimatedSection delay="delay-100">
               <HomePageSectionCard
-                title={siteContent.homePage.sections.biAi.title}
-                description={siteContent.homePage.sections.biAi.description}
-                imageUrl={siteContent.homePage.sections.biAi.imageUrl}
-                imageAiHint={siteContent.homePage.sections.biAi.imageAiHint}
-                linkUrl={siteContent.homePage.sections.biAi.linkUrl}
-              />
-            </AnimatedSection>
-            <AnimatedSection delay="delay-200">
-              <HomePageSectionCard
                 title={siteContent.homePage.sections.music.title}
                 description={siteContent.homePage.sections.music.description}
                 imageUrl={siteContent.homePage.sections.music.imageUrl}
                 imageAiHint={siteContent.homePage.sections.music.imageAiHint}
                 linkUrl={siteContent.homePage.sections.music.linkUrl}
+              />
+            </AnimatedSection>
+            <AnimatedSection delay="delay-200">
+              <HomePageSectionCard
+                title={siteContent.homePage.sections.biAi.title}
+                description={siteContent.homePage.sections.biAi.description}
+                imageUrl={siteContent.homePage.sections.biAi.imageUrl}
+                imageAiHint={siteContent.homePage.sections.biAi.imageAiHint}
+                linkUrl={siteContent.homePage.sections.biAi.linkUrl}
               />
             </AnimatedSection>
             <AnimatedSection delay="delay-300">

@@ -16,8 +16,8 @@ import { siteContent } from '@/lib/constants';
  */
 const navLinks = [
   { href: '/', label: siteContent.nav.home },
+  { href: '/music', label: siteContent.nav.music }, // Ensured this is second
   { href: '/bi-ai', label: siteContent.nav.biAiProjects },
-  { href: '/music', label: siteContent.nav.music },
   { href: '/photography', label: siteContent.nav.photography },
   { href: '/contact', label: siteContent.nav.contact },
 ];
