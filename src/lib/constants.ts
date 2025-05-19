@@ -82,7 +82,7 @@ export const userProfile = {
   ],
   music: {
     instruments: ["Carnatic Guitar", "Vocals"],
-    description: "An avid musician specializing in Carnatic Guitar and vocals, Naresh also possesses global experience in teaching music.",
+    description: "An avid musician specializing in Carnatic Guitar and vocals, Naresh Madhur also possesses global experience in teaching music.",
     youtubeChannels: [
       { name: "Music Videos", url: "https://www.youtube.com/@NareshMadhur" },
       { name: "Guitar musings & lessons", url: "https://www.youtube.com/@nareshteaches" },
@@ -127,12 +127,12 @@ export const siteContent = {
   homePage: {
     about: {
       title: "About Me",
-      backgroundImageUrl: undefined, // No background for this section wrapper
+      backgroundImageUrl: undefined,
       backgroundImageAiHint: undefined,
     },
     portfolioTitle: "Portfolio Highlights",
     portfolioHighlightsWrapper: {
-        backgroundImageUrl: undefined, // No background for this section wrapper
+        backgroundImageUrl: undefined,
         backgroundImageAiHint: undefined,
     },
     sections: {
@@ -162,7 +162,7 @@ export const siteContent = {
       title: "Let's Connect",
       description: "Interested in collaborating or have a question? I'd love to hear from you.",
       buttonText: "Contact Me",
-      backgroundImageUrl: undefined, // No background for this section wrapper
+      backgroundImageUrl: undefined,
       backgroundImageAiHint: undefined,
     },
   },
@@ -218,10 +218,6 @@ export const siteContent = {
         description: "With over three years of experience teaching Carnatic Guitar to more than 20 students globally, Naresh Madhur offers instruction for both beginner and intermediate levels. His passion for sharing musical knowledge led to the creation of a comprehensive online course, meticulously designed to guide aspiring guitarists. Explore his flagship course on Thinkific for structured lessons and personalized guidance.",
         courseUrl: "https://naresh-madhur-onlinecourses.thinkific.com/courses/carnatic-guitar-beginners",
         enrollButton: "Enroll in Course",
-        images: [
-          {src: 'https://course-assets.thinkific.com/courses/170993/dO1Q4t8XQ3eHjH2fC177_Carnatic_Guitar_Course_Thumbnail_High_Quality.jpg', alt: 'Carnatic Guitar Course Thumbnail', dataAiHint: 'online course guitar'},
-          {src: 'https://course-assets.thinkific.com/users/523449/avatar-52a51c0eb37aa21f46303e109993cb5f.jpg', alt: 'Naresh Madhur, Music Instructor', dataAiHint: 'musician portrait teaching'}
-        ]
       },
     },
   },
@@ -356,3 +352,6 @@ export const photographyItems: Photo[] = [
 // Deprecated musicVideos - content is now under siteContent.musicPage
 /** @deprecated Use siteContent.musicPage.sections.youtube.musicVideos and .performances instead */
 export const musicVideos: ExampleVideo[] = [];
+
+
+    

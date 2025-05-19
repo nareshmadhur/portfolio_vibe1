@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Youtube, BookOpen, ExternalLink, Music } from "lucide-react";
 import AnimatedSection from "@/components/shared/AnimatedSection";
-import Image from "next/image";
 import YouTubePlayer from "@/components/shared/YouTubePlayer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -56,7 +55,9 @@ export default function MusicPage() {
               <CardContent className="space-y-6">
                 <div>
                   <h4 className="text-lg font-semibold mb-2 text-foreground">Featured Video</h4>
-                  <YouTubePlayer videoId={youtube.musicVideos.featuredVideoId} title={youtube.musicVideos.featuredVideoTitle} />
+                  <div className="max-w-xl mx-auto mb-4">
+                    <YouTubePlayer videoId={youtube.musicVideos.featuredVideoId} title={youtube.musicVideos.featuredVideoTitle} />
+                  </div>
                 </div>
                 {youtube.musicVideos.otherExampleVideos && youtube.musicVideos.otherExampleVideos.length > 0 && (
                   <div>
@@ -97,7 +98,9 @@ export default function MusicPage() {
               <CardContent className="space-y-6">
                 <div>
                   <h4 className="text-lg font-semibold mb-2 text-foreground">Featured Lesson</h4>
-                  <YouTubePlayer videoId={youtube.guitarTeaching.featuredVideoId} title={youtube.guitarTeaching.featuredVideoTitle} />
+                  <div className="max-w-xl mx-auto mb-4">
+                    <YouTubePlayer videoId={youtube.guitarTeaching.featuredVideoId} title={youtube.guitarTeaching.featuredVideoTitle} />
+                  </div>
                 </div>
                 {youtube.guitarTeaching.otherExampleVideos && youtube.guitarTeaching.otherExampleVideos.length > 0 && (
                   <div>
@@ -163,27 +166,10 @@ export default function MusicPage() {
       <AnimatedSection delay="delay-200">
         <SectionWrapper containerClassName="mt-12">
           <SectionTitle>{teachingJourney.title}</SectionTitle>
-          <p className="text-lg mb-8 text-muted-foreground max-w-3xl text-left">
+          <p className="text-lg mb-8 text-muted-foreground max-w-3xl mx-auto text-center">
             {teachingJourney.description}
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 items-center">
-            {teachingJourney.images.map((image, index) => (
-              <AnimatedSection key={index} delay={`delay-${(index + 2) * 100}` as `delay-${number}`}>
-                <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-lg group">
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    layout="fill"
-                    objectFit="cover"
-                    className="group-hover:scale-105 transition-transform duration-300"
-                    data-ai-hint={image.dataAiHint}
-                    priority={index === 0} // Add priority to the first image
-                  />
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-          <div className="text-left md:text-center">
+          <div className="text-center"> {/* Ensure button is centered */}
             <Button size="lg" asChild>
               <Link href={teachingJourney.courseUrl} target="_blank" rel="noopener noreferrer">
                 <BookOpen className="mr-2 h-5 w-5" /> {teachingJourney.enrollButton}
@@ -195,3 +181,5 @@ export default function MusicPage() {
     </SectionWrapper>
   );
 }
+
+    
