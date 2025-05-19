@@ -51,7 +51,7 @@ export interface Photo {
 export const userProfile = {
   name: "Naresh Madhur",
   titles: ["AI Enthusiast", "Musician", "Photographer"], // Array for animated titles
-  bio: "Works in the Data Science industry, with hands deep into artistic pursuit of music and photography.",
+  bio: "Leveraging expertise in Data Science, Naresh Madhur drives impactful business solutions while passionately engaging in the artistic disciplines of music and photography. His work exemplifies a unique synergy of analytical precision and creative expression.",
   shortBio: "Driven by a relentless pursuit of excellence, novelty, and quality, Naresh actively engages with the latest advancements in his fields of passion. His dedication extends from globally teaching music to immersive street photography, reflecting a commitment to high-caliber work in all endeavors. Discover more about his diverse projects below.",
   contactEmail: "nareshmadhur@gmail.com",
   socialLinks: {
@@ -71,14 +71,14 @@ export const userProfile = {
   ],
   music: {
     instruments: ["Carnatic Guitar", "Vocals"],
-    description: "An avid musician specializing in Carnatic Guitar and vocals. I also have experience in teaching music.",
+    description: "An avid musician specializing in Carnatic Guitar and vocals, with global experience in teaching music.",
     youtubeChannels: [
       { name: "Music Videos", url: "https://www.youtube.com/@NareshMadhur", exampleVideo: "https://www.youtube.com/watch?v=R_K21W0J_2s" },
       { name: "Guitar musings & lessons", url: "https://www.youtube.com/@nareshmadhurcovers", exampleVideo: "https://www.youtube.com/watch?v=C5zJd56G4o4" },
     ],
   },
   photography: {
-    description: "Dedicated photographer capturing visual narratives. I primarily use Fujifilm cameras and process my RAW files with Rawtherapee.",
+    description: "Dedicated photographer capturing visual narratives. He primarily uses Fujifilm cameras and processes his RAW files with RawTherapee.",
     flickrProfileUrl: "https://www.flickr.com/photos/nareshmadhur",
     examplePhotos: [
       { title: "Example Photo 1", url: "https://placehold.co/600x400.png", flickrUrl: "https://www.flickr.com/photos/nareshmadhur/example_id_1" },
@@ -104,7 +104,7 @@ export const YOUTUBE_CHANNEL_URLS = userProfile.music.youtubeChannels.map(channe
  */
 export const siteContent = {
   global: {
-    appName: "Naresh Madhur", // Updated App Name
+    appName: "Naresh Madhur",
     footer: {
       copyright: `© ${new Date().getFullYear()} ${userProfile.name}. All rights reserved.`,
       tagline: "Designed with passion.",
@@ -112,8 +112,8 @@ export const siteContent = {
   },
   nav: {
     home: "Home",
+    music: "Music & Teaching", // Moved up
     biAiProjects: "Tech. Pursuits",
-    music: "Music & Teaching",
     photography: "Photography",
     contact: "Contact",
   },
@@ -143,15 +143,15 @@ export const siteContent = {
         linkUrl: "/bi-ai",
       },
       music: {
-        title: "Musical Pusuits",
-        description: "Listen and Watch musical performances with guitar and vocals.",
+        title: "Musical Pursuits", // Corrected spelling
+        description: "Explore musical performances featuring guitar and vocals.", // Reworded
         imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/guitar-65Wzc1cVPra94zU6ikj0S731rWZqh4.jpg",
         imageAiHint: "music studio",
         linkUrl: "/music",
       },
       photography: {
         title: "Photography",
-        description: "See pictures captured during his visits across the world.",
+        description: "View photographs captured during his travels around the world.", // Reworded
         imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSCF1726-8UZLZmtCQTAMWVScGAWwSGjZcJBMvG.jpeg",
         imageAiHint: "camera lens",
         linkUrl: "/photography",
@@ -339,3 +339,5 @@ export const photographyItems: Photo[] = [
     dataAiHint: 'ocean waves',
   },
 ];
+
+    
