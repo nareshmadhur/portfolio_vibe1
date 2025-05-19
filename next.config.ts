@@ -23,6 +23,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'course-assets.thinkific.com', // Added for Thinkific course images
+        port: '',
+        pathname: '/**',
+      }
     ],
   },
 };

@@ -22,13 +22,23 @@ export interface Project {
 }
 
 /**
- * Defines the structure for a music video item.
+ * Defines the structure for a music video item for the old MusicShowcase component (now mostly superseded).
  */
 export interface MusicVideo {
   id: string;
   youtubeVideoId: string;
   title: string;
   description: string;
+}
+
+/**
+ * Defines the structure for a performance video item.
+ */
+export interface PerformanceVideo {
+  id: string;
+  videoId: string;
+  title: string;
+  description?: string;
 }
 
 /**
@@ -72,29 +82,19 @@ export const userProfile = {
   music: {
     instruments: ["Carnatic Guitar", "Vocals"],
     description: "An avid musician specializing in Carnatic Guitar and vocals, with global experience in teaching music.",
-    youtubeChannels: [
-      { name: "Music Videos", url: "https://www.youtube.com/@NareshMadhur", exampleVideo: "https://www.youtube.com/watch?v=R_K21W0J_2s" },
-      { name: "Guitar musings & lessons", url: "https://www.youtube.com/@nareshmadhurcovers", exampleVideo: "https://www.youtube.com/watch?v=C5zJd56G4o4" },
+    youtubeChannels: [ // This might be redundant now with the new musicPage structure below
+      { name: "Music Videos", url: "https://www.youtube.com/@NareshMadhur" },
+      { name: "Guitar musings & lessons", url: "https://www.youtube.com/@nareshteaches" },
     ],
   },
   photography: {
     description: "Dedicated photographer capturing visual narratives. He primarily uses Fujifilm cameras and processes his RAW files with RawTherapee.",
     flickrProfileUrl: "https://www.flickr.com/photos/nareshmadhur",
-    examplePhotos: [
+    examplePhotos: [ // This might be redundant if photographyItems is comprehensive
       { title: "Example Photo 1", url: "https://placehold.co/600x400.png", flickrUrl: "https://www.flickr.com/photos/nareshmadhur/example_id_1" },
     ]
   }
 };
-
-/**
- * @description Array of YouTube channel URLs for the music section.
- */
-export const YOUTUBE_CHANNEL_URLS = userProfile.music.youtubeChannels.map(channel => ({
-  name: channel.name,
-  url: channel.url,
-}));
-
-
 
 // --- Site Content (UI Text Strings & Image URLs) ---
 
@@ -104,7 +104,7 @@ export const YOUTUBE_CHANNEL_URLS = userProfile.music.youtubeChannels.map(channe
  */
 export const siteContent = {
   global: {
-    appName: "Naresh Madhur",
+    appName: "Naresh Madhur | Portfolio",
     footer: {
       copyright: `© ${new Date().getFullYear()} ${userProfile.name}. All rights reserved.`,
       tagline: "Designed with passion.",
@@ -112,7 +112,7 @@ export const siteContent = {
   },
   nav: {
     home: "Home",
-    music: "Music & Teaching", // Moved up
+    music: "Music & Teaching",
     biAiProjects: "Tech. Pursuits",
     photography: "Photography",
     contact: "Contact",
@@ -120,38 +120,38 @@ export const siteContent = {
   heroSection: {
     getInTouchButton: "Get in Touch",
     backgroundImageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSCF1608-50OIV9jSs2cnP23gL5PPC6mbqkICF3.jpg",
-    backgroundImageAlt: "Hero background image depicting a landscape or abstract design.",
-    backgroundImageAiHint: "nature landscape",
+    backgroundImageAlt: "Hero background image depicting Naresh Madhur with a guitar.",
+    backgroundImageAiHint: "musician guitar portrait",
   },
   homePage: {
     about: {
       title: "About Me",
-      backgroundImageUrl: undefined,
+      backgroundImageUrl: undefined, // No background image for "About Me" section wrapper
       backgroundImageAiHint: undefined,
     },
     portfolioTitle: "Portfolio Highlights",
     portfolioHighlightsWrapper: {
-        backgroundImageUrl: undefined,
+        backgroundImageUrl: undefined, // No background for the wrapper of portfolio cards
         backgroundImageAiHint: undefined,
     },
     sections: {
-      biAi: {
-        title: "Data Science Explorations",
-        description: "More about Naresh's tech use cases and explorations.",
-        imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSC09308%20%281%29-UdBMIYLlILXq18JM2yBKnYyLlZ5SXK.jpeg",
-        imageAiHint: "AI data",
-        linkUrl: "/bi-ai",
-      },
       music: {
-        title: "Musical Pursuits", // Corrected spelling
-        description: "Explore musical performances featuring guitar and vocals.", // Reworded
+        title: "Musical Pursuits",
+        description: "Explore musical performances and educational content.",
         imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/guitar-65Wzc1cVPra94zU6ikj0S731rWZqh4.jpg",
         imageAiHint: "music studio",
         linkUrl: "/music",
       },
+      biAi: {
+        title: "Data Science Explorations",
+        description: "Discover use cases in BI, Data Analytics, and AI.",
+        imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSC09308%20%281%29-UdBMIYLlILXq18JM2yBKnYyLlZ5SXK.jpeg",
+        imageAiHint: "AI data",
+        linkUrl: "/bi-ai",
+      },
       photography: {
         title: "Photography",
-        description: "View photographs captured during his travels around the world.", // Reworded
+        description: "View photographs captured during travels around the world.",
         imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSCF1726-8UZLZmtCQTAMWVScGAWwSGjZcJBMvG.jpeg",
         imageAiHint: "camera lens",
         linkUrl: "/photography",
@@ -161,7 +161,7 @@ export const siteContent = {
       title: "Let's Connect",
       description: "Interested in collaborating or have a question? I'd love to hear from you.",
       buttonText: "Contact Me",
-      backgroundImageUrl: undefined,
+      backgroundImageUrl: undefined, // No background image for "Contact" section wrapper
       backgroundImageAiHint: undefined,
     },
   },
@@ -170,23 +170,53 @@ export const siteContent = {
     description: "A showcase of my work in Business Intelligence, Data Analytics, and Artificial Intelligence. Each project highlights different skills and technologies I've utilized to solve complex problems and deliver actionable insights.",
   },
   musicPage: {
-    title: "Music Showcase",
-    description: "Dive into my musical world. Here you'll find a collection of my original tracks, covers, and live performances.",
-    visitYouTubeButton: "Visit my YouTube Channel",
+    title: "Music & Teaching",
+    description: "Dive into my musical world and teaching endeavors. Explore original tracks, covers, live performances, and educational content.",
+    visitYouTubeButton: "Visit Channel", // Generic button text
+    viewPerformanceButton: "Watch Performance",
     sections: {
-      videos: {
-        title: "Music Videos and Covers",
-        description: "Explore my music videos and covers on YouTube.",
+      youtube: {
+        title: "My YouTube Presence",
+        description: "Explore my musical expressions, covers, and guitar lessons across my YouTube channels.",
+        musicVideos: {
+          title: "Music Videos & Arrangements",
+          description: "Original songs, covers, and full song arrangements where I perform vocals and music.",
+          channelName: "@NareshMadhur",
+          channelUrl: "https://www.youtube.com/@NareshMadhur",
+          exampleVideoId: "Sy61QG2wGco", // Example from performances
+          exampleVideoTitle: "Arrangement Example",
+        },
+        guitarTeaching: {
+          title: "Guitar & Music Lessons",
+          description: "In-depth guitar lessons, Carnatic music insights, and tips for aspiring musicians.",
+          channelName: "@nareshteaches",
+          channelUrl: "https://www.youtube.com/@nareshteaches",
+          exampleVideoId: "J6k-TBU_0GM", // Example from performances
+          exampleVideoTitle: "Guitar Lesson Teaser",
+        },
+        performances: {
+          title: "Live Performances & Collaborations",
+          description: "A collection of my live performances and collaborations.",
+          videos: [
+            { id: 'perf1', videoId: 'rK4F0-Cu0bU', title: 'Live Performance Clip 1', description: 'A captivating live moment.' },
+            { id: 'perf2', videoId: 'J6k-TBU_0GM', title: 'Live Performance Clip 2', description: 'Showcasing musical synergy.' },
+            { id: 'perf3', videoId: 'Sy61QG2wGco', title: 'Live Performance Clip 3', description: 'An energetic performance.' },
+          ] as PerformanceVideo[],
+        }
       },
-      course: {
-        title: "My Online Guitar Course",
-        description: "Learn to play guitar with my comprehensive online course.",
+      teachingJourney: {
+        title: "My Teaching Journey & Online Course",
+        description: "Driven by a passion to share musical knowledge, I offer comprehensive online courses designed for aspiring guitarists. Learn Carnatic music on the guitar with structured lessons and personalized guidance. Explore my flagship course on Thinkific.",
+        courseUrl: "https://naresh-madhur-onlinecourses.thinkific.com/courses/carnatic-guitar-beginners",
         enrollButton: "Enroll in Course",
+        images: [
+          {src: 'https://course-assets.thinkific.com/courses/170993/dO1Q4t8XQ3eHjH2fC177_Carnatic_Guitar_Course_Thumbnail_High_Quality.jpg', alt: 'Carnatic Guitar Course Thumbnail', dataAiHint: 'online course guitar'},
+          {src: 'https://course-assets.thinkific.com/users/523449/avatar-52a51c0eb37aa21f46303e109993cb5f.jpg', alt: 'Naresh Madhur, Music Instructor', dataAiHint: 'musician portrait teaching'}
+        ]
       },
     },
+    // Old structure to be deprecated or removed if not used elsewhere
     onlineCourseUrl: "https://naresh-madhur-onlinecourses.thinkific.com/courses/carnatic-guitar-beginners",
-    musicVideosChannelId: "UCwwHtswu_PJFCDzB7eZk_iA",
-    guitarTeachingChannelId: "UC7AXqJQpf8DFPrEFi16Az1Q",
   },
   photographyPage: {
     title: "Photography Gallery",
@@ -222,20 +252,21 @@ export const siteContent = {
     viewOnFlickrLink: "View on Flickr",
   },
   metadata: {
-    defaultTitle: `Naresh Madhur | Portfolio`,
-    defaultDescription: `Portfolio of Naresh Madhur, a BI/AI Engineer, Musician, and Photographer.`,
-    biAiTitle: "BI & AI Projects | Naresh Madhur",
-    biAiDescription: "Explore a collection of Business Intelligence and Artificial Intelligence projects by Naresh Madhur.",
-    musicTitle: "Music Showcase | Naresh Madhur",
-    musicDescription: "Listen to original compositions, covers, and live performances by Naresh Madhur.",
-    photographyTitle: "Photography Gallery | Naresh Madhur",
-    photographyDescription: "Browse a collection of photographs by Naresh Madhur capturing moments, landscapes, and stories.",
-    contactTitle: "Contact Me | Naresh Madhur",
-    contactDescription: "Get in touch with Naresh Madhur for inquiries related to engineering, music, or photography.",
+    defaultTitle: `${userProfile.name} | Data Scientist, Musician, Photographer`,
+    defaultDescription: `Portfolio of ${userProfile.name}, a Data Scientist, Musician, and Photographer. Explore BI/AI projects, music, and photography.`,
+    biAiTitle: `Tech. Pursuits | ${userProfile.name}`,
+    biAiDescription: `Explore a collection of Business Intelligence and Artificial Intelligence projects by ${userProfile.name}.`,
+    musicTitle: `Music & Teaching | ${userProfile.name}`,
+    musicDescription: `Listen to original compositions, covers, live performances, and explore music teaching by ${userProfile.name}.`,
+    photographyTitle: `Photography Gallery | ${userProfile.name}`,
+    photographyDescription: `Browse a collection of photographs by ${userProfile.name} capturing moments, landscapes, and stories.`,
+    contactTitle: `Contact Me | ${userProfile.name}`,
+    contactDescription: `Get in touch with ${userProfile.name} for inquiries related to data science, music, or photography.`,
   }
 };
 
-export const MUSIC_COURSE_URL = siteContent.musicPage.onlineCourseUrl;
+/** @deprecated Use siteContent.musicPage.sections.teachingJourney.courseUrl instead */
+export const MUSIC_COURSE_URL = siteContent.musicPage.sections.teachingJourney.courseUrl;
 
 
 // --- Project Data ---
@@ -276,6 +307,7 @@ export const biAiProjects: Project[] = [
 
 // --- Music Video Data ---
 /**
+ * @deprecated This is an old structure for music videos, prefer the new structure under siteContent.musicPage.
  * Array of music videos to be showcased.
  * Each object conforms to the `MusicVideo` interface.
  */
@@ -339,5 +371,3 @@ export const photographyItems: Photo[] = [
     dataAiHint: 'ocean waves',
   },
 ];
-
-    

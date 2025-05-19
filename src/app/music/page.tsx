@@ -1,15 +1,17 @@
 
 import SectionTitle from "@/components/shared/SectionTitle";
 import SectionWrapper from "@/components/shared/SectionWrapper";
-import { siteContent, YOUTUBE_CHANNEL_URLS, MUSIC_COURSE_URL } from "@/lib/constants";
+import { siteContent } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Youtube } from "lucide-react";
+import { Youtube, BookOpen, ExternalLink } from "lucide-react";
 import AnimatedSection from "@/components/shared/AnimatedSection";
-import Image from "next/image"; // Added for placeholder images
+import Image from "next/image";
+import YouTubePlayer from "@/components/shared/YouTubePlayer";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 /**
- * Metadata for the Music Showcase page.
+ * Metadata for the Music & Teaching page.
  */
 export const metadata = {
   title: siteContent.metadata.musicTitle,
@@ -17,64 +19,127 @@ export const metadata = {
 };
 
 /**
- * Page component for showcasing music projects and linking to YouTube.
- * @returns {JSX.Element} The Music Showcase page.
+ * Page component for showcasing music projects, YouTube channels, performances, and teaching.
+ * @returns {JSX.Element} The Music & Teaching page.
  */
 export default function MusicPage() {
+  const { title, description, sections } = siteContent.musicPage;
+  const { youtube, teachingJourney } = sections;
+
   return (
     <SectionWrapper>
       <AnimatedSection>
-        <SectionTitle>{siteContent.musicPage.title}</SectionTitle>
-        <p className="text-lg mb-10 text-muted-foreground max-w-2xl text-left">
-          {siteContent.musicPage.description}
+        <SectionTitle>{title}</SectionTitle>
+        <p className="text-lg mb-10 text-muted-foreground max-w-3xl text-left">
+          {description}
         </p>
       </AnimatedSection>
 
-      {/* Music Videos and Covers Section */}
+      {/* YouTube Presence Section */}
       <AnimatedSection delay="delay-100">
-        <SectionWrapper>
-          <SectionTitle>{siteContent.musicPage.sections.videos.title}</SectionTitle>
-          <p className="text-lg mb-10 text-muted-foreground max-w-2xl text-left">
-            {siteContent.musicPage.sections.videos.description}
+        <SectionWrapper containerClassName="space-y-12">
+          <SectionTitle>{youtube.title}</SectionTitle>
+          <p className="text-md mb-10 text-muted-foreground max-w-2xl text-left -mt-4">
+            {youtube.description}
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {YOUTUBE_CHANNEL_URLS.map((channel, index) => (
-              <AnimatedSection key={index} delay={`delay-${(index + 1) * 100}` as `delay-${number}`}>
-                <div className="flex flex-col items-center text-center p-4 bg-card/50 rounded-lg shadow-lg">
-                  <h3 className="text-2xl font-bold mb-4">{channel.name}</h3>
-                  <Link href={channel.url} target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity block w-full aspect-video relative mb-4">
-                    <Image 
-                      src={`https://placehold.co/600x338.png`} // Placeholder, 16:9
-                      alt={`Link to ${channel.name}`} 
-                      layout="fill"
-                      objectFit="cover"
-                      className="rounded-lg shadow-md"
-                      data-ai-hint="music channel"
-                    />
+
+          {/* Music Videos & Arrangements Subsection */}
+          <AnimatedSection delay="delay-200">
+            <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <CardHeader>
+                <CardTitle className="text-xl">{youtube.musicVideos.title}</CardTitle>
+                <CardDescription>{youtube.musicVideos.description}</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <YouTubePlayer videoId={youtube.musicVideos.exampleVideoId} title={youtube.musicVideos.exampleVideoTitle} />
+                <Button asChild variant="secondary">
+                  <Link href={youtube.musicVideos.channelUrl} target="_blank" rel="noopener noreferrer">
+                    <Youtube className="mr-2 h-5 w-5" /> {siteContent.musicPage.visitYouTubeButton} ({youtube.musicVideos.channelName})
                   </Link>
-                  <Button asChild variant="secondary">
-                    <Link href={channel.url} target="_blank" rel="noopener noreferrer">
-                      <Youtube className="mr-2 h-5 w-5" /> {siteContent.musicPage.visitYouTubeButton}
-                    </Link>
-                  </Button>
+                </Button>
+              </CardContent>
+            </Card>
+          </AnimatedSection>
+
+          {/* Guitar & Music Lessons Subsection */}
+          <AnimatedSection delay="delay-300">
+            <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <CardHeader>
+                <CardTitle className="text-xl">{youtube.guitarTeaching.title}</CardTitle>
+                <CardDescription>{youtube.guitarTeaching.description}</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <YouTubePlayer videoId={youtube.guitarTeaching.exampleVideoId} title={youtube.guitarTeaching.exampleVideoTitle} />
+                <Button asChild variant="secondary">
+                  <Link href={youtube.guitarTeaching.channelUrl} target="_blank" rel="noopener noreferrer">
+                    <Youtube className="mr-2 h-5 w-5" /> {siteContent.musicPage.visitYouTubeButton} ({youtube.guitarTeaching.channelName})
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </AnimatedSection>
+
+          {/* Live Performances & Collaborations Subsection */}
+          <AnimatedSection delay="delay-400">
+            <div>
+              <h3 className="text-2xl font-semibold mb-4 text-foreground">{youtube.performances.title}</h3>
+              <p className="text-md mb-6 text-muted-foreground max-w-2xl text-left">
+                {youtube.performances.description}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {youtube.performances.videos.map((video, index) => (
+                  <AnimatedSection key={video.id} delay={`delay-${(index + 1) * 100}` as `delay-${number}`}>
+                     <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
+                      <CardContent className="p-0">
+                        <YouTubePlayer videoId={video.videoId} title={video.title} />
+                      </CardContent>
+                      <CardHeader className="flex-grow">
+                        <CardTitle className="text-lg">{video.title}</CardTitle>
+                        {video.description && <CardDescription className="text-sm">{video.description}</CardDescription>}
+                      </CardHeader>
+                      <CardContent>
+                         <Button asChild variant="link" className="p-0 h-auto text-sm">
+                            <Link href={`https://www.youtube.com/watch?v=${video.videoId}`} target="_blank" rel="noopener noreferrer">
+                               {siteContent.musicPage.viewPerformanceButton} <ExternalLink className="ml-1 h-3 w-3" />
+                            </Link>
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </AnimatedSection>
+                ))}
+              </div>
+            </div>
+          </AnimatedSection>
+        </SectionWrapper>
+      </AnimatedSection>
+
+      {/* Teaching Journey & Online Course Section */}
+      <AnimatedSection delay="delay-200">
+        <SectionWrapper containerClassName="mt-12">
+          <SectionTitle>{teachingJourney.title}</SectionTitle>
+          <p className="text-lg mb-8 text-muted-foreground max-w-3xl text-left">
+            {teachingJourney.description}
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 items-center">
+            {teachingJourney.images.map((image, index) => (
+              <AnimatedSection key={index} delay={`delay-${(index + 2) * 100}` as `delay-${number}`}>
+                <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-lg group">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    layout="fill"
+                    objectFit="cover"
+                    className="group-hover:scale-105 transition-transform duration-300"
+                    data-ai-hint={image.dataAiHint}
+                  />
                 </div>
               </AnimatedSection>
             ))}
           </div>
-        </SectionWrapper>
-      </AnimatedSection>
-
-      {/* Online Course Section */}
-      <AnimatedSection delay="delay-200">
-        <SectionWrapper>
-          <SectionTitle>{siteContent.musicPage.sections.course.title}</SectionTitle>
-          <p className="text-lg mb-6 text-muted-foreground max-w-2xl text-left">
-            {siteContent.musicPage.sections.course.description}
-          </p>
-          <div className="text-center">
+          <div className="text-left md:text-center">
             <Button size="lg" asChild>
-              <Link href={MUSIC_COURSE_URL} target="_blank" rel="noopener noreferrer">
-                {siteContent.musicPage.sections.course.enrollButton}
+              <Link href={teachingJourney.courseUrl} target="_blank" rel="noopener noreferrer">
+                <BookOpen className="mr-2 h-5 w-5" /> {teachingJourney.enrollButton}
               </Link>
             </Button>
           </div>
