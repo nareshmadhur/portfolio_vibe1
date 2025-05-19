@@ -1,15 +1,17 @@
+
 'use client'; // Required for useState, useEffect, and onClick handlers
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import SectionTitle from "@/components/shared/SectionTitle";
 import SectionWrapper from "@/components/shared/SectionWrapper";
-import { siteContent, userProfile } from "@/lib/constants"; // userProfile might be needed for contact button text
+import { siteContent } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Youtube, BookOpen, ChevronLeft, ChevronRight, Music } from "lucide-react";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import YouTubePlayer from "@/components/shared/YouTubePlayer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 /**
  * @fileoverview Page component for showcasing music projects, YouTube channels, performances, and teaching.
@@ -24,46 +26,52 @@ export default function MusicPage() {
   const { title, description, sections } = siteContent.musicPage;
   const { youtube, teachingJourney } = sections;
 
-  const [currentPerformanceIndex, setCurrentPerformanceIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
+  const [slideDirection, setSlideDirection] = useState<'initial' | 'next' | 'prev'>('initial');
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const performanceVideos = youtube.performances.videos || [];
+  const slideDuration = 500; // milliseconds
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  const performanceVideos = youtube.performances.videos || [];
+  const changeVideo = (newIndex: number, newDirection: 'next' | 'prev') => {
+    if (isAnimating || performanceVideos.length <= 1) return;
+    setIsAnimating(true);
+    setSlideDirection(newDirection);
+    setCurrentIndex(newIndex);
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, slideDuration);
+  };
 
   const nextPerformance = () => {
-    setCurrentPerformanceIndex((prevIndex) =>
-      prevIndex === performanceVideos.length - 1 ? 0 : prevIndex + 1
-    );
+    const newIndex = (currentIndex + 1) % performanceVideos.length;
+    changeVideo(newIndex, 'next');
   };
 
   const prevPerformance = () => {
-    setCurrentPerformanceIndex((prevIndex) =>
-      prevIndex === 0 ? performanceVideos.length - 1 : prevIndex - 1
-    );
+    const newIndex = (currentIndex - 1 + performanceVideos.length) % performanceVideos.length;
+    changeVideo(newIndex, 'prev');
   };
 
   // Auto-advance for the performance carousel
   useEffect(() => {
-    if (!isMounted || performanceVideos.length <= 1) {
-      return; // Don't start interval if not mounted or not enough videos
+    if (!isMounted || performanceVideos.length <= 1 || isAnimating) {
+      return;
     }
-
     const intervalId = setInterval(() => {
-      setCurrentPerformanceIndex(prevIndex =>
-        prevIndex === performanceVideos.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 5000); // Auto-advance every 5 seconds
-
-    // Clear interval on component unmount or if dependencies change (e.g., user navigates)
+      nextPerformance();
+    }, 5000);
     return () => clearInterval(intervalId);
-  }, [isMounted, currentPerformanceIndex, performanceVideos.length]);
+  }, [isMounted, currentIndex, performanceVideos.length, isAnimating]);
 
 
   // Avoid hydration mismatch by not rendering on the server initially for carousel state.
-  if (!isMounted) {
+  if (!isMounted && performanceVideos.length > 0) { // Only return null if there are videos to avoid full page blank on SSR
     return null;
   }
 
@@ -78,7 +86,7 @@ export default function MusicPage() {
 
       {/* YouTube Presence Section */}
       <AnimatedSection delay="delay-100">
-        <SectionWrapper containerClassName="space-y-12"> {/* Increased spacing for subsections */}
+        <SectionWrapper containerClassName="space-y-12">
           <SectionTitle>{youtube.title}</SectionTitle>
           <p className="text-md mb-10 text-muted-foreground max-w-2xl text-left -mt-4">
             {youtube.description}
@@ -97,7 +105,7 @@ export default function MusicPage() {
               <CardContent className="space-y-6">
                 <div>
                   <h4 className="text-lg font-semibold mb-2 text-foreground text-left">Featured Video</h4>
-                  <div className="max-w-xl mb-4 text-left"> {/* Left aligned */}
+                  <div className="max-w-xl mb-4 text-left">
                     <YouTubePlayer videoId={youtube.musicVideos.featuredVideoId} title={youtube.musicVideos.featuredVideoTitle} />
                   </div>
                 </div>
@@ -139,7 +147,7 @@ export default function MusicPage() {
               <CardContent className="space-y-6">
                 <div>
                   <h4 className="text-lg font-semibold mb-2 text-foreground text-left">Featured Lesson</h4>
-                  <div className="max-w-xl mb-4 text-left"> {/* Left aligned */}
+                  <div className="max-w-xl mb-4 text-left">
                     <YouTubePlayer videoId={youtube.guitarTeaching.featuredVideoId} title={youtube.guitarTeaching.featuredVideoTitle} />
                   </div>
                 </div>
@@ -170,27 +178,40 @@ export default function MusicPage() {
 
           {/* Live Performances & Collaborations Subsection */}
           <AnimatedSection delay="delay-400">
-            <div className="mt-12"> {/* Added margin-top for separation */}
+            <div className="mt-12">
               <h3 className="text-2xl font-semibold mb-4 text-foreground text-left">{youtube.performances.title}</h3>
               <p className="text-md mb-6 text-muted-foreground max-w-3xl text-left">
                 {youtube.performances.description}
               </p>
               {performanceVideos.length > 0 && (
-                <div className="relative max-w-2xl text-left mb-8"> {/* Max width for carousel, text-left */}
-                  <YouTubePlayer
-                    videoId={performanceVideos[currentPerformanceIndex].videoId}
-                    title={performanceVideos[currentPerformanceIndex].title}
-                  />
+                <div className="relative max-w-2xl text-left mb-8">
+                   <div className="relative w-full aspect-video overflow-hidden">
+                    <div
+                      key={currentIndex} // Key for re-render and animation trigger
+                      className={cn(
+                        "w-full h-full",
+                        slideDirection === 'initial' ? 'animate-fadeIn' :
+                        slideDirection === 'next' ? 'animate-slideInFromRight' :
+                        slideDirection === 'prev' ? 'animate-slideInFromLeft' : ''
+                      )}
+                      style={{ animationDuration: `${slideDuration}ms` }}
+                    >
+                      <YouTubePlayer
+                        videoId={performanceVideos[currentIndex].videoId}
+                        title={performanceVideos[currentIndex].title}
+                      />
+                    </div>
+                  </div>
                   {performanceVideos.length > 1 && (
                     <div className="flex justify-between items-center mt-4">
-                      <Button onClick={prevPerformance} disabled={performanceVideos.length <= 1} variant="outline" size="icon">
+                      <Button onClick={prevPerformance} disabled={isAnimating || performanceVideos.length <= 1} variant="outline" size="icon">
                         <ChevronLeft className="h-5 w-5" />
                         <span className="sr-only">Previous Performance</span>
                       </Button>
                       <p className="text-sm text-muted-foreground">
-                        {currentPerformanceIndex + 1} of {performanceVideos.length}
+                        {currentIndex + 1} of {performanceVideos.length}
                       </p>
-                      <Button onClick={nextPerformance} disabled={performanceVideos.length <= 1} variant="outline" size="icon">
+                      <Button onClick={nextPerformance} disabled={isAnimating || performanceVideos.length <= 1} variant="outline" size="icon">
                         <ChevronRight className="h-5 w-5" />
                         <span className="sr-only">Next Performance</span>
                       </Button>
@@ -198,7 +219,6 @@ export default function MusicPage() {
                   )}
                 </div>
               )}
-              {/* Contact Call to Action */}
               <div className="mt-10 text-left">
                 <h4 className="text-xl font-semibold mb-3 text-foreground">{youtube.performances.collaborationPromptTitle}</h4>
                 <p className="text-md text-muted-foreground mb-6 max-w-2xl">{youtube.performances.collaborationPromptText}</p>
@@ -215,10 +235,10 @@ export default function MusicPage() {
       <AnimatedSection delay="delay-200">
         <SectionWrapper containerClassName="mt-12">
           <SectionTitle className="text-left">{teachingJourney.title}</SectionTitle>
-          <p className="text-lg mb-8 text-muted-foreground max-w-3xl text-left">
+          <p className="text-lg mb-8 text-muted-foreground max-w-3xl text-left text-center mx-auto">
             {teachingJourney.description}
           </p>
-          <div className="text-left"> {/* Ensure button is left-aligned */}
+          <div className="text-left">
             <Button size="lg" asChild>
               <Link href={teachingJourney.courseUrl} target="_blank" rel="noopener noreferrer">
                 <BookOpen className="mr-2 h-5 w-5" /> {teachingJourney.enrollButton}
