@@ -38,8 +38,8 @@ export interface ExampleVideo {
 export interface PerformanceVideo {
   id: string;
   videoId: string;
-  title: string;
-  description?: string;
+  title: string; // Used for iframe accessibility title
+  description?: string; // Optional, may not be displayed in carousel
 }
 
 /**
@@ -127,12 +127,12 @@ export const siteContent = {
   homePage: {
     about: {
       title: "About Me",
-      backgroundImageUrl: undefined,
+      backgroundImageUrl: undefined, // No background image for "About Me" section wrapper
       backgroundImageAiHint: undefined,
     },
     portfolioTitle: "Portfolio Highlights",
     portfolioHighlightsWrapper: {
-        backgroundImageUrl: undefined,
+        backgroundImageUrl: undefined, // No background for the wrapper of portfolio cards
         backgroundImageAiHint: undefined,
     },
     sections: {
@@ -162,7 +162,7 @@ export const siteContent = {
       title: "Let's Connect",
       description: "Interested in collaborating or have a question? I'd love to hear from you.",
       buttonText: "Contact Me",
-      backgroundImageUrl: undefined,
+      backgroundImageUrl: undefined, // No background for contact section wrapper on home
       backgroundImageAiHint: undefined,
     },
   },
@@ -174,7 +174,7 @@ export const siteContent = {
     title: "Music & Teaching",
     description: "Dive into Naresh Madhur's musical world and teaching endeavors. Explore original tracks, covers, live performances, and educational content.",
     visitYouTubeButton: "Visit Channel",
-    viewPerformanceButton: "Watch Performance",
+    viewPerformanceButton: "Watch Performance", // May not be used if carousel items don't have individual buttons
     sections: {
       youtube: {
         title: "My YouTube Presence",
@@ -205,11 +205,11 @@ export const siteContent = {
         },
         performances: {
           title: "Live Performances & Collaborations",
-          description: "A collection of live performances and collaborations.",
+          description: "Naresh actively involves himself with local initiatives to foster good music and is always open to collaborations. If you have interesting ideas or projects, feel free to reach out!",
           videos: [
-            { id: 'perf1', videoId: 'rK4F0-Cu0bU', title: 'Live Performance Clip 1', description: 'A captivating live moment.' },
-            { id: 'perf2', videoId: 'J6k-TBU_0GM', title: 'Live Performance Clip 2', description: 'Showcasing musical synergy.' },
-            { id: 'perf3', videoId: 'Sy61QG2wGco', title: 'Live Performance Clip 3', description: 'An energetic performance.' },
+            { id: 'perf1', videoId: 'rK4F0-Cu0bU', title: 'Live Performance: Song Title 1', description: 'A captivating live moment.' },
+            { id: 'perf2', videoId: 'J6k-TBU_0GM', title: 'Live Performance: Song Title 2', description: 'Showcasing musical synergy.' },
+            { id: 'perf3', videoId: 'Sy61QG2wGco', title: 'Live Performance: Song Title 3', description: 'An energetic performance.' },
           ] as PerformanceVideo[],
         }
       },
@@ -255,7 +255,7 @@ export const siteContent = {
     viewOnFlickrLink: "View on Flickr",
   },
   metadata: {
-    defaultTitle: `${userProfile.name} | Data Scientist, Musician, Photographer`,
+    defaultTitle: `${userProfile.name} | Portfolio`,
     defaultDescription: `Portfolio of ${userProfile.name}, a Data Scientist, Musician, and Photographer. Explore BI/AI projects, music, and photography.`,
     biAiTitle: `Tech. Pursuits | ${userProfile.name}`,
     biAiDescription: `Explore a collection of Business Intelligence and Artificial Intelligence projects by ${userProfile.name}.`,
@@ -352,6 +352,3 @@ export const photographyItems: Photo[] = [
 // Deprecated musicVideos - content is now under siteContent.musicPage
 /** @deprecated Use siteContent.musicPage.sections.youtube.musicVideos and .performances instead */
 export const musicVideos: ExampleVideo[] = [];
-
-
-    
