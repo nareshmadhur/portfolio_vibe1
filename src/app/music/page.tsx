@@ -4,7 +4,7 @@ import SectionWrapper from "@/components/shared/SectionWrapper";
 import { siteContent } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Youtube, BookOpen, ExternalLink } from "lucide-react";
+import { Youtube, BookOpen, ExternalLink, Music } from "lucide-react";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import Image from "next/image";
 import YouTubePlayer from "@/components/shared/YouTubePlayer";
@@ -47,11 +47,34 @@ export default function MusicPage() {
           <AnimatedSection delay="delay-200">
             <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
               <CardHeader>
-                <CardTitle className="text-xl">{youtube.musicVideos.title}</CardTitle>
+                <CardTitle className="text-xl flex items-center">
+                  <Music className="mr-2 h-6 w-6 text-accent" />
+                  {youtube.musicVideos.title}
+                </CardTitle>
                 <CardDescription>{youtube.musicVideos.description}</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <YouTubePlayer videoId={youtube.musicVideos.exampleVideoId} title={youtube.musicVideos.exampleVideoTitle} />
+              <CardContent className="space-y-6">
+                <div>
+                  <h4 className="text-lg font-semibold mb-2 text-foreground">Featured Video</h4>
+                  <YouTubePlayer videoId={youtube.musicVideos.featuredVideoId} title={youtube.musicVideos.featuredVideoTitle} />
+                </div>
+                {youtube.musicVideos.otherExampleVideos && youtube.musicVideos.otherExampleVideos.length > 0 && (
+                  <div>
+                    <h4 className="text-lg font-semibold mb-3 text-foreground">More Videos</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      {youtube.musicVideos.otherExampleVideos.map(video => (
+                        <Card key={video.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200">
+                          <CardContent className="p-0">
+                            <YouTubePlayer videoId={video.videoId} title={video.title} />
+                          </CardContent>
+                          <CardHeader className="p-4">
+                            <CardTitle className="text-base line-clamp-2">{video.title}</CardTitle>
+                          </CardHeader>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 <Button asChild variant="secondary">
                   <Link href={youtube.musicVideos.channelUrl} target="_blank" rel="noopener noreferrer">
                     <Youtube className="mr-2 h-5 w-5" /> {siteContent.musicPage.visitYouTubeButton} ({youtube.musicVideos.channelName})
@@ -65,11 +88,34 @@ export default function MusicPage() {
           <AnimatedSection delay="delay-300">
             <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
               <CardHeader>
-                <CardTitle className="text-xl">{youtube.guitarTeaching.title}</CardTitle>
+                <CardTitle className="text-xl flex items-center">
+                  <Music className="mr-2 h-6 w-6 text-accent" /> {/* Or a different icon like 'Guitar' if available & suitable */}
+                  {youtube.guitarTeaching.title}
+                </CardTitle>
                 <CardDescription>{youtube.guitarTeaching.description}</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <YouTubePlayer videoId={youtube.guitarTeaching.exampleVideoId} title={youtube.guitarTeaching.exampleVideoTitle} />
+              <CardContent className="space-y-6">
+                <div>
+                  <h4 className="text-lg font-semibold mb-2 text-foreground">Featured Lesson</h4>
+                  <YouTubePlayer videoId={youtube.guitarTeaching.featuredVideoId} title={youtube.guitarTeaching.featuredVideoTitle} />
+                </div>
+                {youtube.guitarTeaching.otherExampleVideos && youtube.guitarTeaching.otherExampleVideos.length > 0 && (
+                  <div>
+                    <h4 className="text-lg font-semibold mb-3 text-foreground">More Lessons</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      {youtube.guitarTeaching.otherExampleVideos.map(video => (
+                        <Card key={video.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200">
+                           <CardContent className="p-0">
+                            <YouTubePlayer videoId={video.videoId} title={video.title} />
+                          </CardContent>
+                          <CardHeader className="p-4">
+                            <CardTitle className="text-base line-clamp-2">{video.title}</CardTitle>
+                          </CardHeader>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 <Button asChild variant="secondary">
                   <Link href={youtube.guitarTeaching.channelUrl} target="_blank" rel="noopener noreferrer">
                     <Youtube className="mr-2 h-5 w-5" /> {siteContent.musicPage.visitYouTubeButton} ({youtube.guitarTeaching.channelName})
@@ -131,6 +177,7 @@ export default function MusicPage() {
                     objectFit="cover"
                     className="group-hover:scale-105 transition-transform duration-300"
                     data-ai-hint={image.dataAiHint}
+                    priority={index === 0} // Add priority to the first image
                   />
                 </div>
               </AnimatedSection>

@@ -22,14 +22,15 @@ export interface Project {
 }
 
 /**
- * Defines the structure for a music video item for the old MusicShowcase component (now mostly superseded).
+ * Defines the structure for an example video item for YouTube channel sections.
  */
-export interface MusicVideo {
+export interface ExampleVideo {
   id: string;
-  youtubeVideoId: string;
+  videoId: string;
   title: string;
-  description: string;
+  description?: string;
 }
+
 
 /**
  * Defines the structure for a performance video item.
@@ -81,7 +82,7 @@ export const userProfile = {
   ],
   music: {
     instruments: ["Carnatic Guitar", "Vocals"],
-    description: "An avid musician specializing in Carnatic Guitar and vocals, Naresh also has global experience in teaching music.",
+    description: "An avid musician specializing in Carnatic Guitar and vocals, Naresh also possesses global experience in teaching music.",
     youtubeChannels: [
       { name: "Music Videos", url: "https://www.youtube.com/@NareshMadhur" },
       { name: "Guitar musings & lessons", url: "https://www.youtube.com/@nareshteaches" },
@@ -126,12 +127,12 @@ export const siteContent = {
   homePage: {
     about: {
       title: "About Me",
-      backgroundImageUrl: undefined,
+      backgroundImageUrl: undefined, // No background for this section wrapper
       backgroundImageAiHint: undefined,
     },
     portfolioTitle: "Portfolio Highlights",
     portfolioHighlightsWrapper: {
-        backgroundImageUrl: undefined,
+        backgroundImageUrl: undefined, // No background for this section wrapper
         backgroundImageAiHint: undefined,
     },
     sections: {
@@ -161,7 +162,7 @@ export const siteContent = {
       title: "Let's Connect",
       description: "Interested in collaborating or have a question? I'd love to hear from you.",
       buttonText: "Contact Me",
-      backgroundImageUrl: undefined,
+      backgroundImageUrl: undefined, // No background for this section wrapper
       backgroundImageAiHint: undefined,
     },
   },
@@ -183,16 +184,24 @@ export const siteContent = {
           description: "Original songs, covers, and full song arrangements where Naresh performs vocals and music.",
           channelName: "@NareshMadhur",
           channelUrl: "https://www.youtube.com/@NareshMadhur",
-          exampleVideoId: "mWC9ra1V0zw", // Updated
-          exampleVideoTitle: "Kadhal Sadugudu - Alaipayuthey | Cover by Naresh Madhur", // Updated
+          featuredVideoId: "mWC9ra1V0zw",
+          featuredVideoTitle: "Kadhal Sadugudu - Alaipayuthey | Cover by Naresh Madhur",
+          otherExampleVideos: [
+            { id: 'mv2', videoId: 'xcOTmEt9K_U', title: 'Tere Jeya Hor Disda | Cover by Naresh Madhur' },
+            { id: 'mv3', videoId: 'Yt74NHxlU3o', title: 'Nee Kavithaigala | Cover by Naresh Madhur' },
+          ] as ExampleVideo[],
         },
         guitarTeaching: {
           title: "Guitar & Music Lessons",
           description: "In-depth guitar lessons, Carnatic music insights, and tips for aspiring musicians.",
           channelName: "@nareshteaches",
           channelUrl: "https://www.youtube.com/@nareshteaches",
-          exampleVideoId: "SASDA2AkFFk", // Updated
-          exampleVideoTitle: "Carnatic Guitar Lesson - Varnam Basics", // Updated
+          featuredVideoId: "SASDA2AkFFk",
+          featuredVideoTitle: "Carnatic Guitar Lesson - Varnam Basics",
+          otherExampleVideos: [
+            { id: 'gt2', videoId: 'iIOJGpQaONM', title: 'Carnatic Guitar - Geetham Lesson 1' },
+            { id: 'gt3', videoId: 'YNMIxGcvzzQ', title: 'Carnatic Guitar - Geetham Lesson 2' },
+          ] as ExampleVideo[],
         },
         performances: {
           title: "Live Performances & Collaborations",
@@ -303,32 +312,6 @@ export const biAiProjects: Project[] = [
   },
 ];
 
-// --- Music Video Data ---
-/**
- * @deprecated This is an old structure for music videos, prefer the new structure under siteContent.musicPage.
- * Array of music videos to be showcased.
- * Each object conforms to the `MusicVideo` interface.
- */
-export const musicVideos: MusicVideo[] = [
-  {
-    id: 'music-1',
-    youtubeVideoId: 'dQw4w9WgXcQ', // Example Video ID
-    title: 'Original Composition - "Synthwave Dreams"',
-    description: 'An original synthwave track accompanied by a retro-futuristic music video.',
-  },
-  {
-    id: 'music-2',
-    youtubeVideoId: '3JZ_D3ELwOQ', // Example Video ID
-    title: 'Acoustic Cover - "Chill Vibes"',
-    description: 'A relaxing acoustic guitar cover of a popular lofi hip hop beat.',
-  },
-  {
-    id: 'music-3',
-    youtubeVideoId: '5qap5aO4i9A', // Example Video ID
-    title: 'Live Performance - "Jazz Night"',
-    description: 'Live recording of a jazz piano performance at a local venue.',
-  },
-];
 
 // --- Photography Data ---
 /**
@@ -369,3 +352,7 @@ export const photographyItems: Photo[] = [
     dataAiHint: 'ocean waves',
   },
 ];
+
+// Deprecated musicVideos - content is now under siteContent.musicPage
+/** @deprecated Use siteContent.musicPage.sections.youtube.musicVideos and .performances instead */
+export const musicVideos: ExampleVideo[] = [];
