@@ -27,8 +27,8 @@ export interface Project {
 export interface ExampleVideo {
   id: string;
   videoId: string;
-  title: string;
-  description?: string;
+  title: string; // Used for iframe accessibility title
+  description?: string; // Optional, may not be displayed on the card
 }
 
 
@@ -127,12 +127,12 @@ export const siteContent = {
   homePage: {
     about: {
       title: "About Me",
-      backgroundImageUrl: undefined, // No background image for "About Me" section wrapper
+      backgroundImageUrl: undefined,
       backgroundImageAiHint: undefined,
     },
     portfolioTitle: "Portfolio Highlights",
     portfolioHighlightsWrapper: {
-        backgroundImageUrl: undefined, // No background for the wrapper of portfolio cards
+        backgroundImageUrl: undefined,
         backgroundImageAiHint: undefined,
     },
     sections: {
@@ -162,7 +162,7 @@ export const siteContent = {
       title: "Let's Connect",
       description: "Interested in collaborating or have a question? I'd love to hear from you.",
       buttonText: "Contact Me",
-      backgroundImageUrl: undefined, // No background for contact section wrapper on home
+      backgroundImageUrl: undefined,
       backgroundImageAiHint: undefined,
     },
   },
@@ -197,7 +197,7 @@ export const siteContent = {
           channelName: "@nareshteaches",
           channelUrl: "https://www.youtube.com/@nareshteaches",
           featuredVideoId: "SASDA2AkFFk",
-          featuredVideoTitle: "Carnatic Guitar Lesson - Varnam Basics",
+          featuredVideoTitle: "Carnatic Guitar lessons for beginners - Demo",
           otherExampleVideos: [
             { id: 'gt2', videoId: 'iIOJGpQaONM', title: 'Carnatic Guitar - Geetham Lesson 1' },
             { id: 'gt3', videoId: 'YNMIxGcvzzQ', title: 'Carnatic Guitar - Geetham Lesson 2' },
@@ -205,11 +205,13 @@ export const siteContent = {
         },
         performances: {
           title: "Live Performances & Collaborations",
-          description: "Naresh actively involves himself with local initiatives to foster good music and is always open to collaborations. If you have interesting ideas or projects, feel free to reach out!",
+          description: "Naresh actively involves himself with local initiatives to foster good music and is always open to collaborations. With a diverse interest in music, he is keen on sharing his learnings, learning from fellow musicians, and exploring new musical territories. He believes in the power of musical synergy and the vibrant energy of live shows.",
+          collaborationPromptTitle: "Interested in Collaborating or Connecting?",
+          collaborationPromptText: "If you have ideas for musical projects, performances, or just want to talk about music, I'd love to hear from you. Click the button below to send me a message.",
           videos: [
-            { id: 'perf1', videoId: 'rK4F0-Cu0bU', title: 'Live Performance: Song Title 1', description: 'A captivating live moment.' },
-            { id: 'perf2', videoId: 'J6k-TBU_0GM', title: 'Live Performance: Song Title 2', description: 'Showcasing musical synergy.' },
-            { id: 'perf3', videoId: 'Sy61QG2wGco', title: 'Live Performance: Song Title 3', description: 'An energetic performance.' },
+            { id: 'perf1', videoId: 'rK4F0-Cu0bU', title: 'Live Performance: Kadhal Cricket | Masala Coffee', description: 'A captivating live moment.' },
+            { id: 'perf2', videoId: 'J6k-TBU_0GM', title: 'Live Performance: Aaluma Doluma | Anirudh Ravichander', description: 'Showcasing musical synergy.' },
+            { id: 'perf3', videoId: 'Sy61QG2wGco', title: 'Live Performance: September | Earth, Wind & Fire', description: 'An energetic performance.' },
           ] as PerformanceVideo[],
         }
       },
@@ -352,3 +354,5 @@ export const photographyItems: Photo[] = [
 // Deprecated musicVideos - content is now under siteContent.musicPage
 /** @deprecated Use siteContent.musicPage.sections.youtube.musicVideos and .performances instead */
 export const musicVideos: ExampleVideo[] = [];
+
+    

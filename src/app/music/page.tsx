@@ -11,7 +11,7 @@ import { Youtube, BookOpen, ExternalLink, Music, ChevronLeft, ChevronRight } fro
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import YouTubePlayer from "@/components/shared/YouTubePlayer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import ContactSection from '@/components/sections/ContactSection';
+// Removed ContactSection import as it's no longer directly embedded
 
 /**
  * Page component for showcasing music projects, YouTube channels, performances, and teaching.
@@ -178,10 +178,13 @@ export default function MusicPage() {
                   )}
                 </div>
               )}
-              {/* Contact Form for Collaboration */}
-              <div className="mt-10">
-                <h4 className="text-xl font-semibold mb-4 text-foreground text-left">Interested in Collaborating?</h4>
-                <ContactSection />
+              {/* Contact Call to Action */}
+              <div className="mt-10 text-left">
+                <h4 className="text-xl font-semibold mb-3 text-foreground">{youtube.performances.collaborationPromptTitle}</h4>
+                <p className="text-md text-muted-foreground mb-6 max-w-2xl">{youtube.performances.collaborationPromptText}</p>
+                <Button asChild size="lg">
+                  <Link href="/contact">{siteContent.homePage.contact.buttonText}</Link>
+                </Button>
               </div>
             </div>
           </AnimatedSection>
@@ -207,3 +210,5 @@ export default function MusicPage() {
     </SectionWrapper>
   );
 }
+
+    
