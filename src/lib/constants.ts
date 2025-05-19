@@ -60,7 +60,7 @@ export interface Photo {
  */
 export const userProfile = {
   name: "Naresh Madhur",
-  titles: ["AI Enthusiast", "Musician", "Photographer"], // Array for animated titles
+  titles: ["AI Enthusiast", "Musician", "Photographer"],
   bio: "Leveraging expertise in Data Science, Naresh Madhur drives impactful business solutions while passionately engaging in the artistic disciplines of music and photography. His work exemplifies a unique synergy of analytical precision and creative expression.",
   shortBio: "Driven by a relentless pursuit of excellence, novelty, and quality, Naresh actively engages with the latest advancements in his fields of passion. His dedication extends from globally teaching music to immersive street photography, reflecting a commitment to high-caliber work in all endeavors. Discover more about his diverse projects below.",
   contactEmail: "nareshmadhur@gmail.com",
@@ -81,8 +81,8 @@ export const userProfile = {
   ],
   music: {
     instruments: ["Carnatic Guitar", "Vocals"],
-    description: "An avid musician specializing in Carnatic Guitar and vocals, with global experience in teaching music.",
-    youtubeChannels: [ // This might be redundant now with the new musicPage structure below
+    description: "An avid musician specializing in Carnatic Guitar and vocals, Naresh also has global experience in teaching music.",
+    youtubeChannels: [
       { name: "Music Videos", url: "https://www.youtube.com/@NareshMadhur" },
       { name: "Guitar musings & lessons", url: "https://www.youtube.com/@nareshteaches" },
     ],
@@ -90,7 +90,7 @@ export const userProfile = {
   photography: {
     description: "Dedicated photographer capturing visual narratives. He primarily uses Fujifilm cameras and processes his RAW files with RawTherapee.",
     flickrProfileUrl: "https://www.flickr.com/photos/nareshmadhur",
-    examplePhotos: [ // This might be redundant if photographyItems is comprehensive
+    examplePhotos: [
       { title: "Example Photo 1", url: "https://placehold.co/600x400.png", flickrUrl: "https://www.flickr.com/photos/nareshmadhur/example_id_1" },
     ]
   }
@@ -104,7 +104,7 @@ export const userProfile = {
  */
 export const siteContent = {
   global: {
-    appName: "Naresh Madhur | Portfolio",
+    appName: `${userProfile.name} | Portfolio`,
     footer: {
       copyright: `© ${new Date().getFullYear()} ${userProfile.name}. All rights reserved.`,
       tagline: "Designed with passion.",
@@ -126,32 +126,32 @@ export const siteContent = {
   homePage: {
     about: {
       title: "About Me",
-      backgroundImageUrl: undefined, // No background image for "About Me" section wrapper
+      backgroundImageUrl: undefined,
       backgroundImageAiHint: undefined,
     },
     portfolioTitle: "Portfolio Highlights",
     portfolioHighlightsWrapper: {
-        backgroundImageUrl: undefined, // No background for the wrapper of portfolio cards
+        backgroundImageUrl: undefined,
         backgroundImageAiHint: undefined,
     },
     sections: {
       music: {
         title: "Musical Pursuits",
-        description: "Explore musical performances and educational content.",
+        description: "Explore musical performances, original arrangements, and educational content.",
         imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/guitar-65Wzc1cVPra94zU6ikj0S731rWZqh4.jpg",
         imageAiHint: "music studio",
         linkUrl: "/music",
       },
       biAi: {
         title: "Data Science Explorations",
-        description: "Discover use cases in BI, Data Analytics, and AI.",
+        description: "Discover use cases in BI, Data Analytics, and Artificial Intelligence.",
         imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSC09308%20%281%29-UdBMIYLlILXq18JM2yBKnYyLlZ5SXK.jpeg",
         imageAiHint: "AI data",
         linkUrl: "/bi-ai",
       },
       photography: {
         title: "Photography",
-        description: "View photographs captured during travels around the world.",
+        description: "View diverse photographs captured during travels and street explorations.",
         imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSCF1726-8UZLZmtCQTAMWVScGAWwSGjZcJBMvG.jpeg",
         imageAiHint: "camera lens",
         linkUrl: "/photography",
@@ -161,7 +161,7 @@ export const siteContent = {
       title: "Let's Connect",
       description: "Interested in collaborating or have a question? I'd love to hear from you.",
       buttonText: "Contact Me",
-      backgroundImageUrl: undefined, // No background image for "Contact" section wrapper
+      backgroundImageUrl: undefined,
       backgroundImageAiHint: undefined,
     },
   },
@@ -171,32 +171,32 @@ export const siteContent = {
   },
   musicPage: {
     title: "Music & Teaching",
-    description: "Dive into my musical world and teaching endeavors. Explore original tracks, covers, live performances, and educational content.",
-    visitYouTubeButton: "Visit Channel", // Generic button text
+    description: "Dive into Naresh Madhur's musical world and teaching endeavors. Explore original tracks, covers, live performances, and educational content.",
+    visitYouTubeButton: "Visit Channel",
     viewPerformanceButton: "Watch Performance",
     sections: {
       youtube: {
         title: "My YouTube Presence",
-        description: "Explore my musical expressions, covers, and guitar lessons across my YouTube channels.",
+        description: "Explore musical expressions, covers, and guitar lessons across Naresh's YouTube channels.",
         musicVideos: {
           title: "Music Videos & Arrangements",
-          description: "Original songs, covers, and full song arrangements where I perform vocals and music.",
+          description: "Original songs, covers, and full song arrangements where Naresh performs vocals and music.",
           channelName: "@NareshMadhur",
           channelUrl: "https://www.youtube.com/@NareshMadhur",
-          exampleVideoId: "Sy61QG2wGco", // Example from performances
-          exampleVideoTitle: "Arrangement Example",
+          exampleVideoId: "T3bU2f2pXzQ", // Updated: Nee Kavithaigala
+          exampleVideoTitle: "Nee Kavithaigala - Performance by Naresh Madhur",
         },
         guitarTeaching: {
           title: "Guitar & Music Lessons",
           description: "In-depth guitar lessons, Carnatic music insights, and tips for aspiring musicians.",
           channelName: "@nareshteaches",
           channelUrl: "https://www.youtube.com/@nareshteaches",
-          exampleVideoId: "J6k-TBU_0GM", // Example from performances
-          exampleVideoTitle: "Guitar Lesson Teaser",
+          exampleVideoId: "081LZAw5k74", // Updated: Carnatic Guitar lessons for beginners - Demo
+          exampleVideoTitle: "Carnatic Guitar Lessons Demo",
         },
         performances: {
           title: "Live Performances & Collaborations",
-          description: "A collection of my live performances and collaborations.",
+          description: "A collection of live performances and collaborations.",
           videos: [
             { id: 'perf1', videoId: 'rK4F0-Cu0bU', title: 'Live Performance Clip 1', description: 'A captivating live moment.' },
             { id: 'perf2', videoId: 'J6k-TBU_0GM', title: 'Live Performance Clip 2', description: 'Showcasing musical synergy.' },
@@ -206,7 +206,7 @@ export const siteContent = {
       },
       teachingJourney: {
         title: "My Teaching Journey & Online Course",
-        description: "Driven by a passion to share musical knowledge, I offer comprehensive online courses designed for aspiring guitarists. Learn Carnatic music on the guitar with structured lessons and personalized guidance. Explore my flagship course on Thinkific.",
+        description: "With over three years of experience teaching Carnatic Guitar to more than 20 students globally, Naresh Madhur offers instruction for both beginner and intermediate levels. His passion for sharing musical knowledge led to the creation of a comprehensive online course, meticulously designed to guide aspiring guitarists. Explore his flagship course on Thinkific for structured lessons and personalized guidance.",
         courseUrl: "https://naresh-madhur-onlinecourses.thinkific.com/courses/carnatic-guitar-beginners",
         enrollButton: "Enroll in Course",
         images: [
@@ -215,12 +215,10 @@ export const siteContent = {
         ]
       },
     },
-    // Old structure to be deprecated or removed if not used elsewhere
-    onlineCourseUrl: "https://naresh-madhur-onlinecourses.thinkific.com/courses/carnatic-guitar-beginners",
   },
   photographyPage: {
     title: "Photography Gallery",
-    description: "Welcome to my visual journal. Here, I share moments captured through my lens, from cityscapes to natural wonders. Each photo tells a story.",
+    description: "Welcome to a visual journal by Naresh Madhur. Here, moments captured through his lens are shared, from cityscapes to natural wonders. Each photo tells a story.",
     viewOnFlickrButton: "View More on Flickr",
   },
   contactPage: {
