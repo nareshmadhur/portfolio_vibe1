@@ -1,11 +1,12 @@
 
 'use client'; // Required for useState, useEffect, and onClick handlers
 
+import type { ReadonlyDeep } from 'type-fest';
 import { useState, useEffect } from 'react';
 import Image from 'next/image'; // Import next/image
 import SectionTitle from "@/components/shared/SectionTitle";
 import SectionWrapper from "@/components/shared/SectionWrapper";
-import { siteContent } from "@/lib/constants";
+import { siteContent, type PerformanceVideo } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Youtube, BookOpen, ChevronLeft, ChevronRight, Music, PlayCircle } from "lucide-react"; // Added PlayCircle
@@ -54,8 +55,6 @@ export default function MusicPage() {
 
     setIsAnimating(true);
     setSlideDirection(newDirection);
-    // Update index after a short delay to allow old video to start animating out (if needed)
-    // For this setup, we change index immediately and apply animation to new content.
     setCurrentPerformanceIndex(actualNewIndex); 
     setTimeout(() => {
       setIsAnimating(false);
@@ -63,11 +62,15 @@ export default function MusicPage() {
   };
   
   const nextPerformance = () => {
-    changePerformanceVideo((currentPerformanceIndex + 1) % performanceVideos.length, 'next');
+    if (performanceVideos.length > 0) { // Ensure there are videos
+      changePerformanceVideo((currentPerformanceIndex + 1) % performanceVideos.length, 'next');
+    }
   };
 
   const prevPerformance = () => {
-    changePerformanceVideo((currentPerformanceIndex - 1 + performanceVideos.length) % performanceVideos.length, 'prev');
+     if (performanceVideos.length > 0) { // Ensure there are videos
+      changePerformanceVideo((currentPerformanceIndex - 1 + performanceVideos.length) % performanceVideos.length, 'prev');
+     }
   };
 
   // Auto-advance for the performance carousel
@@ -79,6 +82,7 @@ export default function MusicPage() {
       nextPerformance();
     }, 5000); // Auto-advance every 5 seconds
     return () => clearInterval(intervalId);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMounted, currentPerformanceIndex, performanceVideos.length, isAnimating]);
 
 
@@ -217,8 +221,8 @@ export default function MusicPage() {
               {performanceVideos.length > 0 && (
                 <div className="flex flex-col items-center space-y-4 mt-6">
                   {/* Thumbnail Strip - horizontally scrollable */}
-                  <div className="w-full overflow-x-auto pb-2 no-scrollbar"> {/* Added no-scrollbar utility if you have one */}
-                    <div className="flex space-x-3 px-2 justify-start md:justify-center"> {/* Centered thumbnails on larger screens */}
+                  <div className="w-full overflow-x-auto pb-2">
+                    <div className="inline-flex space-x-3 px-2"> {/* Changed from flex justify-start md:justify-center */}
                       {performanceVideos.map((video, index) => (
                         <button
                           key={video.id}
@@ -263,7 +267,7 @@ export default function MusicPage() {
                 </div>
               )}
 
-              <div className="mt-10 text-left"> {/* Text and button remain left-aligned */}
+              <div className="mt-10 text-left">
                 <h4 className="text-xl font-semibold mb-3 text-foreground">{youtube.performances.collaborationPromptTitle}</h4>
                 <p className="text-md text-muted-foreground mb-6 max-w-2xl">{youtube.performances.collaborationPromptText}</p>
                 <Button asChild size="lg">
@@ -294,15 +298,3 @@ export default function MusicPage() {
     </SectionWrapper>
   );
 }
-
-// Helper utility for scrollbar hiding if not already in globals.css
-// You might want to add this to your globals.css or a utility CSS file:
-/*
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-*/
