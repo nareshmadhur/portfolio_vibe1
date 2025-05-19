@@ -25,7 +25,13 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'course-assets.thinkific.com', // Added for Thinkific course images
+        hostname: 'course-assets.thinkific.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.ytimg.com', // Added for YouTube video thumbnails
         port: '',
         pathname: '/**',
       }
