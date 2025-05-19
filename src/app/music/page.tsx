@@ -2,14 +2,14 @@
 'use client'; // Required for useState, useEffect, and onClick handlers
 
 import type { ReadonlyDeep } from 'type-fest';
-import { useState, useEffect } from 'react';
-import Image from 'next/image'; // Import next/image
+import { useState, useEffect, useMemo } from 'react';
+import Image from 'next/image';
 import SectionTitle from "@/components/shared/SectionTitle";
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { siteContent, type PerformanceVideo } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Youtube, BookOpen, ChevronLeft, ChevronRight, Music, PlayCircle } from "lucide-react"; // Added PlayCircle
+import { Youtube, BookOpen, ChevronLeft, ChevronRight, PlayCircle } from "lucide-react";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import YouTubePlayer from "@/components/shared/YouTubePlayer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -31,7 +31,7 @@ export default function MusicPage() {
   const [isMounted, setIsMounted] = useState(false);
 
   // For Live Performances Carousel
-  const performanceVideos = youtube.performances.videos || [];
+  const performanceVideos = useMemo(() => youtube.performances.videos || [], [youtube.performances.videos]);
   const [currentPerformanceIndex, setCurrentPerformanceIndex] = useState(0);
   const [slideDirection, setSlideDirection] = useState<'initial' | 'next' | 'prev'>('initial');
   const [isAnimating, setIsAnimating] = useState(false);
@@ -41,10 +41,15 @@ export default function MusicPage() {
     setIsMounted(true);
   }, []);
 
-  const activePerformanceVideo = performanceVideos[currentPerformanceIndex];
+  const activePerformanceVideo = useMemo(() => {
+    if (performanceVideos.length > 0) {
+      return performanceVideos[currentPerformanceIndex];
+    }
+    return null;
+  }, [performanceVideos, currentPerformanceIndex]);
 
-  const changePerformanceVideo = (newIndex: number, newDirection: 'next' | 'prev') => {
-    if (isAnimating || performanceVideos.length <= 1) return;
+  const changePerformanceVideo = (newIndex: number) => {
+    if (isAnimating || performanceVideos.length <= 1 || newIndex === currentPerformanceIndex) return;
     
     let actualNewIndex = newIndex;
     if (newIndex >= performanceVideos.length) {
@@ -52,6 +57,13 @@ export default function MusicPage() {
     } else if (newIndex < 0) {
       actualNewIndex = performanceVideos.length - 1; // Loop to end
     }
+
+    const newDirection = actualNewIndex > currentPerformanceIndex || (currentPerformanceIndex === performanceVideos.length -1 && actualNewIndex === 0) ? 'next' : 'prev';
+    // Handle edge case for prev when looping from first to last
+    if (currentPerformanceIndex === 0 && actualNewIndex === performanceVideos.length - 1) {
+        //direction = 'prev'; // This was incorrect, should be 'prev' if we are going from 0 to last
+    }
+
 
     setIsAnimating(true);
     setSlideDirection(newDirection);
@@ -62,14 +74,14 @@ export default function MusicPage() {
   };
   
   const nextPerformance = () => {
-    if (performanceVideos.length > 0) { // Ensure there are videos
-      changePerformanceVideo((currentPerformanceIndex + 1) % performanceVideos.length, 'next');
+    if (performanceVideos.length > 0) {
+      changePerformanceVideo((currentPerformanceIndex + 1) % performanceVideos.length);
     }
   };
 
   const prevPerformance = () => {
-     if (performanceVideos.length > 0) { // Ensure there are videos
-      changePerformanceVideo((currentPerformanceIndex - 1 + performanceVideos.length) % performanceVideos.length, 'prev');
+     if (performanceVideos.length > 0) {
+      changePerformanceVideo((currentPerformanceIndex - 1 + performanceVideos.length) % performanceVideos.length);
      }
   };
 
@@ -85,10 +97,34 @@ export default function MusicPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMounted, currentPerformanceIndex, performanceVideos.length, isAnimating]);
 
+  const videosToDisplay = useMemo(() => {
+    const numVids = performanceVideos.length;
+    if (numVids === 0) return [null, null, null];
+    if (numVids === 1) return [null, performanceVideos[0], null];
+    
+    const prevIndex = (currentPerformanceIndex - 1 + numVids) % numVids;
+    const nextIndex = (currentPerformanceIndex + 1) % numVids;
+    
+    if (numVids === 2) {
+      return currentPerformanceIndex === 0 
+        ? [null, performanceVideos[0], performanceVideos[1]] 
+        : [performanceVideos[0], performanceVideos[1], null];
+    }
+    
+    return [
+      performanceVideos[prevIndex],
+      performanceVideos[currentPerformanceIndex],
+      performanceVideos[nextIndex],
+    ];
+  }, [currentPerformanceIndex, performanceVideos]);
+
 
   if (!isMounted && performanceVideos.length > 0) {
-    return null;
+    // Return a basic structure or skeleton if needed for SSR to avoid layout shifts
+    // For now, returning null to match previous behavior for unmounted state.
+    return null; 
   }
+
 
   return (
     <SectionWrapper>
@@ -112,7 +148,7 @@ export default function MusicPage() {
             <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
               <CardHeader>
                 <CardTitle className="text-xl flex items-center">
-                  <Music className="mr-2 h-6 w-6 text-accent" />
+                  <Youtube className="mr-2 h-6 w-6 text-accent" />
                   {youtube.musicVideos.title}
                 </CardTitle>
                 <CardDescription>{youtube.musicVideos.description}</CardDescription>
@@ -120,7 +156,7 @@ export default function MusicPage() {
               <CardContent className="space-y-6">
                 <div>
                   <h4 className="text-lg font-semibold mb-2 text-foreground text-left">Featured Video</h4>
-                  <div className="max-w-xl mb-4 text-left"> {/* Adjusted for left alignment */}
+                  <div className="max-w-xl mb-4 text-left">
                     <YouTubePlayer videoId={youtube.musicVideos.featuredVideoId} title={youtube.musicVideos.featuredVideoTitle} />
                   </div>
                 </div>
@@ -154,7 +190,7 @@ export default function MusicPage() {
             <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
               <CardHeader>
                 <CardTitle className="text-xl flex items-center">
-                  <Music className="mr-2 h-6 w-6 text-accent" />
+                  <Youtube className="mr-2 h-6 w-6 text-accent" />
                   {youtube.guitarTeaching.title}
                 </CardTitle>
                 <CardDescription>{youtube.guitarTeaching.description}</CardDescription>
@@ -162,7 +198,7 @@ export default function MusicPage() {
               <CardContent className="space-y-6">
                 <div>
                   <h4 className="text-lg font-semibold mb-2 text-foreground text-left">Featured Lesson</h4>
-                  <div className="max-w-xl mb-4 text-left"> {/* Adjusted for left alignment */}
+                  <div className="max-w-xl mb-4 text-left">
                     <YouTubePlayer videoId={youtube.guitarTeaching.featuredVideoId} title={youtube.guitarTeaching.featuredVideoTitle} />
                   </div>
                 </div>
@@ -199,70 +235,94 @@ export default function MusicPage() {
                 {youtube.performances.description}
               </p>
               
-              {/* Main Video Player Area for Performances */}
-              {activePerformanceVideo && (
-                <div className="relative mb-4 aspect-video w-full max-w-3xl mx-auto"> {/* Centered for focus */}
-                  <div
-                    key={activePerformanceVideo.id} // Key for re-render and animation trigger
-                    className={cn(
-                      "w-full h-full",
-                      slideDirection === 'initial' ? 'animate-fadeIn' :
-                      slideDirection === 'next' ? 'animate-slideInFromRight' :
-                      slideDirection === 'prev' ? 'animate-slideInFromLeft' : ''
-                    )}
-                    style={{ animationDuration: `${slideDuration}ms` }}
-                  >
-                    <YouTubePlayer videoId={activePerformanceVideo.videoId} title={activePerformanceVideo.title} />
-                  </div>
-                </div>
-              )}
+              {performanceVideos.length > 0 && activePerformanceVideo && (
+                <div className="relative mb-4">
+                  <div className="flex items-center justify-center space-x-2 md:space-x-4">
+                    <Button 
+                      onClick={prevPerformance} 
+                      variant="outline" 
+                      size="icon" 
+                      aria-label="Previous performance video" 
+                      disabled={isAnimating || performanceVideos.length <= 1}
+                      className="shrink-0"
+                    >
+                      <ChevronLeft className="h-6 w-6" />
+                    </Button>
 
-              {/* Thumbnail Strip and Navigation for Performances */}
-              {performanceVideos.length > 0 && (
-                <div className="flex flex-col items-center space-y-4 mt-6">
-                  {/* Thumbnail Strip - horizontally scrollable */}
-                  <div className="w-full overflow-x-auto pb-2">
-                    <div className="inline-flex space-x-3 px-2"> {/* Changed from flex justify-start md:justify-center */}
-                      {performanceVideos.map((video, index) => (
-                        <button
-                          key={video.id}
-                          onClick={() => changePerformanceVideo(index, index > currentPerformanceIndex ? 'next' : 'prev')}
-                          aria-label={`Play ${video.title}`}
-                          className={cn(
-                            "flex-shrink-0 w-32 h-20 md:w-36 md:h-20 relative rounded-lg overflow-hidden border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-                            index === currentPerformanceIndex ? "border-primary scale-105 shadow-lg" : "border-transparent hover:border-muted-foreground/30 opacity-70 hover:opacity-100"
-                          )}
-                        >
-                          <Image
-                            src={`https://i.ytimg.com/vi/${video.videoId}/mqdefault.jpg`}
-                            alt={`Thumbnail for ${video.title}`}
-                            layout="fill"
-                            objectFit="cover"
-                            className="transition-transform duration-300 group-hover:scale-105"
-                          />
-                          {index === currentPerformanceIndex && (
-                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                              <PlayCircle className="w-8 h-8 text-white/90" />
-                            </div>
-                          )}
-                        </button>
-                      ))}
+                    <div className="flex-grow grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 items-center">
+                      {videosToDisplay.map((videoData, slotIndex) => {
+                        const isPlayerSlot = slotIndex === 1 && videoData?.id === activePerformanceVideo.id;
+                        const videoToShow = videoData || (slotIndex === 1 ? activePerformanceVideo : null);
+
+                        if (!videoToShow) {
+                          return <div key={`empty-slot-${slotIndex}`} className="aspect-video bg-muted/10 rounded-lg" />;
+                        }
+                        
+                        return (
+                          <div 
+                            key={videoToShow.id + `_slot_${slotIndex}`} 
+                            className={cn(
+                              "w-full transition-all duration-300 ease-in-out",
+                              isPlayerSlot ? "md:col-span-1" : "md:col-span-1", // All take 1 col on md+
+                              !isPlayerSlot && "opacity-60 hover:opacity-100 transform scale-90 hover:scale-95"
+                            )}
+                          >
+                            {isPlayerSlot ? (
+                              <div
+                                key={activePerformanceVideo.id} // Key for re-render and animation trigger
+                                className={cn(
+                                  "w-full aspect-video rounded-lg overflow-hidden shadow-xl",
+                                  slideDirection === 'initial' ? 'animate-fadeIn' :
+                                  slideDirection === 'next' ? 'animate-slideInFromRight' :
+                                  slideDirection === 'prev' ? 'animate-slideInFromLeft' : ''
+                                )}
+                                style={{ animationDuration: `${slideDuration}ms` }}
+                              >
+                                <YouTubePlayer videoId={activePerformanceVideo.videoId} title={activePerformanceVideo.title} />
+                              </div>
+                            ) : (
+                              <button
+                                onClick={() => {
+                                  const videoIndex = performanceVideos.findIndex(v => v.id === videoToShow.id);
+                                  if (videoIndex !== -1) {
+                                    changePerformanceVideo(videoIndex);
+                                  }
+                                }}
+                                aria-label={`Play ${videoToShow.title}`}
+                                className="w-full aspect-video relative rounded-lg overflow-hidden group focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                              >
+                                <Image
+                                  src={`https://i.ytimg.com/vi/${videoToShow.videoId}/mqdefault.jpg`}
+                                  alt={`Thumbnail for ${videoToShow.title}`}
+                                  layout="fill"
+                                  objectFit="cover"
+                                  className="transition-transform duration-300 group-hover:scale-105"
+                                />
+                                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                                  <PlayCircle className="w-10 h-10 text-white/70 group-hover:text-white transition-opacity" />
+                                </div>
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })}
                     </div>
-                  </div>
 
-                  {/* Prev/Next Buttons */}
+                    <Button 
+                      onClick={nextPerformance} 
+                      variant="outline" 
+                      size="icon" 
+                      aria-label="Next performance video" 
+                      disabled={isAnimating || performanceVideos.length <= 1}
+                      className="shrink-0"
+                    >
+                      <ChevronRight className="h-6 w-6" />
+                    </Button>
+                  </div>
                   {performanceVideos.length > 1 && (
-                    <div className="flex justify-center items-center space-x-4">
-                      <Button onClick={prevPerformance} disabled={isAnimating} variant="outline" size="icon" aria-label="Previous performance video">
-                        <ChevronLeft className="h-5 w-5" />
-                      </Button>
-                      <p className="text-sm text-muted-foreground tabular-nums">
+                     <p className="text-center text-sm text-muted-foreground mt-4 tabular-nums">
                         {currentPerformanceIndex + 1} / {performanceVideos.length}
                       </p>
-                      <Button onClick={nextPerformance} disabled={isAnimating} variant="outline" size="icon" aria-label="Next performance video">
-                        <ChevronRight className="h-5 w-5" />
-                      </Button>
-                    </div>
                   )}
                 </div>
               )}
@@ -283,8 +343,8 @@ export default function MusicPage() {
       <AnimatedSection delay="delay-200">
         <SectionWrapper containerClassName="mt-12">
           <SectionTitle className="text-left">{teachingJourney.title}</SectionTitle>
-          <div className="text-left"> {/* Ensure parent is text-left for children to inherit */}
-            <p className="text-lg mb-8 text-muted-foreground max-w-3xl"> {/* Removed mx-auto and text-center */}
+          <div className="text-left"> 
+            <p className="text-lg mb-8 text-muted-foreground max-w-3xl">
               {teachingJourney.description}
             </p>
             <Button size="lg" asChild>
@@ -298,3 +358,4 @@ export default function MusicPage() {
     </SectionWrapper>
   );
 }
+
