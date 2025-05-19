@@ -165,21 +165,21 @@ export const siteContent = {
       music: {
         title: "Musical Pursuits",
         description: "Explore musical performances, original arrangements, and educational content.",
-        imageUrl: "https://placehold.co/800x450.png",
+        imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/guitar-65Wzc1cVPra94zU6ikj0S731rWZqh4.jpg",
         imageAiHint: "guitar stage lights", // Specific hint
         linkUrl: "/music",
       },
       biAi: {
         title: "Data Science Explorations",
         description: "Discover use cases in BI, Data Analytics, and Artificial Intelligence.",
-        imageUrl: "https://placehold.co/800x450.png",
+        imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSC09308%20%281%29-UdBMIYLlILXq18JM2yBKnYyLlZ5SXK.jpeg",
         imageAiHint: "data network nodes", // Specific hint
         linkUrl: "/bi-ai",
       },
       photography: {
         title: "Photography",
         description: "View diverse photographs captured during travels and street explorations.",
-        imageUrl: "https://placehold.co/800x450.png",
+        imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSCF1726-8UZLZmtCQTAMWVScGAWwSGjZcJBMvG.jpeg",
         imageAiHint: "vintage camera travel", // Specific hint
         linkUrl: "/photography",
       }
