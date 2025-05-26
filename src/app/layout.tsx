@@ -1,4 +1,3 @@
-
 import type { Metadata } from 'next';
 import { Roboto_Condensed } from 'next/font/google'; // Changed from Geist
 import './globals.css';
