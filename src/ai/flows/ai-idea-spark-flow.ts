@@ -51,9 +51,8 @@ Based on these keywords, generate:
 3. Optionally, provide a few "suggestedKeywords" (related concepts or terms, as an array of strings) that the user might find interesting for further exploration.
 
 Keep the tone encouraging and informative. Ensure your output strictly adheres to the requested JSON schema.`,
-  // Example of model and config, adjust as needed
-  // model: 'googleai/gemini-1.5-flash-latest', // Or your preferred model
-  // config: { temperature: 0.7 }
+  model: 'googleai/gemini-1.5-flash-latest', 
+  config: { temperature: 0.7 }
 });
 
 // Define the Genkit Flow that orchestrates the AI call
@@ -77,3 +76,4 @@ const aiIdeaSparkGenkitFlow = ai.defineFlow(
     return output;
   }
 );
+
