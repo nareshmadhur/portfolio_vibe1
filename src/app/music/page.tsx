@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * @fileoverview Page component for showcasing music projects, YouTube channels, performances, and teaching.
- * Includes client-side state for carousel functionality with auto-play and user interaction pause.
+ * Includes client-side state for carousel functionality.
  */
 
 /**
@@ -35,17 +35,10 @@ export default function MusicPage() {
   const [currentPerformanceIndex, setCurrentPerformanceIndex] = useState(0);
   const [slideDirection, setSlideDirection] = useState<'initial' | 'next' | 'prev'>('initial');
   const [isAnimating, setIsAnimating] = useState(false);
-  const [isAutoPlayEnabled, setIsAutoPlayEnabled] = useState(true);
-  const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
   const slideDuration = 500; // milliseconds
 
   useEffect(() => {
     setIsMounted(true);
-    return () => {
-      if (intervalIdRef.current) {
-        clearInterval(intervalIdRef.current);
-      }
-    };
   }, []);
 
   const activePerformanceVideo = useMemo(() => {
@@ -55,24 +48,9 @@ export default function MusicPage() {
     return null;
   }, [performanceVideos, currentPerformanceIndex]);
 
-  const handleUserInteraction = useCallback(() => {
-    if (isAutoPlayEnabled) {
-      // console.log("handleUserInteraction: Pausing auto-play."); // Keep for debugging if needed
-      if (intervalIdRef.current) {
-        clearInterval(intervalIdRef.current);
-        intervalIdRef.current = null;
-      }
-      setIsAutoPlayEnabled(false);
-    }
-  }, [isAutoPlayEnabled, intervalIdRef]);
-
-  const changePerformanceVideo = useCallback((newIndex: number, userInitiated = false) => {
+  const changePerformanceVideo = useCallback((newIndex: number) => {
     if (isAnimating || performanceVideos.length <= 1) {
       return;
-    }
-
-    if (userInitiated) {
-      handleUserInteraction(); 
     }
 
     let actualNewIndex = newIndex;
@@ -83,7 +61,6 @@ export default function MusicPage() {
     }
     
     if (actualNewIndex === currentPerformanceIndex && performanceVideos.length > 1) {
-        if(userInitiated) handleUserInteraction();
         return; 
     }
 
@@ -108,45 +85,20 @@ export default function MusicPage() {
     setTimeout(() => {
       setIsAnimating(false);
     }, slideDuration);
-  }, [isAnimating, performanceVideos, currentPerformanceIndex, slideDuration, handleUserInteraction]);
+  }, [isAnimating, performanceVideos, currentPerformanceIndex, slideDuration]);
   
 
   const nextPerformance = () => {
     if (performanceVideos.length > 0) {
-      changePerformanceVideo((currentPerformanceIndex + 1) % performanceVideos.length, true);
+      changePerformanceVideo((currentPerformanceIndex + 1) % performanceVideos.length);
     }
   };
 
   const prevPerformance = () => {
      if (performanceVideos.length > 0) {
-      changePerformanceVideo((currentPerformanceIndex - 1 + performanceVideos.length) % performanceVideos.length, true);
+      changePerformanceVideo((currentPerformanceIndex - 1 + performanceVideos.length) % performanceVideos.length);
      }
   };
-
-  useEffect(() => {
-    if (!isMounted || performanceVideos.length <= 1 || isAnimating || !isAutoPlayEnabled) {
-      if (intervalIdRef.current) {
-        clearInterval(intervalIdRef.current);
-        intervalIdRef.current = null;
-      }
-      return;
-    }
-
-    if (intervalIdRef.current) clearInterval(intervalIdRef.current);
-
-    intervalIdRef.current = setInterval(() => {
-      const newIndex = (currentPerformanceIndex + 1) % performanceVideos.length;
-      changePerformanceVideo(newIndex, false); 
-    }, 5000); 
-
-    return () => {
-      if (intervalIdRef.current) {
-        clearInterval(intervalIdRef.current);
-        intervalIdRef.current = null;
-      }
-    };
-  }, [isMounted, performanceVideos.length, currentPerformanceIndex, isAnimating, isAutoPlayEnabled, changePerformanceVideo]);
-
 
   const videosToDisplay = useMemo(() => {
     const numVids = performanceVideos.length;
@@ -156,10 +108,8 @@ export default function MusicPage() {
     const currentIndex = currentPerformanceIndex;
     const nextIndex = (currentPerformanceIndex + 1) % numVids;
     
-    // Always return three items, filling with null if not enough videos
     if (numVids === 1) return [null, performanceVideos[currentIndex], null];
     if (numVids === 2) {
-      // For 2 videos, show current in middle, other in an adjacent slot, and one slot empty
       return currentPerformanceIndex === 0 
         ? [null, performanceVideos[0], performanceVideos[1]] 
         : [performanceVideos[1], performanceVideos[0], null];
@@ -301,10 +251,7 @@ export default function MusicPage() {
                         const isPlayerSlot = slotIndex === 1; // Middle slot is the player
                         const videoToShow = videoData;
 
-                        // Always render a div for grid structure, even if empty
                         if (!videoToShow) {
-                           // Render an empty, non-interactive placeholder to maintain grid structure
-                           // Hide on mobile if it's a side slot and empty to save space
                            return <div key={`empty-slot-${slotIndex}`} className={cn("aspect-video rounded-lg", !isPlayerSlot && "hidden md:block")} />;
                         }
 
@@ -314,22 +261,22 @@ export default function MusicPage() {
                             className={cn(
                               "w-full transition-all duration-300 ease-in-out",
                               !isPlayerSlot && "opacity-60 hover:opacity-100 md:transform md:scale-90 hover:md:scale-95 cursor-pointer",
-                              isPlayerSlot && "z-10" // Ensure player is on top if overlapping during animations
+                              isPlayerSlot && "z-10"
                             )}
                             onClick={
-                              !isPlayerSlot // Only side thumbnails are clickable to change video
+                              !isPlayerSlot 
                                 ? () => { 
                                     const videoIndex = performanceVideos.findIndex(v => v.id === videoToShow.id);
                                     if (videoIndex !== -1) {
-                                      changePerformanceVideo(videoIndex, true); 
+                                      changePerformanceVideo(videoIndex); 
                                     }
                                   }
-                                : undefined // Player slot itself does not trigger changePerformanceVideo on click
+                                : undefined
                             }
                           >
                             {isPlayerSlot ? (
                               <div 
-                                key={activePerformanceVideo.id} // Key change triggers re-render and animation
+                                key={activePerformanceVideo.id} 
                                 className={cn(
                                   "w-full aspect-video rounded-lg overflow-hidden shadow-xl",
                                   slideDirection === 'initial' ? 'animate-fadeIn' :
@@ -340,7 +287,7 @@ export default function MusicPage() {
                               >
                                 <YouTubePlayer videoId={activePerformanceVideo.videoId} title={activePerformanceVideo.title} />
                               </div>
-                            ) : ( // Side slots are thumbnails
+                            ) : ( 
                               <div
                                 role="button"
                                 tabIndex={0}
@@ -350,7 +297,7 @@ export default function MusicPage() {
                                   if (e.key === 'Enter' || e.key === ' ') {
                                     const videoIndex = performanceVideos.findIndex(v => v.id === videoToShow.id);
                                     if (videoIndex !== -1) {
-                                      changePerformanceVideo(videoIndex, true);
+                                      changePerformanceVideo(videoIndex);
                                     }
                                   }
                                 }}
@@ -361,7 +308,7 @@ export default function MusicPage() {
                                   layout="fill"
                                   objectFit="cover"
                                   className="transition-transform duration-300 group-hover:scale-105"
-                                  priority={slotIndex === 1} // Prioritize loading image for current player if it were an image
+                                  priority={slotIndex === 1} 
                                 />
                                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                                   <PlayCircle className="w-10 h-10 text-white/70 group-hover:text-white transition-opacity" />
@@ -422,8 +369,4 @@ export default function MusicPage() {
     </SectionWrapper>
   );
 }
-    
-
-    
-
     
