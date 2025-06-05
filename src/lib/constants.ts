@@ -194,19 +194,40 @@ export const siteContent = {
   },
   biAiPage: {
     title: "Tech. Pursuits: BI & AI",
-    description: "A showcase of my work in Business Intelligence, Data Analytics, and Artificial Intelligence, alongside interactive AI tools to spark new ideas.",
-    ideaSpark: {
-      title: "AI Idea Spark",
-      description: "Enter keywords related to AI or Business Intelligence, and let Idea Spark generate a project idea or explain a concept for you!",
-      inputLabel: "Your Keywords (e.g., 'natural language processing', 'predictive analytics for retail')",
-      inputPlaceholder: "Type keywords and press Enter or click Generate...",
-      buttonText: "Generate Idea",
-      buttonLoadingText: "Generating...",
-      relatedKeywordsLabel: "Related Concepts:",
+    description: "A showcase of my work in Business Intelligence, Data Analytics, and Artificial Intelligence, alongside interactive AI tools to explore practical AI applications and considerations.",
+    interactiveToolsTitle: "Interactive AI Explorers",
+    ethicalScenarioAnalyzer: {
+      title: "Ethical AI Scenario Analyzer",
+      description: "Explore potential ethical dilemmas in AI. Enter a topic or let the AI suggest one.",
+      inputLabel: "Optional: Topic for ethical scenario (e.g., 'AI in healthcare', 'facial recognition')",
+      inputPlaceholder: "Leave blank for a general scenario or type a topic...",
+      buttonText: "Analyze Scenario",
+      buttonLoadingText: "Analyzing...",
+      scenarioTitleLabel: "Generated Scenario:",
+      ethicalConsiderationsLabel: "Ethical Considerations:",
+      reflectionQuestionsLabel: "Questions for Reflection:",
       errorMessages: {
-        errorTitle: "Oops! Something went wrong.",
-        emptyKeywords: "Please enter some keywords to get started.",
-        generalError: "Failed to generate an idea at this moment. Please try again later.",
+        errorTitle: "Analysis Error",
+        emptyInputOptional: "Generating a general scenario as no topic was provided.", // Not an error, but info
+        generalError: "Failed to analyze scenario at this time. Please try again.",
+      }
+    },
+    projectDeconstructor: {
+      title: "AI Project Deconstructor",
+      description: "Describe an AI project idea or a problem, and get a high-level deconstruction of how it might be approached.",
+      inputLabel: "Your AI project idea or problem description (e.g., 'predict customer churn', 'image moderation system')",
+      inputPlaceholder: "Describe your idea here...",
+      buttonText: "Deconstruct Project",
+      buttonLoadingText: "Deconstructing...",
+      suggestedTitleLabel: "Suggested Project Title:",
+      approachLabel: "High-Level Approach:",
+      keyTechniquesLabel: "Key AI Techniques/Models:",
+      techStackLabel: "Suggested Tech Stack:",
+      challengesLabel: "Potential Challenges:",
+      errorMessages: {
+        errorTitle: "Deconstruction Error",
+        emptyInput: "Please describe your project idea or problem.",
+        generalError: "Failed to deconstruct the project at this time. Please try again.",
       }
     },
     projectsTitle: "Portfolio Projects",
@@ -301,7 +322,7 @@ export const siteContent = {
     defaultTitle: `Naresh Madhur | Portfolio`,
     defaultDescription: `Portfolio of Naresh Madhur, showcasing expertise in Data Science & AI, music, and photography.`,
     biAiTitle: `Tech. Pursuits & AI Tools | Naresh Madhur`,
-    biAiDescription: `Explore BI & AI projects by Naresh Madhur and interact with AI-powered idea generation tools.`,
+    biAiDescription: `Explore BI & AI projects by Naresh Madhur and interact with AI-powered tools.`,
     musicTitle: `Music & Teaching | Naresh Madhur`,
     musicDescription: `Listen to original compositions, covers, live performances, and explore music teaching by Naresh Madhur.`,
     photographyTitle: `Photography Gallery | Naresh Madhur`,
@@ -388,3 +409,6 @@ export const photographyItems: Photo[] = [
     dataAiHint: 'ocean waves',
   },
 ];
+
+
+    
