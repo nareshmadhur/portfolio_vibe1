@@ -36,7 +36,6 @@ export default function MusicPage() {
   const [isAnimating, setIsAnimating] = useState(false);
   const slideDuration = 500; // milliseconds
 
-
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -378,7 +377,7 @@ export default function MusicPage() {
               {teachingJourney.title}
             </CardTitle>
           </CardHeader>
-          <CardContent className="text-left"> {/* Default pt-0 is fine, header provides spacing */}
+          <CardContent className="text-left">
             <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-start pt-4">
               {/* Text content on the left */}
               <div className="flex-1">
@@ -387,7 +386,7 @@ export default function MusicPage() {
                 </p>
               </div>
               {/* Image on the right */}
-              <div className="w-full md:w-48 lg:w-56 shrink-0">
+              <div className="w-full md:w-1/2 shrink-0">
                 <div className="relative aspect-video rounded-lg overflow-hidden shadow-md">
                   <Image
                     src="https://import.cdn.thinkific.com/971196/yJVkf7DvQ6aCNOUgleYd_Thumbnail_1.jpg"
