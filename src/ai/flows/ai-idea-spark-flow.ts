@@ -10,6 +10,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit'; // Use Genkit's re-export of Zod
+import { siteContent } from '@/lib/constants';
 
 // Input Schema (not exported directly)
 const AiIdeaSparkInputSchema = z.object({
@@ -51,7 +52,7 @@ Based on these keywords, generate:
 3. Optionally, provide a few "suggestedKeywords" (related concepts or terms, as an array of strings) that the user might find interesting for further exploration.
 
 Keep the tone encouraging and informative. Ensure your output strictly adheres to the requested JSON schema.`,
-  model: 'googleai/gemini-1.5-flash-latest', 
+  model: 'googleai/gemini-1.5-flash-latest',
   config: { temperature: 0.7 }
 });
 
@@ -63,17 +64,21 @@ const aiIdeaSparkGenkitFlow = ai.defineFlow(
     outputSchema: AiIdeaSparkOutputSchema,
   },
   async (input) => {
-    const { output } = await ideaSparkPrompt(input);
+    try {
+      const { output } = await ideaSparkPrompt(input);
 
-    if (!output) {
-      // This case should ideally be rare if the LLM adheres to the output schema.
-      // Genkit's `definePrompt` with an output schema attempts to parse the LLM response into that schema.
-      // If parsing fails or the LLM doesn't respond appropriately, `output` might be undefined or not match the schema.
-      console.error("AI Idea Spark Flow: LLM output was empty or failed to parse.");
-      throw new Error("AI failed to generate a valid response. The output might not conform to the expected schema. Please try again or adjust the prompt.");
+      if (!output) {
+        console.error("AI Idea Spark Flow: LLM output was empty or failed to parse.");
+        // Use a predefined generic error message from constants
+        throw new Error(siteContent.biAiPage.ideaSpark.errorMessages.generalError);
+      }
+      return output;
+    } catch (flowError: any) {
+      // Log the original error on the server for more detailed debugging if possible
+      console.error("AI Idea Spark Flow execution error:", flowError.message, flowError.stack);
+      // Throw a new, simple, and serializable error for the client
+      // This uses a predefined generic error message from constants
+      throw new Error(siteContent.biAiPage.ideaSpark.errorMessages.generalError);
     }
-    // `output` is automatically parsed by Genkit into the `AiIdeaSparkOutputSchema` type.
-    return output;
   }
 );
-
