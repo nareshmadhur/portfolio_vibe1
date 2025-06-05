@@ -16,101 +16,105 @@ h1, h2, h3, h4, h5, h6, strong, b, .font-semibold, .font-bold {
 
 @layer base {
   :root {
-    --background: 0 0% 98%; /* Near White */
-    --foreground: 0 0% 20%; /* Dark Gray */
+    /* PRD Colors:
+       Primary: #3F51B5 (Deep Blue) -> HSL(231, 48%, 48%)
+       Background: #E8EAF6 (Light Desaturated Blue) -> HSL(225, 67%, 94%)
+       Accent: #7E57C2 (Vibrant Purple) -> HSL(262, 39%, 61%)
+    */
+    --background: 225 67% 94%; /* Light Desaturated Blue */
+    --foreground: 231 48% 15%; /* Darker shade of Primary for text */
 
-    --card: 0 0% 100%; /* White */
-    --card-foreground: 0 0% 20%; /* Dark Gray */
+    --card: 225 67% 99%; /* Slightly off-white, derived from background */
+    --card-foreground: 231 48% 20%; /* Darker shade of Primary for card text */
 
-    --popover: 0 0% 100%; /* White */
-    --popover-foreground: 0 0% 20%; /* Dark Gray */
+    --popover: 225 67% 99%;
+    --popover-foreground: 231 48% 20%;
 
-    /* Primary button: Dark gray background with off-white text */
-    --primary: 0 0% 25%; /* Dark Gray for button background */
-    --primary-foreground: 0 0% 95%; /* Off-White for button text */
+    --primary: 231 48% 48%; /* Deep Blue */
+    --primary-foreground: 225 67% 97%; /* Very light blue/off-white for text on primary */
 
-    --secondary: 0 0% 90%; /* Light Gray */
-    --secondary-foreground: 0 0% 25%; /* Dark Gray */
+    --secondary: 225 67% 88%; /* Lighter shade of background for secondary elements */
+    --secondary-foreground: 231 48% 30%; /* Slightly darker than primary foreground */
 
-    --muted: 0 0% 95%; /* Very Light Gray */
-    --muted-foreground: 0 0% 45%; /* Medium Gray */
+    --muted: 225 67% 91%; /* Muted version of background */
+    --muted-foreground: 231 48% 40%; /* Muted text color */
 
-    --accent: 0 0% 50%; /* Medium Gray */
-    --accent-foreground: 0 0% 98%; /* Near White */
+    --accent: 262 39% 61%; /* Vibrant Purple */
+    --accent-foreground: 225 67% 98%; /* Very light for text on accent */
 
-    --destructive: 0 0% 30%; /* Dark Gray for destructive actions */
+    --destructive: 0 72% 51%; /* A standard red for destructive actions */
     --destructive-foreground: 0 0% 98%; /* Near White */
 
-    --border: 0 0% 88%; /* Light Gray Border */
-    --input: 0 0% 94%; /* Very Light Gray Input BG */
-    --ring: 0 0% 50%; /* Medium Gray for focus rings (accent color) */
+    --border: 225 67% 85%; /* Border derived from background/secondary */
+    --input: 225 67% 90%; /* Input background, slightly darker than main BG */
+    --ring: 231 48% 55%; /* Ring color based on primary */
 
     --radius: 0.5rem;
 
-    /* Grayscale Chart colors */
-    --chart-1: 0 0% 70%;
-    --chart-2: 0 0% 60%;
-    --chart-3: 0 0% 50%;
-    --chart-4: 0 0% 40%;
-    --chart-5: 0 0% 30%;
+    /* Chart colors - can be adapted or kept generic */
+    --chart-1: 231 48% 60%;
+    --chart-2: 262 39% 70%;
+    --chart-3: 231 48% 40%;
+    --chart-4: 262 39% 50%;
+    --chart-5: 231 48% 30%;
 
-    /* Grayscale Sidebar colors */
-    --sidebar-background: 0 0% 96%;
-    --sidebar-foreground: 0 0% 20%;
-    --sidebar-primary: 0 0% 35%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 0 0% 50%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 0 0% 88%;
-    --sidebar-ring: 0 0% 50%;
+    /* Sidebar colors (if a sidebar were to be added, themed consistently) */
+    --sidebar-background: 225 67% 92%;
+    --sidebar-foreground: 231 48% 15%;
+    --sidebar-primary: 231 48% 48%;
+    --sidebar-primary-foreground: 225 67% 97%;
+    --sidebar-accent: 262 39% 61%;
+    --sidebar-accent-foreground: 225 67% 98%;
+    --sidebar-border: 225 67% 85%;
+    --sidebar-ring: 231 48% 55%;
   }
 
   .dark {
-    --background: 0 0% 8%; /* Very Dark Gray / Near Black */
-    --foreground: 0 0% 85%; /* Light Gray */
+    /* Dark Theme based on PRD colors */
+    --background: 231 40% 10%; /* Very Dark Blue */
+    --foreground: 225 50% 85%; /* Light Desaturated Blue/Gray for text */
 
-    --card: 0 0% 12%; /* Dark Gray Card */
-    --card-foreground: 0 0% 85%; /* Light Gray */
+    --card: 231 40% 15%; /* Dark Blue Card */
+    --card-foreground: 225 50% 90%; /* Light Desaturated Blue/Gray for card text */
 
-    --popover: 0 0% 8%; /* Very Dark Gray */
-    --popover-foreground: 0 0% 85%; /* Light Gray */
+    --popover: 231 40% 10%;
+    --popover-foreground: 225 50% 90%;
 
-    /* Primary button: Very dark gray background with off-white text for high contrast */
-    --primary: 0 0% 15%; /* Very Dark Gray / Almost Black button background */
-    --primary-foreground: 0 0% 95%; /* Off-White text (for buttons AND hero text) */
+    --primary: 231 48% 55%; /* Slightly brighter Deep Blue for dark mode */
+    --primary-foreground: 225 60% 96%; /* Very light blue/off-white for text on primary */
 
-    --secondary: 0 0% 20%; /* Darker Gray */
-    --secondary-foreground: 0 0% 80%; /* Lighter Gray text */
+    --secondary: 231 40% 25%; /* Darker secondary elements */
+    --secondary-foreground: 225 50% 75%; /* Lighter gray for secondary text */
 
-    --muted: 0 0% 15%; /* Dark Muted Gray */
-    --muted-foreground: 0 0% 60%; /* Medium Gray text */
+    --muted: 231 40% 20%; /* Dark Muted Blue/Gray */
+    --muted-foreground: 225 50% 65%; /* Medium gray text */
 
-    --accent: 0 0% 65%; /* Medium-Light Gray accent */
-    --accent-foreground: 0 0% 10%; /* Dark Gray text on accent */
+    --accent: 262 39% 68%; /* Slightly brighter Vibrant Purple for dark mode */
+    --accent-foreground: 231 40% 97%; /* Very light for text on accent */
 
-    --destructive: 0 0% 45%; /* Medium-Dark Gray for destructive actions */
-    --destructive-foreground: 0 0% 85%; /* Light Gray text */
+    --destructive: 0 63% 40%; /* Darker red for destructive actions */
+    --destructive-foreground: 0 0% 95%; /* Off-white text */
 
-    --border: 0 0% 25%; /* Darker Border */
-    --input: 0 0% 18%; /* Dark Input BG */
-    --ring: 0 0% 75%; /* Lighter Gray for focus rings */
+    --border: 231 40% 30%; /* Darker Border */
+    --input: 231 40% 22%; /* Dark Input BG */
+    --ring: 231 48% 65%; /* Lighter blue ring for dark mode */
 
-    /* Grayscale Chart colors for dark theme */
-    --chart-1: 0 0% 30%;
-    --chart-2: 0 0% 40%;
-    --chart-3: 0 0% 50%;
-    --chart-4: 0 0% 60%;
-    --chart-5: 0 0% 70%;
+    /* Chart colors for dark theme - can be adapted */
+    --chart-1: 231 48% 50%;
+    --chart-2: 262 39% 60%;
+    --chart-3: 231 48% 70%;
+    --chart-4: 262 39% 80%;
+    --chart-5: 231 48% 35%;
 
-    /* Grayscale Sidebar dark theme */
-    --sidebar-background: 0 0% 10%;
-    --sidebar-foreground: 0 0% 85%;
-    --sidebar-primary: 0 0% 75%;
-    --sidebar-primary-foreground: 0 0% 10%;
-    --sidebar-accent: 0 0% 65%;
-    --sidebar-accent-foreground: 0 0% 10%;
-    --sidebar-border: 0 0% 25%;
-    --sidebar-ring: 0 0% 75%;
+     /* Sidebar dark theme */
+    --sidebar-background: 231 40% 12%;
+    --sidebar-foreground: 225 50% 85%;
+    --sidebar-primary: 231 48% 55%;
+    --sidebar-primary-foreground: 225 60% 96%;
+    --sidebar-accent: 262 39% 68%;
+    --sidebar-accent-foreground: 231 40% 97%;
+    --sidebar-border: 231 40% 30%;
+    --sidebar-ring: 231 48% 65%;
   }
 }
 
@@ -143,7 +147,6 @@ h1, h2, h3, h4, h5, h6, strong, b, .font-semibold, .font-bold {
 }
 
 /* Adjust height of typewriter-caret if it appears too tall or short next to text */
-.text-xl .typewriter-caret, .text-2xl .typewriter-caret { 
+.text-xl .typewriter-caret, .text-2xl .typewriter-caret {
   height: 1.2em; /* Or match line-height if more precise control needed */
 }
-

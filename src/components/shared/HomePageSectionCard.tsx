@@ -44,7 +44,7 @@ export default function HomePageSectionCard({ title, description, imageUrl, imag
 
   return (
     <Link href={linkUrl} className={cn(
-      "relative block group overflow-hidden rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out aspect-[16/9] hover:-translate-y-2 bg-gray-100/10 hover:bg-gray-100/20",
+      "relative block group overflow-hidden rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out aspect-[16/9] hover:-translate-y-2 bg-card/10 hover:bg-card/20",
       className
     )}
     onMouseEnter={() => setIsHovered(true)}
@@ -54,8 +54,8 @@ export default function HomePageSectionCard({ title, description, imageUrl, imag
         src={imageUrl}
         alt={title} // Use title for alt text for better accessibility
         layout="fill"
-        // Apply grayscale based on hover state
-        className={cn("transition-transform duration-300 ease-in-out", isHovered ? "scale-105 filter-none" : "grayscale")}
+        // Removed grayscale filter to better suit color themes
+        className={cn("transition-transform duration-300 ease-in-out", isHovered ? "scale-105" : "")}
         objectFit="cover"
         data-ai-hint={imageAiHint}
         priority={false} // Not LCP usually
