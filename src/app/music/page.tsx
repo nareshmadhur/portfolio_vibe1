@@ -57,7 +57,7 @@ export default function MusicPage() {
 
   const handleUserInteraction = useCallback(() => {
     if (isAutoPlayEnabled) {
-      console.log("handleUserInteraction: Pausing auto-play.");
+      // console.log("handleUserInteraction: Pausing auto-play."); // Keep for debugging if needed
       if (intervalIdRef.current) {
         clearInterval(intervalIdRef.current);
         intervalIdRef.current = null;
@@ -72,7 +72,7 @@ export default function MusicPage() {
     }
 
     if (userInitiated) {
-      handleUserInteraction(); // Centralize auto-play disabling logic
+      handleUserInteraction(); 
     }
 
     let actualNewIndex = newIndex;
@@ -83,7 +83,7 @@ export default function MusicPage() {
     }
     
     if (actualNewIndex === currentPerformanceIndex && performanceVideos.length > 1) {
-        if(userInitiated) handleUserInteraction(); // Ensure auto-play stops even if index is same
+        if(userInitiated) handleUserInteraction();
         return; 
     }
 
@@ -156,12 +156,13 @@ export default function MusicPage() {
     const currentIndex = currentPerformanceIndex;
     const nextIndex = (currentPerformanceIndex + 1) % numVids;
     
+    // Always return three items, filling with null if not enough videos
     if (numVids === 1) return [null, performanceVideos[currentIndex], null];
     if (numVids === 2) {
-      // For 2 videos, always show current in middle, other on right/prev slot, left/next slot is empty
+      // For 2 videos, show current in middle, other in an adjacent slot, and one slot empty
       return currentPerformanceIndex === 0 
         ? [null, performanceVideos[0], performanceVideos[1]] 
-        : [performanceVideos[0], performanceVideos[1], null];
+        : [performanceVideos[1], performanceVideos[0], null];
     }
     
     return [
@@ -297,43 +298,38 @@ export default function MusicPage() {
 
                     <div className="flex-grow grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 items-center">
                       {videosToDisplay.map((videoData, slotIndex) => {
-                        const isPlayerSlot = slotIndex === 1;
+                        const isPlayerSlot = slotIndex === 1; // Middle slot is the player
                         const videoToShow = videoData;
 
-                        if (!videoToShow && performanceVideos.length > 1 && slotIndex !== 1) { 
-                           return <div key={`empty-slot-${slotIndex}`} className="aspect-video rounded-lg hidden md:block" />;
+                        // Always render a div for grid structure, even if empty
+                        if (!videoToShow) {
+                           // Render an empty, non-interactive placeholder to maintain grid structure
+                           // Hide on mobile if it's a side slot and empty to save space
+                           return <div key={`empty-slot-${slotIndex}`} className={cn("aspect-video rounded-lg", !isPlayerSlot && "hidden md:block")} />;
                         }
-                        if (!videoToShow && performanceVideos.length === 1 && !isPlayerSlot) {
-                          return null;
-                        }
-                        if (!videoToShow) return <div key={`empty-player-slot-${slotIndex}`} className="aspect-video rounded-lg" />;
 
                         return (
-                          <div // This is the GRID CELL
+                          <div 
                             key={videoToShow.id + `_slot_${slotIndex}`} 
                             className={cn(
                               "w-full transition-all duration-300 ease-in-out",
-                              !isPlayerSlot ? "opacity-60 hover:opacity-100 md:transform md:scale-90 hover:md:scale-95 cursor-pointer" : "z-10" 
+                              !isPlayerSlot && "opacity-60 hover:opacity-100 md:transform md:scale-90 hover:md:scale-95 cursor-pointer",
+                              isPlayerSlot && "z-10" // Ensure player is on top if overlapping during animations
                             )}
                             onClick={
-                              isPlayerSlot
-                                ? () => {
-                                    console.log(`Player slot clicked. isAutoPlayEnabled: ${isAutoPlayEnabled}`);
-                                    if (isAutoPlayEnabled) {
-                                      handleUserInteraction();
-                                    }
-                                  }
-                                : () => { // For thumbnail slots
+                              !isPlayerSlot // Only side thumbnails are clickable to change video
+                                ? () => { 
                                     const videoIndex = performanceVideos.findIndex(v => v.id === videoToShow.id);
                                     if (videoIndex !== -1) {
                                       changePerformanceVideo(videoIndex, true); 
                                     }
                                   }
+                                : undefined // Player slot itself does not trigger changePerformanceVideo on click
                             }
                           >
                             {isPlayerSlot ? (
-                              <div // This is the ANIMATED WRAPPER for the player
-                                key={activePerformanceVideo.id} 
+                              <div 
+                                key={activePerformanceVideo.id} // Key change triggers re-render and animation
                                 className={cn(
                                   "w-full aspect-video rounded-lg overflow-hidden shadow-xl",
                                   slideDirection === 'initial' ? 'animate-fadeIn' :
@@ -344,10 +340,20 @@ export default function MusicPage() {
                               >
                                 <YouTubePlayer videoId={activePerformanceVideo.videoId} title={activePerformanceVideo.title} />
                               </div>
-                            ) : (
+                            ) : ( // Side slots are thumbnails
                               <div
+                                role="button"
+                                tabIndex={0}
                                 aria-label={`Play ${videoToShow.title}`}
                                 className="w-full aspect-video relative rounded-lg overflow-hidden group focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                                onKeyDown={(e) => {
+                                  if (e.key === 'Enter' || e.key === ' ') {
+                                    const videoIndex = performanceVideos.findIndex(v => v.id === videoToShow.id);
+                                    if (videoIndex !== -1) {
+                                      changePerformanceVideo(videoIndex, true);
+                                    }
+                                  }
+                                }}
                               >
                                 <Image
                                   src={`https://i.ytimg.com/vi/${videoToShow.videoId}/mqdefault.jpg`}
@@ -355,6 +361,7 @@ export default function MusicPage() {
                                   layout="fill"
                                   objectFit="cover"
                                   className="transition-transform duration-300 group-hover:scale-105"
+                                  priority={slotIndex === 1} // Prioritize loading image for current player if it were an image
                                 />
                                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                                   <PlayCircle className="w-10 h-10 text-white/70 group-hover:text-white transition-opacity" />
