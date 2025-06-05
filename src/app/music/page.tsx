@@ -48,6 +48,7 @@ export default function MusicPage() {
     return null;
   }, [performanceVideos, currentPerformanceIndex]);
 
+
   const changePerformanceVideo = useCallback((newIndex: number) => {
     if (isAnimating || performanceVideos.length <= 1) {
       return;
@@ -81,7 +82,10 @@ export default function MusicPage() {
 
     setIsAnimating(true);
     setSlideDirection(determinedDirection);
+    
+    // Update index after setting direction and starting animation
     setCurrentPerformanceIndex(actualNewIndex);
+
     setTimeout(() => {
       setIsAnimating(false);
     }, slideDuration);
@@ -110,6 +114,7 @@ export default function MusicPage() {
     
     if (numVids === 1) return [null, performanceVideos[currentIndex], null];
     if (numVids === 2) {
+      // For 2 videos, always show current in middle, other on right if current is 0, else on left.
       return currentPerformanceIndex === 0 
         ? [null, performanceVideos[0], performanceVideos[1]] 
         : [performanceVideos[1], performanceVideos[0], null];
@@ -162,14 +167,16 @@ export default function MusicPage() {
                 {youtube.musicVideos.otherExampleVideos && youtube.musicVideos.otherExampleVideos.length > 0 && (
                   <div>
                     <h4 className="text-lg font-semibold mb-3 text-foreground text-left">More Videos</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      {youtube.musicVideos.otherExampleVideos.map(video => (
-                        <Card key={video.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200">
-                          <CardContent className="p-0">
-                            <YouTubePlayer videoId={video.videoId} title={video.title} />
-                          </CardContent>
-                        </Card>
-                      ))}
+                    <div className="max-w-lg"> {/* Constrain width of "More Videos" grid */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        {youtube.musicVideos.otherExampleVideos.map(video => (
+                          <Card key={video.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200">
+                            <CardContent className="p-0">
+                              <YouTubePlayer videoId={video.videoId} title={video.title} />
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 )}
@@ -203,14 +210,16 @@ export default function MusicPage() {
                 {youtube.guitarTeaching.otherExampleVideos && youtube.guitarTeaching.otherExampleVideos.length > 0 && (
                   <div>
                     <h4 className="text-lg font-semibold mb-3 text-foreground text-left">More Lessons</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      {youtube.guitarTeaching.otherExampleVideos.map(video => (
-                        <Card key={video.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200">
-                           <CardContent className="p-0">
-                            <YouTubePlayer videoId={video.videoId} title={video.title} />
-                          </CardContent>
-                        </Card>
-                      ))}
+                     <div className="max-w-lg"> {/* Constrain width of "More Videos" grid */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        {youtube.guitarTeaching.otherExampleVideos.map(video => (
+                            <Card key={video.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200">
+                            <CardContent className="p-0">
+                                <YouTubePlayer videoId={video.videoId} title={video.title} />
+                            </CardContent>
+                            </Card>
+                        ))}
+                        </div>
                     </div>
                   </div>
                 )}
@@ -251,9 +260,10 @@ export default function MusicPage() {
                         const isPlayerSlot = slotIndex === 1; // Middle slot is the player
                         const videoToShow = videoData;
 
-                        if (!videoToShow) {
-                           return <div key={`empty-slot-${slotIndex}`} className={cn("aspect-video rounded-lg", !isPlayerSlot && "hidden md:block")} />;
+                        if (!videoToShow && performanceVideos.length > 0) { // Render placeholder only if there are videos
+                           return <div key={`empty-slot-${slotIndex}`} className={cn("aspect-video rounded-lg", !isPlayerSlot && "hidden md:block", "bg-muted/30 ")} />;
                         }
+                        if (!videoToShow) return null; // If no videos at all, render nothing for empty slots
 
                         return (
                           <div 
@@ -264,7 +274,7 @@ export default function MusicPage() {
                               isPlayerSlot && "z-10"
                             )}
                             onClick={
-                              !isPlayerSlot 
+                              !isPlayerSlot && !isAnimating
                                 ? () => { 
                                     const videoIndex = performanceVideos.findIndex(v => v.id === videoToShow.id);
                                     if (videoIndex !== -1) {
@@ -276,7 +286,7 @@ export default function MusicPage() {
                           >
                             {isPlayerSlot ? (
                               <div 
-                                key={activePerformanceVideo.id} 
+                                key={activePerformanceVideo.id} // Key change triggers re-render and animation
                                 className={cn(
                                   "w-full aspect-video rounded-lg overflow-hidden shadow-xl",
                                   slideDirection === 'initial' ? 'animate-fadeIn' :
@@ -294,7 +304,7 @@ export default function MusicPage() {
                                 aria-label={`Play ${videoToShow.title}`}
                                 className="w-full aspect-video relative rounded-lg overflow-hidden group focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                                 onKeyDown={(e) => {
-                                  if (e.key === 'Enter' || e.key === ' ') {
+                                  if ((e.key === 'Enter' || e.key === ' ') && !isAnimating) {
                                     const videoIndex = performanceVideos.findIndex(v => v.id === videoToShow.id);
                                     if (videoIndex !== -1) {
                                       changePerformanceVideo(videoIndex);
@@ -369,4 +379,6 @@ export default function MusicPage() {
     </SectionWrapper>
   );
 }
+    
+
     
