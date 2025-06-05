@@ -27,10 +27,6 @@ const plugins: Plugin<any>[] = [];
 export const ai = genkit({
   plugins: plugins, // Will be an empty array for now
   // According to v1.x guidelines, logLevel is not set here directly.
-  // Tracing and telemetry can be configured if needed for debugging.
-  enableTracing: process.env.NODE_ENV === 'development', // Enable tracing in development
-  telemetry: {
-    instrumentation: false, // Disable OpenTelemetry for simplicity in this example
-    logger: false,          // Disable default Genkit logger for simplicity
-  },
+  // Tracing and telemetry options removed for debugging.
 });
+
