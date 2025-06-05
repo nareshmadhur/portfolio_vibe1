@@ -30,7 +30,6 @@ export default function MusicPage() {
 
   const [isMounted, setIsMounted] = useState(false);
 
-  // For Live Performances Carousel
   const performanceVideos = useMemo(() => youtube.performances.videos || [], [youtube.performances.videos]);
   const [currentPerformanceIndex, setCurrentPerformanceIndex] = useState(0);
   const [slideDirection, setSlideDirection] = useState<'initial' | 'next' | 'prev'>('initial');
@@ -47,7 +46,6 @@ export default function MusicPage() {
     }
     return null;
   }, [performanceVideos, currentPerformanceIndex]);
-
 
   const changePerformanceVideo = useCallback((newIndex: number) => {
     if (isAnimating || performanceVideos.length <= 1) {
@@ -83,7 +81,6 @@ export default function MusicPage() {
     setIsAnimating(true);
     setSlideDirection(determinedDirection);
     
-    // Update index after setting direction and starting animation
     setCurrentPerformanceIndex(actualNewIndex);
 
     setTimeout(() => {
@@ -114,7 +111,6 @@ export default function MusicPage() {
     
     if (numVids === 1) return [null, performanceVideos[currentIndex], null];
     if (numVids === 2) {
-      // For 2 videos, always show current in middle, other on right if current is 0, else on left.
       return currentPerformanceIndex === 0 
         ? [null, performanceVideos[0], performanceVideos[1]] 
         : [performanceVideos[1], performanceVideos[0], null];
@@ -141,101 +137,113 @@ export default function MusicPage() {
         </p>
       </AnimatedSection>
 
+      {/* YouTube Presence Section */}
       <AnimatedSection delay="delay-100">
-        <SectionWrapper containerClassName="space-y-12">
+        <SectionWrapper containerClassName="space-y-8 md:space-y-12"> {/* Adjusted spacing */}
           <SectionTitle>{youtube.title}</SectionTitle>
-          <p className="text-md mb-10 text-muted-foreground max-w-2xl text-left -mt-4">
+          <p className="text-md mb-6 md:mb-10 text-muted-foreground max-w-2xl text-left -mt-4">
             {youtube.description}
           </p>
 
-          <AnimatedSection delay="delay-200">
-            <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <CardHeader>
-                <CardTitle className="text-xl flex items-center">
-                  <Youtube className="mr-2 h-6 w-6 text-accent" />
-                  {youtube.musicVideos.title}
-                </CardTitle>
-                <CardDescription>{youtube.musicVideos.description}</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div>
-                  <h4 className="text-lg font-semibold mb-2 text-foreground text-left">Featured Video</h4>
-                  <div className="max-w-xl mb-4 text-left">
-                    <YouTubePlayer videoId={youtube.musicVideos.featuredVideoId} title={youtube.musicVideos.featuredVideoTitle} />
-                  </div>
-                </div>
-                {youtube.musicVideos.otherExampleVideos && youtube.musicVideos.otherExampleVideos.length > 0 && (
+          {/* Two-column layout for YouTube channel cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+            <AnimatedSection delay="delay-200">
+              <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
+                <CardHeader>
+                  <CardTitle className="text-xl flex items-center">
+                    <Youtube className="mr-2 h-6 w-6 text-accent" />
+                    {youtube.musicVideos.title}
+                  </CardTitle>
+                  <CardDescription>{youtube.musicVideos.description}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6 flex-grow">
                   <div>
-                    <h4 className="text-lg font-semibold mb-3 text-foreground text-left">More Videos</h4>
-                    <div className="max-w-lg"> {/* Constrain width of "More Videos" grid */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        {youtube.musicVideos.otherExampleVideos.map(video => (
-                          <Card key={video.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200">
-                            <CardContent className="p-0">
-                              <YouTubePlayer videoId={video.videoId} title={video.title} />
-                            </CardContent>
-                          </Card>
-                        ))}
+                    <h4 className="text-lg font-semibold mb-2 text-foreground text-left">Featured Video</h4>
+                    <div className="max-w-xl mb-4 text-left">
+                      <YouTubePlayer videoId={youtube.musicVideos.featuredVideoId} title={youtube.musicVideos.featuredVideoTitle} />
+                    </div>
+                  </div>
+                  {youtube.musicVideos.otherExampleVideos && youtube.musicVideos.otherExampleVideos.length > 0 && (
+                    <div>
+                      <h4 className="text-lg font-semibold mb-3 text-foreground text-left">More Videos</h4>
+                      <div className="max-w-lg">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                          {youtube.musicVideos.otherExampleVideos.map(video => (
+                            <Card key={video.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200">
+                              <CardContent className="p-0">
+                                <YouTubePlayer videoId={video.videoId} title={video.title} />
+                              </CardContent>
+                            </Card>
+                          ))}
+                        </div>
                       </div>
                     </div>
+                  )}
+                </CardContent>
+                <CardFooter className="mt-auto pt-4">
+                  <div className="text-left w-full">
+                      <Button asChild variant="secondary">
+                      <Link href={youtube.musicVideos.channelUrl} target="_blank" rel="noopener noreferrer">
+                          <Youtube className="mr-2 h-5 w-5" /> {siteContent.musicPage.visitYouTubeButton} ({youtube.musicVideos.channelName})
+                      </Link>
+                      </Button>
                   </div>
-                )}
-                <div className="text-left">
-                    <Button asChild variant="secondary">
-                    <Link href={youtube.musicVideos.channelUrl} target="_blank" rel="noopener noreferrer">
-                        <Youtube className="mr-2 h-5 w-5" /> {siteContent.musicPage.visitYouTubeButton} ({youtube.musicVideos.channelName})
-                    </Link>
-                    </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </AnimatedSection>
+                </CardFooter>
+              </Card>
+            </AnimatedSection>
 
-          <AnimatedSection delay="delay-300">
-            <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <CardHeader>
-                <CardTitle className="text-xl flex items-center">
-                  <Youtube className="mr-2 h-6 w-6 text-accent" />
-                  {youtube.guitarTeaching.title}
-                </CardTitle>
-                <CardDescription>{youtube.guitarTeaching.description}</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div>
-                  <h4 className="text-lg font-semibold mb-2 text-foreground text-left">Featured Lesson</h4>
-                  <div className="max-w-xl mb-4 text-left">
-                    <YouTubePlayer videoId={youtube.guitarTeaching.featuredVideoId} title={youtube.guitarTeaching.featuredVideoTitle} />
-                  </div>
-                </div>
-                {youtube.guitarTeaching.otherExampleVideos && youtube.guitarTeaching.otherExampleVideos.length > 0 && (
+            <AnimatedSection delay="delay-300"> {/* Adjusted delay */}
+              <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
+                <CardHeader>
+                  <CardTitle className="text-xl flex items-center">
+                    <Youtube className="mr-2 h-6 w-6 text-accent" />
+                    {youtube.guitarTeaching.title}
+                  </CardTitle>
+                  <CardDescription>{youtube.guitarTeaching.description}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6 flex-grow">
                   <div>
-                    <h4 className="text-lg font-semibold mb-3 text-foreground text-left">More Lessons</h4>
-                     <div className="max-w-lg"> {/* Constrain width of "More Videos" grid */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        {youtube.guitarTeaching.otherExampleVideos.map(video => (
-                            <Card key={video.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200">
-                            <CardContent className="p-0">
-                                <YouTubePlayer videoId={video.videoId} title={video.title} />
-                            </CardContent>
-                            </Card>
-                        ))}
-                        </div>
+                    <h4 className="text-lg font-semibold mb-2 text-foreground text-left">Featured Lesson</h4>
+                    <div className="max-w-xl mb-4 text-left">
+                      <YouTubePlayer videoId={youtube.guitarTeaching.featuredVideoId} title={youtube.guitarTeaching.featuredVideoTitle} />
                     </div>
                   </div>
-                )}
-                <div className="text-left">
-                    <Button asChild variant="secondary">
-                    <Link href={youtube.guitarTeaching.channelUrl} target="_blank" rel="noopener noreferrer">
-                        <Youtube className="mr-2 h-5 w-5" /> {siteContent.musicPage.visitYouTubeButton} ({youtube.guitarTeaching.channelName})
-                    </Link>
-                    </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </AnimatedSection>
-
-          <AnimatedSection delay="delay-400">
-            <div className="mt-12">
+                  {youtube.guitarTeaching.otherExampleVideos && youtube.guitarTeaching.otherExampleVideos.length > 0 && (
+                    <div>
+                      <h4 className="text-lg font-semibold mb-3 text-foreground text-left">More Lessons</h4>
+                      <div className="max-w-lg">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                          {youtube.guitarTeaching.otherExampleVideos.map(video => (
+                              <Card key={video.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200">
+                              <CardContent className="p-0">
+                                  <YouTubePlayer videoId={video.videoId} title={video.title} />
+                              </CardContent>
+                              </Card>
+                          ))}
+                          </div>
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+                <CardFooter className="mt-auto pt-4">
+                  <div className="text-left w-full">
+                      <Button asChild variant="secondary">
+                      <Link href={youtube.guitarTeaching.channelUrl} target="_blank" rel="noopener noreferrer">
+                          <Youtube className="mr-2 h-5 w-5" /> {siteContent.musicPage.visitYouTubeButton} ({youtube.guitarTeaching.channelName})
+                      </Link>
+                      </Button>
+                  </div>
+                </CardFooter>
+              </Card>
+            </AnimatedSection>
+          </div>
+        </SectionWrapper>
+      </AnimatedSection>
+      
+      {/* Live Performances Section */}
+      <AnimatedSection delay="delay-400"> {/* Adjusted delay if needed */}
+        <SectionWrapper containerClassName="mt-12 md:mt-16"> {/* Added top margin */}
+            <div> {/* Removed extra SectionTitle and description here, they'll be part of the div below */}
               <h3 className="text-2xl font-semibold mb-4 text-foreground text-left">{youtube.performances.title}</h3>
               <p className="text-md mb-6 text-muted-foreground max-w-3xl text-left">
                 {youtube.performances.description}
@@ -257,13 +265,13 @@ export default function MusicPage() {
 
                     <div className="flex-grow grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 items-center">
                       {videosToDisplay.map((videoData, slotIndex) => {
-                        const isPlayerSlot = slotIndex === 1; // Middle slot is the player
+                        const isPlayerSlot = slotIndex === 1;
                         const videoToShow = videoData;
 
-                        if (!videoToShow && performanceVideos.length > 0) { // Render placeholder only if there are videos
+                        if (!videoToShow && performanceVideos.length > 0) {
                            return <div key={`empty-slot-${slotIndex}`} className={cn("aspect-video rounded-lg", !isPlayerSlot && "hidden md:block", "bg-muted/30 ")} />;
                         }
-                        if (!videoToShow) return null; // If no videos at all, render nothing for empty slots
+                        if (!videoToShow) return null;
 
                         return (
                           <div 
@@ -286,7 +294,7 @@ export default function MusicPage() {
                           >
                             {isPlayerSlot ? (
                               <div 
-                                key={activePerformanceVideo.id} // Key change triggers re-render and animation
+                                key={activePerformanceVideo.id} 
                                 className={cn(
                                   "w-full aspect-video rounded-lg overflow-hidden shadow-xl",
                                   slideDirection === 'initial' ? 'animate-fadeIn' :
@@ -357,11 +365,11 @@ export default function MusicPage() {
                 </Button>
               </div>
             </div>
-          </AnimatedSection>
         </SectionWrapper>
       </AnimatedSection>
 
-      <AnimatedSection delay="delay-200">
+      {/* Teaching Journey Section */}
+      <AnimatedSection delay="delay-200"> {/* Original delay, can be adjusted */}
         <SectionWrapper containerClassName="mt-12">
           <SectionTitle className="text-left">{teachingJourney.title}</SectionTitle>
           <div className="text-left"> 
@@ -379,6 +387,3 @@ export default function MusicPage() {
     </SectionWrapper>
   );
 }
-    
-
-    

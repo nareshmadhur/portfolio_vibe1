@@ -1,3 +1,4 @@
+
 "use client";
 
 /**
@@ -54,8 +55,10 @@ export default function HomePageSectionCard({ title, description, imageUrl, imag
         src={imageUrl}
         alt={title} // Use title for alt text for better accessibility
         layout="fill"
-        // Removed grayscale filter to better suit color themes
-        className={cn("transition-transform duration-300 ease-in-out", isHovered ? "scale-105" : "")}
+        className={cn(
+            "transition-transform duration-300 ease-in-out group-hover:grayscale", // Added group-hover:grayscale
+            isHovered ? "scale-105" : ""
+        )}
         objectFit="cover"
         data-ai-hint={imageAiHint}
         priority={false} // Not LCP usually
