@@ -12,7 +12,7 @@ import Link from "next/link";
 import { Youtube, BookOpen, ChevronLeft, ChevronRight, PlayCircle } from "lucide-react";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import YouTubePlayer from "@/components/shared/YouTubePlayer";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 /**
@@ -269,9 +269,10 @@ export default function MusicPage() {
                         const videoToShow = videoData;
 
                         if (!videoToShow && performanceVideos.length > 0) {
+                           // Render an empty placeholder for layout consistency if video is missing but array not empty
                            return <div key={`empty-slot-${slotIndex}`} className={cn("aspect-video rounded-lg", !isPlayerSlot && "hidden md:block", "bg-muted/30 ")} />;
                         }
-                        if (!videoToShow) return null;
+                        if (!videoToShow) return null; // Don't render if no video for this slot
 
                         return (
                           <div 
@@ -279,6 +280,7 @@ export default function MusicPage() {
                             className={cn(
                               "w-full transition-all duration-300 ease-in-out",
                               !isPlayerSlot && "opacity-60 hover:opacity-100 md:transform md:scale-90 hover:md:scale-95 cursor-pointer",
+                              !isPlayerSlot && "hidden md:block", // Hide side thumbnails on mobile by default
                               isPlayerSlot && "z-10"
                             )}
                             onClick={
@@ -294,7 +296,7 @@ export default function MusicPage() {
                           >
                             {isPlayerSlot ? (
                               <div 
-                                key={activePerformanceVideo.id} 
+                                key={activePerformanceVideo.id} // Key change forces re-render for animation
                                 className={cn(
                                   "w-full aspect-video rounded-lg overflow-hidden shadow-xl",
                                   slideDirection === 'initial' ? 'animate-fadeIn' :
@@ -306,6 +308,7 @@ export default function MusicPage() {
                                 <YouTubePlayer videoId={activePerformanceVideo.videoId} title={activePerformanceVideo.title} />
                               </div>
                             ) : ( 
+                              // Thumbnail for side slots
                               <div
                                 role="button"
                                 tabIndex={0}
@@ -326,7 +329,7 @@ export default function MusicPage() {
                                   layout="fill"
                                   objectFit="cover"
                                   className="transition-transform duration-300 group-hover:scale-105"
-                                  priority={slotIndex === 1} 
+                                  priority={slotIndex === 1} // Prioritize center image if it's a thumbnail view
                                 />
                                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                                   <PlayCircle className="w-10 h-10 text-white/70 group-hover:text-white transition-opacity" />
@@ -387,3 +390,4 @@ export default function MusicPage() {
     </SectionWrapper>
   );
 }
+
