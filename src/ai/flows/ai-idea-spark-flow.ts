@@ -11,15 +11,15 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit'; // Use Genkit's re-export of Zod
 
-// Input Schema
-export const AiIdeaSparkInputSchema = z.object({
+// Input Schema (not exported directly)
+const AiIdeaSparkInputSchema = z.object({
   keywords: z.string().min(3, { message: "Keywords must be at least 3 characters." })
     .describe('Keywords or a short phrase related to AI or Business Intelligence for which an idea or explanation is sought.'),
 });
 export type AiIdeaSparkInput = z.infer<typeof AiIdeaSparkInputSchema>;
 
-// Output Schema
-export const AiIdeaSparkOutputSchema = z.object({
+// Output Schema (not exported directly)
+const AiIdeaSparkOutputSchema = z.object({
   title: z.string().describe('A catchy and relevant title for the generated idea or explanation.'),
   explanation: z.string().describe('A concise explanation of the AI/BI concept or a project idea (1-2 paragraphs).'),
   suggestedKeywords: z.array(z.string()).optional().describe('A few related keywords or concepts the user might also be interested in.'),
