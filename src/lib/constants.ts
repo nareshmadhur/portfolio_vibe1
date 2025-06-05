@@ -193,8 +193,23 @@ export const siteContent = {
     },
   },
   biAiPage: {
-    title: "BI & AI Projects",
-    description: "A showcase of my work in Business Intelligence, Data Analytics, and Artificial Intelligence. Each project highlights different skills and technologies I've utilized to solve complex problems and deliver actionable insights.",
+    title: "Tech. Pursuits: BI & AI",
+    description: "A showcase of my work in Business Intelligence, Data Analytics, and Artificial Intelligence, alongside interactive AI tools to spark new ideas.",
+    ideaSpark: {
+      title: "AI Idea Spark",
+      description: "Enter keywords related to AI or Business Intelligence, and let Idea Spark generate a project idea or explain a concept for you!",
+      inputLabel: "Your Keywords (e.g., 'natural language processing', 'predictive analytics for retail')",
+      inputPlaceholder: "Type keywords and press Enter or click Generate...",
+      buttonText: "Generate Idea",
+      buttonLoadingText: "Generating...",
+      relatedKeywordsLabel: "Related Concepts:",
+      errorMessages: {
+        errorTitle: "Oops! Something went wrong.",
+        emptyKeywords: "Please enter some keywords to get started.",
+        generalError: "Failed to generate an idea at this moment. Please try again later.",
+      }
+    },
+    projectsTitle: "Portfolio Projects",
   },
   musicPage: {
     title: "Music & Teaching",
@@ -285,8 +300,8 @@ export const siteContent = {
   metadata: {
     defaultTitle: `Naresh Madhur | Portfolio`,
     defaultDescription: `Portfolio of Naresh Madhur, showcasing expertise in Data Science & AI, music, and photography.`,
-    biAiTitle: `Tech. Pursuits | Naresh Madhur`,
-    biAiDescription: `Explore a collection of Business Intelligence and Artificial Intelligence projects by Naresh Madhur.`,
+    biAiTitle: `Tech. Pursuits & AI Tools | Naresh Madhur`,
+    biAiDescription: `Explore BI & AI projects by Naresh Madhur and interact with AI-powered idea generation tools.`,
     musicTitle: `Music & Teaching | Naresh Madhur`,
     musicDescription: `Listen to original compositions, covers, live performances, and explore music teaching by Naresh Madhur.`,
     photographyTitle: `Photography Gallery | Naresh Madhur`,
@@ -373,4 +388,3 @@ export const photographyItems: Photo[] = [
     dataAiHint: 'ocean waves',
   },
 ];
-
