@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * @fileoverview Page component for showcasing music projects, YouTube channels, performances, and teaching.
- * Includes client-side state for carousel functionality.
+ * Includes client-side state for carousel functionality with auto-play and user interaction pause.
  */
 
 /**
@@ -35,13 +35,13 @@ export default function MusicPage() {
   const [currentPerformanceIndex, setCurrentPerformanceIndex] = useState(0);
   const [slideDirection, setSlideDirection] = useState<'initial' | 'next' | 'prev'>('initial');
   const [isAnimating, setIsAnimating] = useState(false);
-  const [isAutoPlayEnabled, setIsAutoPlayEnabled] = useState(true);
+  const [isAutoPlayEnabled, setIsAutoPlayEnabled] = useState(true); // New state for auto-play control
   const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
   const slideDuration = 500; // milliseconds
 
   useEffect(() => {
     setIsMounted(true);
-    return () => { // Cleanup interval on unmount
+    return () => {
       if (intervalIdRef.current) {
         clearInterval(intervalIdRef.current);
       }
@@ -60,7 +60,7 @@ export default function MusicPage() {
       return;
     }
 
-    if (userInitiated) {
+    if (userInitiated && isAutoPlayEnabled) { // If user interacts, disable auto-play
       if (intervalIdRef.current) {
         clearInterval(intervalIdRef.current);
         intervalIdRef.current = null;
@@ -77,13 +77,12 @@ export default function MusicPage() {
     
     if (actualNewIndex === currentPerformanceIndex && performanceVideos.length > 1) {
         // If user clicked the current video's thumbnail, just ensure autoplay is off
-        if(userInitiated) {
+        if(userInitiated && isAutoPlayEnabled) {
              if (intervalIdRef.current) clearInterval(intervalIdRef.current);
              setIsAutoPlayEnabled(false); 
         }
         return; // No slide animation needed if index hasn't changed
     }
-
 
     let determinedDirection: 'next' | 'prev';
     const numVids = performanceVideos.length;
@@ -106,15 +105,25 @@ export default function MusicPage() {
     setTimeout(() => {
       setIsAnimating(false);
     }, slideDuration);
-  }, [isAnimating, performanceVideos, currentPerformanceIndex, slideDuration, setIsAnimating, setSlideDirection, setCurrentPerformanceIndex, setIsAutoPlayEnabled]);
+  }, [isAnimating, performanceVideos, currentPerformanceIndex, slideDuration, isAutoPlayEnabled]);
   
-  const nextPerformance = () => { // User-triggered
+  const handleUserInteraction = useCallback(() => {
+    if (isAutoPlayEnabled) {
+      if (intervalIdRef.current) {
+        clearInterval(intervalIdRef.current);
+        intervalIdRef.current = null;
+      }
+      setIsAutoPlayEnabled(false);
+    }
+  }, [isAutoPlayEnabled, intervalIdRef]);
+
+  const nextPerformance = () => {
     if (performanceVideos.length > 0) {
       changePerformanceVideo((currentPerformanceIndex + 1) % performanceVideos.length, true);
     }
   };
 
-  const prevPerformance = () => { // User-triggered
+  const prevPerformance = () => {
      if (performanceVideos.length > 0) {
       changePerformanceVideo((currentPerformanceIndex - 1 + performanceVideos.length) % performanceVideos.length, true);
      }
@@ -123,21 +132,21 @@ export default function MusicPage() {
   // Auto-advance for the performance carousel
   useEffect(() => {
     if (!isMounted || performanceVideos.length <= 1 || isAnimating || !isAutoPlayEnabled) {
-      if (intervalIdRef.current) { // Clear if disabled or conditions not met
+      if (intervalIdRef.current) {
         clearInterval(intervalIdRef.current);
         intervalIdRef.current = null;
       }
       return;
     }
-    // Clear any existing interval before setting a new one
+
     if (intervalIdRef.current) clearInterval(intervalIdRef.current);
 
     intervalIdRef.current = setInterval(() => {
       const newIndex = (currentPerformanceIndex + 1) % performanceVideos.length;
-      changePerformanceVideo(newIndex, false); // Auto-triggered
+      changePerformanceVideo(newIndex, false); // Auto-triggered, so userInitiated is false
     }, 5000); 
 
-    return () => { // Cleanup function
+    return () => {
       if (intervalIdRef.current) {
         clearInterval(intervalIdRef.current);
         intervalIdRef.current = null;
@@ -148,7 +157,7 @@ export default function MusicPage() {
 
   const videosToDisplay = useMemo(() => {
     const numVids = performanceVideos.length;
-    if (numVids === 0) return [null, null, null]; // Should not happen if activePerformanceVideo exists
+    if (numVids === 0) return [null, null, null];
     
     const prevIndex = (currentPerformanceIndex - 1 + numVids) % numVids;
     const currentIndex = currentPerformanceIndex;
@@ -156,10 +165,6 @@ export default function MusicPage() {
     
     if (numVids === 1) return [null, performanceVideos[currentIndex], null];
     if (numVids === 2) {
-      // For 2 videos, always show current in middle, other on one side.
-      // Let's make 'next' appear on the right, 'prev' on the left.
-      // If current is 0, next is 1. (null, video[0], video[1])
-      // If current is 1, prev is 0. (video[0], video[1], null)
       return currentPerformanceIndex === 0 
         ? [null, performanceVideos[0], performanceVideos[1]] 
         : [performanceVideos[0], performanceVideos[1], null];
@@ -302,21 +307,17 @@ export default function MusicPage() {
 
                     <div className="flex-grow grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 items-center">
                       {videosToDisplay.map((videoData, slotIndex) => {
-                        // slotIndex: 0=prev, 1=current, 2=next
-                        const isPlayerSlot = slotIndex === 1; // The middle slot is always the player
+                        const isPlayerSlot = slotIndex === 1;
                         const videoToShow = videoData;
 
-                        if (!videoToShow && performanceVideos.length > 1) { 
-                          // Render an empty div or a placeholder for slots where video is not available
-                          // (e.g. when only 2 videos, one side slot will be empty)
-                          // but only if there's more than one video total to avoid empty slots for single video
-                          return <div key={`empty-slot-${slotIndex}`} className="aspect-video bg-muted/10 rounded-lg" />;
+                        if (!videoToShow && performanceVideos.length > 1 && slotIndex !== 1) { 
+                           return <div key={`empty-slot-${slotIndex}`} className="aspect-video bg-card/10 rounded-lg" />;
                         }
                         if (!videoToShow && performanceVideos.length === 1 && !isPlayerSlot) {
-                          // If only one video, don't render empty side slots
                           return null;
                         }
-                         if (!videoToShow) return null; // General catch-all
+                        if (!videoToShow) return <div key={`empty-player-slot-${slotIndex}`} className="aspect-video bg-card/10 rounded-lg" />;
+
 
                         return (
                           <div 
@@ -325,16 +326,20 @@ export default function MusicPage() {
                               "w-full transition-all duration-300 ease-in-out",
                               !isPlayerSlot && "opacity-60 hover:opacity-100 md:transform md:scale-90 hover:md:scale-95 cursor-pointer"
                             )}
-                            onClick={!isPlayerSlot ? () => {
-                                const videoIndex = performanceVideos.findIndex(v => v.id === videoToShow.id);
-                                if (videoIndex !== -1) {
-                                  changePerformanceVideo(videoIndex, true); // User initiated
+                            onClick={
+                                isPlayerSlot 
+                                ? handleUserInteraction // Pause auto-play if user clicks on the active player container
+                                : () => { // For thumbnails
+                                    const videoIndex = performanceVideos.findIndex(v => v.id === videoToShow.id);
+                                    if (videoIndex !== -1) {
+                                    changePerformanceVideo(videoIndex, true); 
+                                    }
                                 }
-                              } : undefined}
+                            }
                           >
                             {isPlayerSlot ? (
                               <div
-                                key={activePerformanceVideo.id} // Key change triggers animation
+                                key={activePerformanceVideo.id} 
                                 className={cn(
                                   "w-full aspect-video rounded-lg overflow-hidden shadow-xl",
                                   slideDirection === 'initial' ? 'animate-fadeIn' :
@@ -417,5 +422,6 @@ export default function MusicPage() {
     </SectionWrapper>
   );
 }
+    
 
     
