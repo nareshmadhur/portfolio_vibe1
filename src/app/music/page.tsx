@@ -49,7 +49,7 @@ export default function MusicPage() {
     return null;
   }, [performanceVideos, currentPerformanceIndex]);
 
-  const changePerformanceVideo = useCallback((newIndex: number) => {
+ const changePerformanceVideo = useCallback((newIndex: number) => {
     if (isAnimating || performanceVideos.length <= 1) {
       return;
     }
@@ -378,19 +378,27 @@ export default function MusicPage() {
               {teachingJourney.title}
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4 text-left">
-            <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
-              <Image
-                src="https://import.cdn.thinkific.com/971196/yJVkf7DvQ6aCNOUgleYd_Thumbnail_1.jpg"
-                alt="Carnatic Guitar Beginners Course Thumbnail"
-                layout="fill"
-                objectFit="cover"
-                data-ai-hint="guitar course thumbnail"
-              />
+          <CardContent className="text-left"> {/* Default pt-0 is fine, header provides spacing */}
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-start pt-4">
+              {/* Text content on the left */}
+              <div className="flex-1">
+                <p className="text-md text-muted-foreground">
+                  {teachingJourney.description}
+                </p>
+              </div>
+              {/* Image on the right */}
+              <div className="w-full md:w-48 lg:w-56 shrink-0">
+                <div className="relative aspect-video rounded-lg overflow-hidden shadow-md">
+                  <Image
+                    src="https://import.cdn.thinkific.com/971196/yJVkf7DvQ6aCNOUgleYd_Thumbnail_1.jpg"
+                    alt="Carnatic Guitar Beginners Course Thumbnail"
+                    layout="fill"
+                    objectFit="cover"
+                    data-ai-hint="guitar course thumbnail"
+                  />
+                </div>
+              </div>
             </div>
-            <p className="text-md text-muted-foreground">
-              {teachingJourney.description}
-            </p>
           </CardContent>
           <CardFooter className="mt-auto pt-4">
             <div className="text-left w-full">
