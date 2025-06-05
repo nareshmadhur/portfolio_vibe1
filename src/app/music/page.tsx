@@ -40,6 +40,7 @@ export default function MusicPage() {
     setIsMounted(true);
   }, []);
 
+
   const activePerformanceVideo = useMemo(() => {
     if (performanceVideos.length > 0) {
       return performanceVideos[currentPerformanceIndex];
@@ -77,10 +78,9 @@ export default function MusicPage() {
     } else { 
         determinedDirection = actualNewIndex > currentPerformanceIndex ? 'next' : 'prev';
     }
-
+    
     setIsAnimating(true);
     setSlideDirection(determinedDirection);
-    
     setCurrentPerformanceIndex(actualNewIndex);
 
     setTimeout(() => {
@@ -139,13 +139,12 @@ export default function MusicPage() {
 
       {/* YouTube Presence Section */}
       <AnimatedSection delay="delay-100">
-        <SectionWrapper containerClassName="space-y-8 md:space-y-12"> {/* Adjusted spacing */}
+        <SectionWrapper containerClassName="space-y-8 md:space-y-12">
           <SectionTitle>{youtube.title}</SectionTitle>
           <p className="text-md mb-6 md:mb-10 text-muted-foreground max-w-2xl text-left -mt-4">
             {youtube.description}
           </p>
 
-          {/* Two-column layout for YouTube channel cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
             <AnimatedSection delay="delay-200">
               <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
@@ -192,7 +191,7 @@ export default function MusicPage() {
               </Card>
             </AnimatedSection>
 
-            <AnimatedSection delay="delay-300"> {/* Adjusted delay */}
+            <AnimatedSection delay="delay-300">
               <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
                 <CardHeader>
                   <CardTitle className="text-xl flex items-center">
@@ -241,9 +240,9 @@ export default function MusicPage() {
       </AnimatedSection>
       
       {/* Live Performances Section */}
-      <AnimatedSection delay="delay-400"> {/* Adjusted delay if needed */}
-        <SectionWrapper containerClassName="mt-12 md:mt-16"> {/* Added top margin */}
-            <div> {/* Removed extra SectionTitle and description here, they'll be part of the div below */}
+      <AnimatedSection delay="delay-400">
+        <SectionWrapper containerClassName="mt-12 md:mt-16">
+            <div>
               <h3 className="text-2xl font-semibold mb-4 text-foreground text-left">{youtube.performances.title}</h3>
               <p className="text-md mb-6 text-muted-foreground max-w-3xl text-left">
                 {youtube.performances.description}
@@ -269,10 +268,9 @@ export default function MusicPage() {
                         const videoToShow = videoData;
 
                         if (!videoToShow && performanceVideos.length > 0) {
-                           // Render an empty placeholder for layout consistency if video is missing but array not empty
                            return <div key={`empty-slot-${slotIndex}`} className={cn("aspect-video rounded-lg", !isPlayerSlot && "hidden md:block", "bg-muted/30 ")} />;
                         }
-                        if (!videoToShow) return null; // Don't render if no video for this slot
+                        if (!videoToShow) return null;
 
                         return (
                           <div 
@@ -280,7 +278,7 @@ export default function MusicPage() {
                             className={cn(
                               "w-full transition-all duration-300 ease-in-out",
                               !isPlayerSlot && "opacity-60 hover:opacity-100 md:transform md:scale-90 hover:md:scale-95 cursor-pointer",
-                              !isPlayerSlot && "hidden md:block", // Hide side thumbnails on mobile by default
+                              !isPlayerSlot && "hidden md:block",
                               isPlayerSlot && "z-10"
                             )}
                             onClick={
@@ -296,7 +294,7 @@ export default function MusicPage() {
                           >
                             {isPlayerSlot ? (
                               <div 
-                                key={activePerformanceVideo.id} // Key change forces re-render for animation
+                                key={activePerformanceVideo.id}
                                 className={cn(
                                   "w-full aspect-video rounded-lg overflow-hidden shadow-xl",
                                   slideDirection === 'initial' ? 'animate-fadeIn' :
@@ -308,7 +306,6 @@ export default function MusicPage() {
                                 <YouTubePlayer videoId={activePerformanceVideo.videoId} title={activePerformanceVideo.title} />
                               </div>
                             ) : ( 
-                              // Thumbnail for side slots
                               <div
                                 role="button"
                                 tabIndex={0}
@@ -329,7 +326,7 @@ export default function MusicPage() {
                                   layout="fill"
                                   objectFit="cover"
                                   className="transition-transform duration-300 group-hover:scale-105"
-                                  priority={slotIndex === 1} // Prioritize center image if it's a thumbnail view
+                                  priority={slotIndex === 1}
                                 />
                                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                                   <PlayCircle className="w-10 h-10 text-white/70 group-hover:text-white transition-opacity" />
@@ -372,22 +369,30 @@ export default function MusicPage() {
       </AnimatedSection>
 
       {/* Teaching Journey Section */}
-      <AnimatedSection delay="delay-200"> {/* Original delay, can be adjusted */}
-        <SectionWrapper containerClassName="mt-12">
-          <SectionTitle className="text-left">{teachingJourney.title}</SectionTitle>
-          <div className="text-left"> 
-            <p className="text-lg mb-8 text-muted-foreground max-w-3xl">
+      <AnimatedSection delay="delay-200">
+        <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full flex flex-col mt-12 md:mt-16">
+          <CardHeader>
+            <CardTitle className="text-xl flex items-center text-left">
+              <BookOpen className="mr-2 h-6 w-6 text-accent" />
+              {teachingJourney.title}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6 flex-grow text-left">
+            <p className="text-md text-muted-foreground">
               {teachingJourney.description}
             </p>
-            <Button size="lg" asChild>
-              <Link href={teachingJourney.courseUrl} target="_blank" rel="noopener noreferrer">
-                <BookOpen className="mr-2 h-5 w-5" /> {teachingJourney.enrollButton}
-              </Link>
-            </Button>
-          </div>
-        </SectionWrapper>
+          </CardContent>
+          <CardFooter className="mt-auto pt-4">
+            <div className="text-left w-full">
+              <Button size="lg" asChild>
+                <Link href={teachingJourney.courseUrl} target="_blank" rel="noopener noreferrer">
+                  <BookOpen className="mr-2 h-5 w-5" /> {teachingJourney.enrollButton}
+                </Link>
+              </Button>
+            </div>
+          </CardFooter>
+        </Card>
       </AnimatedSection>
     </SectionWrapper>
   );
 }
-
