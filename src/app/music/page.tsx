@@ -36,6 +36,7 @@ export default function MusicPage() {
   const [isAnimating, setIsAnimating] = useState(false);
   const slideDuration = 500; // milliseconds
 
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -377,7 +378,16 @@ export default function MusicPage() {
               {teachingJourney.title}
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-6 flex-grow text-left">
+          <CardContent className="space-y-4 text-left">
+            <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+              <Image
+                src="https://import.cdn.thinkific.com/971196/yJVkf7DvQ6aCNOUgleYd_Thumbnail_1.jpg"
+                alt="Carnatic Guitar Beginners Course Thumbnail"
+                layout="fill"
+                objectFit="cover"
+                data-ai-hint="guitar course thumbnail"
+              />
+            </div>
             <p className="text-md text-muted-foreground">
               {teachingJourney.description}
             </p>
