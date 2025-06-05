@@ -1,5 +1,4 @@
 // src/ai/genkit.ts
-'use server';
 import {genkit, type Plugin} from 'genkit';
 // import {googleAI} from '@genkit-ai/googleai'; // Google AI plugin remains commented out for now
 
