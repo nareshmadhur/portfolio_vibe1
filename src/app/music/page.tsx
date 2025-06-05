@@ -2,7 +2,7 @@
 'use client'; // Required for useState, useEffect, and onClick handlers
 
 import type { ReadonlyDeep } from 'type-fest';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import SectionTitle from "@/components/shared/SectionTitle";
 import SectionWrapper from "@/components/shared/SectionWrapper";
@@ -35,10 +35,17 @@ export default function MusicPage() {
   const [currentPerformanceIndex, setCurrentPerformanceIndex] = useState(0);
   const [slideDirection, setSlideDirection] = useState<'initial' | 'next' | 'prev'>('initial');
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isAutoPlayEnabled, setIsAutoPlayEnabled] = useState(true);
+  const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
   const slideDuration = 500; // milliseconds
 
   useEffect(() => {
     setIsMounted(true);
+    return () => { // Cleanup interval on unmount
+      if (intervalIdRef.current) {
+        clearInterval(intervalIdRef.current);
+      }
+    };
   }, []);
 
   const activePerformanceVideo = useMemo(() => {
@@ -48,64 +55,111 @@ export default function MusicPage() {
     return null;
   }, [performanceVideos, currentPerformanceIndex]);
 
-  const changePerformanceVideo = (newIndex: number) => {
-    if (isAnimating || performanceVideos.length <= 1 || newIndex === currentPerformanceIndex) return;
-    
+  const changePerformanceVideo = useCallback((newIndex: number, userInitiated = false) => {
+    if (isAnimating || performanceVideos.length <= 1) {
+      return;
+    }
+
+    if (userInitiated) {
+      if (intervalIdRef.current) {
+        clearInterval(intervalIdRef.current);
+        intervalIdRef.current = null;
+      }
+      setIsAutoPlayEnabled(false);
+    }
+
     let actualNewIndex = newIndex;
     if (newIndex >= performanceVideos.length) {
-      actualNewIndex = 0; // Loop to start
+      actualNewIndex = 0;
     } else if (newIndex < 0) {
-      actualNewIndex = performanceVideos.length - 1; // Loop to end
+      actualNewIndex = performanceVideos.length - 1;
+    }
+    
+    if (actualNewIndex === currentPerformanceIndex && performanceVideos.length > 1) {
+        // If user clicked the current video's thumbnail, just ensure autoplay is off
+        if(userInitiated) {
+             if (intervalIdRef.current) clearInterval(intervalIdRef.current);
+             setIsAutoPlayEnabled(false); 
+        }
+        return; // No slide animation needed if index hasn't changed
     }
 
-    const newDirection = actualNewIndex > currentPerformanceIndex || (currentPerformanceIndex === performanceVideos.length -1 && actualNewIndex === 0) ? 'next' : 'prev';
-    // Handle edge case for prev when looping from first to last
-    if (currentPerformanceIndex === 0 && actualNewIndex === performanceVideos.length - 1) {
-        //direction = 'prev'; // This was incorrect, should be 'prev' if we are going from 0 to last
-    }
 
+    let determinedDirection: 'next' | 'prev';
+    const numVids = performanceVideos.length;
+
+    if (actualNewIndex === (currentPerformanceIndex + 1) % numVids) {
+        determinedDirection = 'next';
+    } else if (actualNewIndex === (currentPerformanceIndex - 1 + numVids) % numVids) {
+        determinedDirection = 'prev';
+    } else if (currentPerformanceIndex === 0 && actualNewIndex === numVids - 1) { 
+        determinedDirection = 'prev';
+    } else if (currentPerformanceIndex === numVids - 1 && actualNewIndex === 0) { 
+        determinedDirection = 'next';
+    } else { 
+        determinedDirection = actualNewIndex > currentPerformanceIndex ? 'next' : 'prev';
+    }
 
     setIsAnimating(true);
-    setSlideDirection(newDirection);
-    setCurrentPerformanceIndex(actualNewIndex); 
+    setSlideDirection(determinedDirection);
+    setCurrentPerformanceIndex(actualNewIndex);
     setTimeout(() => {
       setIsAnimating(false);
     }, slideDuration);
-  };
+  }, [isAnimating, performanceVideos, currentPerformanceIndex, slideDuration, setIsAnimating, setSlideDirection, setCurrentPerformanceIndex, setIsAutoPlayEnabled]);
   
-  const nextPerformance = () => {
+  const nextPerformance = () => { // User-triggered
     if (performanceVideos.length > 0) {
-      changePerformanceVideo((currentPerformanceIndex + 1) % performanceVideos.length);
+      changePerformanceVideo((currentPerformanceIndex + 1) % performanceVideos.length, true);
     }
   };
 
-  const prevPerformance = () => {
+  const prevPerformance = () => { // User-triggered
      if (performanceVideos.length > 0) {
-      changePerformanceVideo((currentPerformanceIndex - 1 + performanceVideos.length) % performanceVideos.length);
+      changePerformanceVideo((currentPerformanceIndex - 1 + performanceVideos.length) % performanceVideos.length, true);
      }
   };
 
   // Auto-advance for the performance carousel
   useEffect(() => {
-    if (!isMounted || performanceVideos.length <= 1 || isAnimating) {
+    if (!isMounted || performanceVideos.length <= 1 || isAnimating || !isAutoPlayEnabled) {
+      if (intervalIdRef.current) { // Clear if disabled or conditions not met
+        clearInterval(intervalIdRef.current);
+        intervalIdRef.current = null;
+      }
       return;
     }
-    const intervalId = setInterval(() => {
-      nextPerformance();
-    }, 5000); // Auto-advance every 5 seconds
-    return () => clearInterval(intervalId);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isMounted, currentPerformanceIndex, performanceVideos.length, isAnimating]);
+    // Clear any existing interval before setting a new one
+    if (intervalIdRef.current) clearInterval(intervalIdRef.current);
+
+    intervalIdRef.current = setInterval(() => {
+      const newIndex = (currentPerformanceIndex + 1) % performanceVideos.length;
+      changePerformanceVideo(newIndex, false); // Auto-triggered
+    }, 5000); 
+
+    return () => { // Cleanup function
+      if (intervalIdRef.current) {
+        clearInterval(intervalIdRef.current);
+        intervalIdRef.current = null;
+      }
+    };
+  }, [isMounted, performanceVideos.length, currentPerformanceIndex, isAnimating, isAutoPlayEnabled, changePerformanceVideo]);
+
 
   const videosToDisplay = useMemo(() => {
     const numVids = performanceVideos.length;
-    if (numVids === 0) return [null, null, null];
-    if (numVids === 1) return [null, performanceVideos[0], null];
+    if (numVids === 0) return [null, null, null]; // Should not happen if activePerformanceVideo exists
     
     const prevIndex = (currentPerformanceIndex - 1 + numVids) % numVids;
+    const currentIndex = currentPerformanceIndex;
     const nextIndex = (currentPerformanceIndex + 1) % numVids;
     
+    if (numVids === 1) return [null, performanceVideos[currentIndex], null];
     if (numVids === 2) {
+      // For 2 videos, always show current in middle, other on one side.
+      // Let's make 'next' appear on the right, 'prev' on the left.
+      // If current is 0, next is 1. (null, video[0], video[1])
+      // If current is 1, prev is 0. (video[0], video[1], null)
       return currentPerformanceIndex === 0 
         ? [null, performanceVideos[0], performanceVideos[1]] 
         : [performanceVideos[0], performanceVideos[1], null];
@@ -113,18 +167,15 @@ export default function MusicPage() {
     
     return [
       performanceVideos[prevIndex],
-      performanceVideos[currentPerformanceIndex],
+      performanceVideos[currentIndex],
       performanceVideos[nextIndex],
     ];
   }, [currentPerformanceIndex, performanceVideos]);
 
 
   if (!isMounted && performanceVideos.length > 0) {
-    // Return a basic structure or skeleton if needed for SSR to avoid layout shifts
-    // For now, returning null to match previous behavior for unmounted state.
     return null; 
   }
-
 
   return (
     <SectionWrapper>
@@ -237,7 +288,7 @@ export default function MusicPage() {
               
               {performanceVideos.length > 0 && activePerformanceVideo && (
                 <div className="relative mb-4">
-                  <div className="flex items-center justify-center space-x-2 md:space-x-4">
+                   <div className="flex items-center justify-center space-x-2 md:space-x-4">
                     <Button 
                       onClick={prevPerformance} 
                       variant="outline" 
@@ -251,27 +302,39 @@ export default function MusicPage() {
 
                     <div className="flex-grow grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 items-center">
                       {videosToDisplay.map((videoData, slotIndex) => {
-                        const isPlayerSlot = slotIndex === 1 && videoData?.id === activePerformanceVideo.id;
-                        const videoToShow = videoData || (slotIndex === 1 ? activePerformanceVideo : null);
+                        // slotIndex: 0=prev, 1=current, 2=next
+                        const isPlayerSlot = slotIndex === 1; // The middle slot is always the player
+                        const videoToShow = videoData;
 
-                        if (!videoToShow) {
+                        if (!videoToShow && performanceVideos.length > 1) { 
                           // Render an empty div or a placeholder for slots where video is not available
-                          // This is crucial for maintaining grid structure if numVids < 3
+                          // (e.g. when only 2 videos, one side slot will be empty)
+                          // but only if there's more than one video total to avoid empty slots for single video
                           return <div key={`empty-slot-${slotIndex}`} className="aspect-video bg-muted/10 rounded-lg" />;
                         }
-                        
+                        if (!videoToShow && performanceVideos.length === 1 && !isPlayerSlot) {
+                          // If only one video, don't render empty side slots
+                          return null;
+                        }
+                         if (!videoToShow) return null; // General catch-all
+
                         return (
                           <div 
                             key={videoToShow.id + `_slot_${slotIndex}`} 
                             className={cn(
                               "w-full transition-all duration-300 ease-in-out",
-                              isPlayerSlot ? "md:col-span-1" : "md:col-span-1", 
-                              !isPlayerSlot && "opacity-60 hover:opacity-100 transform scale-90 hover:scale-95"
+                              !isPlayerSlot && "opacity-60 hover:opacity-100 md:transform md:scale-90 hover:md:scale-95 cursor-pointer"
                             )}
+                            onClick={!isPlayerSlot ? () => {
+                                const videoIndex = performanceVideos.findIndex(v => v.id === videoToShow.id);
+                                if (videoIndex !== -1) {
+                                  changePerformanceVideo(videoIndex, true); // User initiated
+                                }
+                              } : undefined}
                           >
                             {isPlayerSlot ? (
                               <div
-                                key={activePerformanceVideo.id} 
+                                key={activePerformanceVideo.id} // Key change triggers animation
                                 className={cn(
                                   "w-full aspect-video rounded-lg overflow-hidden shadow-xl",
                                   slideDirection === 'initial' ? 'animate-fadeIn' :
@@ -283,13 +346,7 @@ export default function MusicPage() {
                                 <YouTubePlayer videoId={activePerformanceVideo.videoId} title={activePerformanceVideo.title} />
                               </div>
                             ) : (
-                              <button
-                                onClick={() => {
-                                  const videoIndex = performanceVideos.findIndex(v => v.id === videoToShow.id);
-                                  if (videoIndex !== -1) {
-                                    changePerformanceVideo(videoIndex);
-                                  }
-                                }}
+                              <div
                                 aria-label={`Play ${videoToShow.title}`}
                                 className="w-full aspect-video relative rounded-lg overflow-hidden group focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                               >
@@ -303,7 +360,7 @@ export default function MusicPage() {
                                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                                   <PlayCircle className="w-10 h-10 text-white/70 group-hover:text-white transition-opacity" />
                                 </div>
-                              </button>
+                              </div>
                             )}
                           </div>
                         );
@@ -360,3 +417,5 @@ export default function MusicPage() {
     </SectionWrapper>
   );
 }
+
+    
