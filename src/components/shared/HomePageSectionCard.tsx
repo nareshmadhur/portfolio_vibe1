@@ -56,7 +56,7 @@ export default function HomePageSectionCard({ title, description, imageUrl, imag
         alt={title} // Use title for alt text for better accessibility
         layout="fill"
         className={cn(
-            "transition-transform duration-300 ease-in-out group-hover:grayscale", // Added group-hover:grayscale
+            "transition-transform duration-300 ease-in-out group-hover:grayscale", 
             isHovered ? "scale-105" : ""
         )}
         objectFit="cover"
@@ -65,9 +65,9 @@ export default function HomePageSectionCard({ title, description, imageUrl, imag
       />
       {/* Adjusted gradient to be darker for text readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/40 group-hover:from-black/90 group-hover:via-black/20 group-hover:to-black/0 transition-all duration-300" />
-      <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 text-primary-foreground">
+      <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 text-foreground">
         <h2 className="text-2xl md:text-3xl font-semibold mb-2 transition-colors">{title}</h2>
-        <p className="text-sm sm:text-base text-primary-foreground/80 transition-colors line-clamp-2">{description}</p>
+        <p className="text-sm sm:text-base text-foreground/80 transition-colors line-clamp-2">{description}</p>
       </div>
     </Link>
   );

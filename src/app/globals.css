@@ -131,11 +131,11 @@ h1, h2, h3, h4, h5, h6, strong, b, .font-semibold, .font-bold {
 /* Typewriter blinking caret animation */
 @keyframes blink-caret {
   from, to { border-color: transparent }
-  50% { border-color: hsl(var(--primary-foreground)) } /* Caret color can be primary-foreground or foreground */
+  50% { border-color: hsl(var(--foreground)) } /* Caret color changed to foreground */
 }
 
 .typewriter-caret {
-  border-right: 0.1em solid hsl(var(--primary-foreground)); /* Adjust thickness as needed */
+  border-right: 0.1em solid hsl(var(--foreground)); /* Caret color changed to foreground */
   animation: blink-caret 0.75s step-end infinite;
   display: inline-block; /* Allows margin-left to work correctly */
   margin-left: 0.05em; /* Small space between text and caret */

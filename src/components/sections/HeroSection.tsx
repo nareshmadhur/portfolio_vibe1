@@ -89,19 +89,19 @@ export default function HeroSection() {
       {/* Content Container */}
       <div className="container mx-auto px-4 relative z-10 pb-12 md:pb-16"> {/* Reduced bottom padding */}
         <div className="max-w-2xl">
-          <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
             {userProfile.name}
           </h1>
           
           {/* Animated Title Container */}
           <div className="h-8 md:h-10 mb-6 relative"> {/* Fixed height for animation stability */}
-            <p className="text-xl md:text-2xl text-primary-foreground/90 font-normal">
+            <p className="text-xl md:text-2xl text-foreground/90 font-normal">
               <span>{currentText}</span>
               <span className="typewriter-caret">&nbsp;</span> {/* Blinking caret */}
             </p>
           </div>
 
-          <p className="text-base md:text-lg text-primary-foreground/80 mb-8 font-light">
+          <p className="text-base md:text-lg text-foreground/80 mb-8 font-light">
             {userProfile.bio}
           </p>
           {/* Social Media Links */}
