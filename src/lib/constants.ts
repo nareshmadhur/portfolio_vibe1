@@ -208,26 +208,25 @@ export const siteContent = {
       reflectionQuestionsLabel: "Questions for Reflection:",
       errorMessages: {
         errorTitle: "Analysis Error",
-        emptyInputOptional: "Generating a general scenario as no topic was provided.", // Not an error, but info
         generalError: "Failed to analyze scenario at this time. Please try again.",
       }
     },
-    projectDeconstructor: {
-      title: "AI Project Deconstructor",
-      description: "Describe an AI project idea or a problem, and get a high-level deconstruction of how it might be approached.",
-      inputLabel: "Your AI project idea or problem description (e.g., 'predict customer churn', 'image moderation system')",
-      inputPlaceholder: "Describe your idea here...",
-      buttonText: "Deconstruct Project",
-      buttonLoadingText: "Deconstructing...",
-      suggestedTitleLabel: "Suggested Project Title:",
-      approachLabel: "High-Level Approach:",
-      keyTechniquesLabel: "Key AI Techniques/Models:",
-      techStackLabel: "Suggested Tech Stack:",
-      challengesLabel: "Potential Challenges:",
+    historicalPlaceSummarizer: {
+      title: "Historical Place Summarizer",
+      description: "Enter the name of a place and get a concise historical summary, key events, interesting facts, and more.",
+      inputLabel: "Name of the historical place (e.g., 'Rome', 'Machu Picchu', 'Kyoto')",
+      inputPlaceholder: "Enter place name...",
+      buttonText: "Get Summary",
+      buttonLoadingText: "Summarizing...",
+      summaryTitleLabel: "Historical Snapshot:",
+      keyEventsLabel: "Key Historical Events:",
+      interestingFactsLabel: "Did You Know?",
+      learnMoreButton: "Learn More",
+      visualPlaceholderAlt: "Visual representation of",
       errorMessages: {
-        errorTitle: "Deconstruction Error",
-        emptyInput: "Please describe your project idea or problem.",
-        generalError: "Failed to deconstruct the project at this time. Please try again.",
+        errorTitle: "Summarization Error",
+        emptyInput: "Please enter a place name.",
+        generalError: "Failed to retrieve historical summary at this time. Please try again.",
       }
     },
     projectsTitle: "Portfolio Projects",
@@ -409,6 +408,4 @@ export const photographyItems: Photo[] = [
     dataAiHint: 'ocean waves',
   },
 ];
-
-
     

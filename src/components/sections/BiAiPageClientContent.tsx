@@ -1,6 +1,8 @@
 
 'use client'; // This component needs client-side interactivity
 
+import Image from 'next/image';
+import Link from 'next/link';
 import BiAiPortfolio from "@/components/sections/BiAiPortfolio";
 import SectionTitle from "@/components/shared/SectionTitle";
 import SectionWrapper from "@/components/shared/SectionWrapper";
@@ -8,13 +10,15 @@ import { siteContent } from "@/lib/constants";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea"; // Import Textarea
+// Textarea is not used by the new Historical Place Summarizer, but might be by Ethical AI
+// import { Textarea } from "@/components/ui/textarea"; 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState, type FormEvent } from 'react';
-import { Loader2, AlertTriangle, Scale, Wand2, ListChecks, Lightbulb, Brain } from "lucide-react";
+import { Loader2, AlertTriangle, Scale, Brain, Landmark, ExternalLink } from "lucide-react";
 
 import { analyzeEthicalScenario, type EthicalScenarioAnalyzerInput, type EthicalScenarioAnalyzerOutput } from '@/ai/flows/ethical-scenario-flow';
-import { deconstructProjectIdea, type ProjectDeconstructorInput, type ProjectDeconstructorOutput } from '@/ai/flows/project-deconstructor-flow';
+import { getHistoricalSummary, type HistoricalPlaceSummaryInput, type HistoricalPlaceSummaryOutput } from '@/ai/flows/historical-place-summary-flow';
+
 
 /**
  * Client-side content for the BI & AI Projects page, including interactive AI tools.
@@ -27,11 +31,11 @@ export default function BiAiPageClientContent() {
   const [ethicalResult, setEthicalResult] = useState<EthicalScenarioAnalyzerOutput | null>(null);
   const [ethicalError, setEthicalError] = useState<string | null>(null);
 
-  // State for AI Project Deconstructor
-  const [projectDescription, setProjectDescription] = useState('');
-  const [isDeconstructorLoading, setIsDeconstructorLoading] = useState(false);
-  const [deconstructorResult, setDeconstructorResult] = useState<ProjectDeconstructorOutput | null>(null);
-  const [deconstructorError, setDeconstructorError] = useState<string | null>(null);
+  // State for Historical Place Summarizer
+  const [placeName, setPlaceName] = useState('');
+  const [isHistoricalLoading, setIsHistoricalLoading] = useState(false);
+  const [historicalResult, setHistoricalResult] = useState<HistoricalPlaceSummaryOutput | null>(null);
+  const [historicalError, setHistoricalError] = useState<string | null>(null);
 
   const handleEthicalSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -51,39 +55,56 @@ export default function BiAiPageClientContent() {
     }
   };
 
-  const handleDeconstructorSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleHistoricalSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!projectDescription.trim()) {
-      setDeconstructorError(siteContent.biAiPage.projectDeconstructor.errorMessages.emptyInput);
+    if (!placeName.trim()) {
+      setHistoricalError(siteContent.biAiPage.historicalPlaceSummarizer.errorMessages.emptyInput);
       return;
     }
-    setIsDeconstructorLoading(true);
-    setDeconstructorResult(null);
-    setDeconstructorError(null);
+    setIsHistoricalLoading(true);
+    setHistoricalResult(null);
+    setHistoricalError(null);
 
     try {
-      const input: ProjectDeconstructorInput = { description: projectDescription };
-      const result = await deconstructProjectIdea(input);
-      setDeconstructorResult(result);
+      const input: HistoricalPlaceSummaryInput = { placeName };
+      const result = await getHistoricalSummary(input);
+      setHistoricalResult(result);
     } catch (e: any) {
-      console.error("Error deconstructing project:", e);
-      setDeconstructorError(e.message || siteContent.biAiPage.projectDeconstructor.errorMessages.generalError);
+      console.error("Error fetching historical summary:", e);
+      setHistoricalError(e.message || siteContent.biAiPage.historicalPlaceSummarizer.errorMessages.generalError);
     } finally {
-      setIsDeconstructorLoading(false);
+      setIsHistoricalLoading(false);
     }
   };
 
-  const renderList = (items: string[] | undefined, listTitle: string) => {
+  const renderList = (items: string[] | undefined, listTitle: string, itemClassName?: string) => {
     if (!items || items.length === 0) return null;
     return (
       <div className="mt-3">
         <h4 className="text-sm font-semibold text-muted-foreground mb-1.5">{listTitle}</h4>
         <ul className="list-disc list-inside space-y-1 text-sm text-foreground/80">
-          {items.map((item, index) => <li key={index}>{item}</li>)}
+          {items.map((item, index) => <li key={index} className={itemClassName}>{item}</li>)}
         </ul>
       </div>
     );
   };
+  
+  const renderKeyEvents = (items: HistoricalPlaceSummaryOutput['keyEvents'] | undefined, listTitle: string) => {
+    if (!items || items.length === 0) return null;
+    return (
+      <div className="mt-3">
+        <h4 className="text-sm font-semibold text-muted-foreground mb-1.5">{listTitle}</h4>
+        <ul className="space-y-1.5 text-sm text-foreground/80">
+          {items.map((item, index) => (
+            <li key={index} className="flex">
+              <span className="font-semibold w-28 shrink-0">{item.year}:</span>
+              <span>{item.event}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
 
 
   return (
@@ -158,65 +179,84 @@ export default function BiAiPageClientContent() {
             </CardContent>
           </Card>
 
-          {/* AI Project Deconstructor Card */}
+          {/* Historical Place Summarizer Card */}
           <Card className="shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col">
             <CardHeader>
               <div className="flex items-center space-x-3">
-                <Wand2 className="h-7 w-7 text-accent" />
-                <CardTitle className="text-xl">{siteContent.biAiPage.projectDeconstructor.title}</CardTitle>
+                <Landmark className="h-7 w-7 text-accent" />
+                <CardTitle className="text-xl">{siteContent.biAiPage.historicalPlaceSummarizer.title}</CardTitle>
               </div>
-              <CardDescription className="pt-1">{siteContent.biAiPage.projectDeconstructor.description}</CardDescription>
+              <CardDescription className="pt-1">{siteContent.biAiPage.historicalPlaceSummarizer.description}</CardDescription>
             </CardHeader>
             <CardContent className="flex-grow space-y-4">
-              <form onSubmit={handleDeconstructorSubmit} className="space-y-4">
+              <form onSubmit={handleHistoricalSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="project-description" className="block text-sm font-medium text-foreground mb-1.5">
-                    {siteContent.biAiPage.projectDeconstructor.inputLabel}
+                  <label htmlFor="place-name" className="block text-sm font-medium text-foreground mb-1.5">
+                    {siteContent.biAiPage.historicalPlaceSummarizer.inputLabel}
                   </label>
-                  <Textarea
-                    id="project-description"
-                    value={projectDescription}
+                  <Input
+                    id="place-name"
+                    type="text"
+                    value={placeName}
                     onChange={(e) => {
-                        setProjectDescription(e.target.value);
-                        if (deconstructorError && e.target.value.trim()) setDeconstructorError(null);
+                        setPlaceName(e.target.value);
+                        if (historicalError && e.target.value.trim()) setHistoricalError(null);
                     }}
-                    placeholder={siteContent.biAiPage.projectDeconstructor.inputPlaceholder}
-                    disabled={isDeconstructorLoading}
+                    placeholder={siteContent.biAiPage.historicalPlaceSummarizer.inputPlaceholder}
+                    disabled={isHistoricalLoading}
                     className="w-full"
-                    rows={3}
-                    aria-describedby={deconstructorError ? "deconstructor-error" : undefined}
+                    aria-describedby={historicalError ? "historical-error" : undefined}
                   />
                 </div>
-                <Button type="submit" disabled={isDeconstructorLoading} className="w-full sm:w-auto">
-                  {isDeconstructorLoading ? (
+                <Button type="submit" disabled={isHistoricalLoading} className="w-full sm:w-auto">
+                  {isHistoricalLoading ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   ) : (
-                    <ListChecks className="mr-2 h-4 w-4" />
+                     <Landmark className="mr-2 h-4 w-4" /> // Icon can be something like History or MapPin too
                   )}
-                  {isDeconstructorLoading ? siteContent.biAiPage.projectDeconstructor.buttonLoadingText : siteContent.biAiPage.projectDeconstructor.buttonText}
+                  {isHistoricalLoading ? siteContent.biAiPage.historicalPlaceSummarizer.buttonLoadingText : siteContent.biAiPage.historicalPlaceSummarizer.buttonText}
                 </Button>
               </form>
 
-              {deconstructorError && (
-                <div id="deconstructor-error" role="alert" className="mt-4 p-3 rounded-md bg-destructive/10 text-destructive border border-destructive/30 flex items-start space-x-2">
+              {historicalError && (
+                <div id="historical-error" role="alert" className="mt-4 p-3 rounded-md bg-destructive/10 text-destructive border border-destructive/30 flex items-start space-x-2">
                   <AlertTriangle className="h-5 w-5 shrink-0 mt-0.5" />
                   <div>
-                    <p className="text-sm font-semibold">{siteContent.biAiPage.projectDeconstructor.errorMessages.errorTitle}</p>
-                    <p className="text-sm">{deconstructorError}</p>
+                    <p className="text-sm font-semibold">{siteContent.biAiPage.historicalPlaceSummarizer.errorMessages.errorTitle}</p>
+                    <p className="text-sm">{historicalError}</p>
                   </div>
                 </div>
               )}
 
-              {deconstructorResult && (
+              {historicalResult && (
                 <Card className="mt-4 bg-card/50 shadow-inner">
                    <CardHeader className="pb-3">
-                      <CardTitle className="text-lg text-primary">{siteContent.biAiPage.projectDeconstructor.suggestedTitleLabel} {deconstructorResult.suggestedTitle}</CardTitle>
+                      <CardTitle className="text-lg text-primary">{historicalResult.summaryTitle || `${siteContent.biAiPage.historicalPlaceSummarizer.summaryTitleLabel} ${historicalResult.placeNameDisplay}`}</CardTitle>
                   </CardHeader>
-                  <CardContent className="text-sm space-y-2">
-                    <p><span className="font-semibold text-muted-foreground">{siteContent.biAiPage.projectDeconstructor.approachLabel}</span> {deconstructorResult.projectApproach}</p>
-                    {renderList(deconstructorResult.keyTechniques, siteContent.biAiPage.projectDeconstructor.keyTechniquesLabel)}
-                    {renderList(deconstructorResult.suggestedTechStack, siteContent.biAiPage.projectDeconstructor.techStackLabel)}
-                    {renderList(deconstructorResult.potentialChallenges, siteContent.biAiPage.projectDeconstructor.challengesLabel)}
+                  <CardContent className="text-sm space-y-3">
+                    {historicalResult.suggestedImageKeywords && (
+                        <div className="my-3 aspect-video relative rounded-md overflow-hidden bg-muted/50">
+                            <Image
+                                src={`https://placehold.co/600x400.png`} // Standard placeholder
+                                alt={`${siteContent.biAiPage.historicalPlaceSummarizer.visualPlaceholderAlt} ${historicalResult.placeNameDisplay}`}
+                                layout="fill"
+                                objectFit="cover"
+                                data-ai-hint={historicalResult.suggestedImageKeywords}
+                            />
+                        </div>
+                    )}
+                    <p className="text-foreground/90 whitespace-pre-line leading-relaxed">{historicalResult.historicalSummary}</p>
+                    {renderKeyEvents(historicalResult.keyEvents, siteContent.biAiPage.historicalPlaceSummarizer.keyEventsLabel)}
+                    {renderList(historicalResult.interestingFacts, siteContent.biAiPage.historicalPlaceSummarizer.interestingFactsLabel)}
+                    {historicalResult.learnMoreLinkSuggestion && (
+                        <div className="mt-4 pt-3 border-t border-border/50">
+                            <Button asChild variant="link" className="p-0 h-auto text-accent hover:text-accent/80">
+                                <Link href={historicalResult.learnMoreLinkSuggestion} target="_blank" rel="noopener noreferrer">
+                                    {siteContent.biAiPage.historicalPlaceSummarizer.learnMoreButton} <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+                                </Link>
+                            </Button>
+                        </div>
+                    )}
                   </CardContent>
                 </Card>
               )}
@@ -232,6 +272,4 @@ export default function BiAiPageClientContent() {
     </SectionWrapper>
   );
 }
-
-
     
