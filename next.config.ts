@@ -40,6 +40,12 @@ const nextConfig: NextConfig = {
         hostname: 'import.cdn.thinkific.com', // Added for Thinkific course images
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'source.unsplash.com', // Added for Unsplash images
+        port: '',
+        pathname: '/**',
       }
     ],
   },

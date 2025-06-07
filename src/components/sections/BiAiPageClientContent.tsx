@@ -212,7 +212,7 @@ export default function BiAiPageClientContent() {
                   {isHistoricalLoading ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   ) : (
-                     <Landmark className="mr-2 h-4 w-4" /> // Icon can be something like History or MapPin too
+                     <Landmark className="mr-2 h-4 w-4" /> 
                   )}
                   {isHistoricalLoading ? siteContent.biAiPage.historicalPlaceSummarizer.buttonLoadingText : siteContent.biAiPage.historicalPlaceSummarizer.buttonText}
                 </Button>
@@ -234,14 +234,14 @@ export default function BiAiPageClientContent() {
                       <CardTitle className="text-lg text-primary">{historicalResult.summaryTitle || `${siteContent.biAiPage.historicalPlaceSummarizer.summaryTitleLabel} ${historicalResult.placeNameDisplay}`}</CardTitle>
                   </CardHeader>
                   <CardContent className="text-sm space-y-3">
-                    {historicalResult.suggestedImageKeywords && (
+                    {historicalResult.suggestedImageKeywords && historicalResult.suggestedImageKeywords.trim() !== "" && (
                         <div className="my-3 aspect-video relative rounded-md overflow-hidden bg-muted/50">
                             <Image
-                                src={`https://placehold.co/600x400.png`} // Standard placeholder
+                                src={`https://source.unsplash.com/600x400/?${encodeURIComponent(historicalResult.suggestedImageKeywords.trim().replace(/\s+/g, ','))}`}
                                 alt={`${siteContent.biAiPage.historicalPlaceSummarizer.visualPlaceholderAlt} ${historicalResult.placeNameDisplay}`}
                                 layout="fill"
                                 objectFit="cover"
-                                data-ai-hint={historicalResult.suggestedImageKeywords}
+                                data-ai-hint={historicalResult.suggestedImageKeywords} // Keep original hint
                             />
                         </div>
                     )}
