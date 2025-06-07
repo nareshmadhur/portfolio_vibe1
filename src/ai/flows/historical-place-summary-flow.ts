@@ -26,13 +26,11 @@ const HistoricalPlaceSummaryOutputSchema = z.object({
     year: z.string().describe("The year or approximate time period of the event (e.g., '70-80 AD', 'c. 2560 BC', '15th Century')."),
     event: z.string().describe("A brief description of a significant historical event related to the place."),
   }))
-  // Removed .min(3) and .max(5) for flexibility with LLM output
   .describe('A list of 3-5 pivotal historical events with their corresponding years or periods. Ordered chronologically if possible.'),
   interestingFacts: z.array(z.string())
-  // Removed .min(2) and .max(4) for flexibility with LLM output
   .describe('A list of 2-4 fascinating and little-known facts about the place.'),
   suggestedImageKeywords: z.string().describe('1-2 keywords relevant to the place that can be used for searching an image (e.g., "ancient rome colosseum", "inca trail machu picchu"). Maximum two words.'),
-  learnMoreLinkSuggestion: z.string().url().optional().describe('An optional URL to a reputable source (like Wikipedia) for more detailed information about the place.'),
+  learnMoreLinkSuggestion: z.string().optional().describe('An optional URL or text suggestion to a reputable source (like Wikipedia) for more detailed information about the place.'),
 });
 export type HistoricalPlaceSummaryOutput = z.infer<typeof HistoricalPlaceSummaryOutputSchema>;
 
@@ -68,7 +66,7 @@ Strive for accuracy and a neutral, informative tone. Ensure your output strictly
       },
       {
         category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
-        threshold: 'BLOCK_ONLY_HIGH', // More permissive for historical content
+        threshold: 'BLOCK_ONLY_HIGH',
       },
       {
         category: 'HARM_CATEGORY_HARASSMENT',
@@ -92,6 +90,7 @@ const historicalPlaceSummaryGenkitFlow = ai.defineFlow(
     try {
       const { output } = await historicalPlacePrompt(input);
       if (!output) {
+        // This error message is more specific than the generic one.
         throw new Error(siteContent.biAiPage.historicalPlaceSummarizer.errorMessages.noModelOutput);
       }
       // Validate image keywords length (simple post-processing validation)
