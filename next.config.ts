@@ -43,7 +43,13 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'source.unsplash.com', // Added for Unsplash images
+        hostname: 'source.unsplash.com', // For initial Unsplash URL
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com', // For redirected Unsplash images
         port: '',
         pathname: '/**',
       }
