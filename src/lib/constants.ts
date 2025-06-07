@@ -209,6 +209,7 @@ export const siteContent = {
       errorMessages: {
         errorTitle: "Analysis Error",
         generalError: "Failed to analyze scenario at this time. Please try again.",
+        noModelOutput: "The AI model did not return a valid response. This might be due to content restrictions or an issue with the query."
       }
     },
     historicalPlaceSummarizer: {
@@ -227,6 +228,7 @@ export const siteContent = {
         errorTitle: "Summarization Error",
         emptyInput: "Please enter a place name.",
         generalError: "Failed to retrieve historical summary at this time. Please try again.",
+        noModelOutput: "The AI model did not return a valid response for this place. This might be due to content restrictions, the specific place name, or an inability to format the data as requested."
       }
     },
     projectsTitle: "Portfolio Projects",

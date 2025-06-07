@@ -25,7 +25,10 @@ const HistoricalPlaceSummaryOutputSchema = z.object({
   keyEvents: z.array(z.object({
     year: z.string().describe("The year or approximate time period of the event (e.g., '70-80 AD', 'c. 2560 BC', '15th Century')."),
     event: z.string().describe("A brief description of a significant historical event related to the place."),
-  })).describe('A list of 3-5 pivotal historical events with their corresponding years or periods. Ordered chronologically if possible.'),
+  }))
+  .min(3, { message: "AI should provide at least 3 key events." })
+  .max(5, { message: "AI should provide no more than 5 key events." })
+  .describe('A list of 3-5 pivotal historical events with their corresponding years or periods. Ordered chronologically if possible.'),
   interestingFacts: z.array(z.string()).min(2).max(4).describe('A list of 2-4 fascinating and little-known facts about the place.'),
   suggestedImageKeywords: z.string().describe('1-2 keywords relevant to the place that can be used for searching an image (e.g., "ancient rome colosseum", "inca trail machu picchu"). Maximum two words.'),
   learnMoreLinkSuggestion: z.string().url().optional().describe('An optional URL to a reputable source (like Wikipedia) for more detailed information about the place.'),
@@ -68,7 +71,8 @@ const historicalPlaceSummaryGenkitFlow = ai.defineFlow(
     try {
       const { output } = await historicalPlacePrompt(input);
       if (!output) {
-        throw new Error(siteContent.biAiPage.historicalPlaceSummarizer.errorMessages.generalError);
+        // Provide a slightly more specific error if the model returns no parsable output
+        throw new Error(siteContent.biAiPage.historicalPlaceSummarizer.errorMessages.noModelOutput || "The AI model did not return a valid response. This might be due to content restrictions or an issue with the query.");
       }
       // Validate image keywords length (simple post-processing validation)
       if (output.suggestedImageKeywords && output.suggestedImageKeywords.split(' ').length > 2) {
@@ -77,6 +81,7 @@ const historicalPlaceSummaryGenkitFlow = ai.defineFlow(
       return output;
     } catch (flowError: any) {
       console.error("Historical Place Summarizer Flow execution error:", flowError.message, flowError.stack);
+      // Propagate a general error message to the client
       throw new Error(siteContent.biAiPage.historicalPlaceSummarizer.errorMessages.generalError);
     }
   }
