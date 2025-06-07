@@ -59,7 +59,27 @@ Based on this place, generate the following information, ensuring it is synthesi
 Strive for accuracy and a neutral, informative tone. Ensure your output strictly adheres to the requested JSON schema. Focus on providing a summary that is both educational and engaging for a general audience.
 `,
   model: 'googleai/gemini-1.5-flash-latest',
-  config: { temperature: 0.4 }
+  config: {
+    temperature: 0.4,
+    safetySettings: [
+      {
+        category: 'HARM_CATEGORY_HATE_SPEECH',
+        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+      },
+      {
+        category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
+        threshold: 'BLOCK_ONLY_HIGH', // More permissive for historical content
+      },
+      {
+        category: 'HARM_CATEGORY_HARASSMENT',
+        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+      },
+      {
+        category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+      },
+    ],
+  }
 });
 
 const historicalPlaceSummaryGenkitFlow = ai.defineFlow(
@@ -80,7 +100,9 @@ const historicalPlaceSummaryGenkitFlow = ai.defineFlow(
       }
       return output;
     } catch (flowError: any) {
-      console.error("Historical Place Summarizer Flow execution error:", flowError.message, flowError.stack);
+      console.error("Historical Place Summarizer Flow execution error - Message:", flowError.message);
+      console.error("Historical Place Summarizer Flow execution error - Stack:", flowError.stack);
+      // Still throw the generic error to the client, but server logs are more detailed.
       throw new Error(siteContent.biAiPage.historicalPlaceSummarizer.errorMessages.generalError);
     }
   }
