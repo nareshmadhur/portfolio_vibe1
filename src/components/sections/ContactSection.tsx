@@ -36,8 +36,7 @@ const initialState: ContactFormState = {
  * @returns {JSX.Element} The SubmitButton component.
  */
 function SubmitButton() {
-  // @ts-ignore TODO: useFormStatus is not yet available in React 19 types in this project
-  const { pending } = useFormStatus ? useFormStatus() : { pending: false };
+  const { pending } = useFormStatus(); // Simplified: Directly use useFormStatus
   return (
     <Button type="submit" disabled={pending} className="w-full md:w-auto">
       {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
