@@ -8,10 +8,10 @@ import SectionWrapper from "@/components/shared/SectionWrapper";
 import { siteContent } from "@/lib/constants";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea"; // Changed from Input
+import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState, type FormEvent } from 'react';
-import { Loader2, AlertTriangle, MessageCircle } from "lucide-react"; // Changed Icon
+import { Loader2, AlertTriangle, MessageCircle } from "lucide-react";
 
 import { askNareshAI, type AskNareshAIInput, type AskNareshAIOutput } from '@/ai/flows/ask-me-flow';
 
@@ -82,7 +82,7 @@ export default function BiAiPageClientContent() {
                   }}
                   placeholder={siteContent.biAiPage.askMeAnything.inputPlaceholder}
                   disabled={isLoading}
-                  className="w-full min-h-[80px]" // Ensure textarea has some height
+                  className="w-full min-h-[80px]"
                   rows={3}
                   aria-describedby={error ? "ai-question-error" : undefined}
                 />
@@ -108,7 +108,7 @@ export default function BiAiPageClientContent() {
             )}
 
             {aiAnswer && (
-              <Card className="mt-6 bg-card/50 shadow-inner">
+              <Card className="mt-6 bg-background shadow-inner transition-opacity duration-500 ease-in-out opacity-100">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-lg text-primary">{siteContent.biAiPage.askMeAnything.answerTitleLabel}</CardTitle>
                 </CardHeader>

@@ -145,6 +145,7 @@ Answer the user's question based *only* on the information provided above about 
 - Do not invent information or answer questions that require accessing external websites or real-time data.
 - If asked about skills or experience, refer to the "Key Skills" and "Experience Highlights" sections.
 - If asked about projects, refer to the "GitHub Profile Information" (both public and private summaries).
+- When formatting your answer, you may use standard Markdown for elements like bold text (e.g., **important**) or lists (e.g., - item 1).
 
 User's question: {{{question}}}
 
@@ -216,3 +217,4 @@ const askNareshAIGenkitFlow = ai.defineFlow(
 export async function askNareshAI(input: AskNareshAIInput): Promise<AskNareshAIOutput> {
   return askNareshAIGenkitFlow(input);
 }
+
