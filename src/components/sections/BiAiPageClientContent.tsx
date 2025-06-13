@@ -237,7 +237,7 @@ export default function BiAiPageClientContent() {
                     {historicalResult.suggestedImageKeywords && historicalResult.suggestedImageKeywords.trim() !== "" && (
                         <div className="my-3 aspect-video relative rounded-md overflow-hidden bg-muted/50">
                             <Image
-                                src={`https://source.unsplash.com/featured/600x400/?${encodeURIComponent(historicalResult.suggestedImageKeywords.trim().replace(/\s+/g, ','))}`}
+                                src={`https://source.unsplash.com/featured/600x400/?${encodeURIComponent(historicalResult.suggestedImageKeywords.trim())}`}
                                 alt={`${siteContent.biAiPage.historicalPlaceSummarizer.visualPlaceholderAlt} ${historicalResult.placeNameDisplay}`}
                                 layout="fill"
                                 objectFit="cover"
