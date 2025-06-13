@@ -87,118 +87,144 @@ export interface Photo {
  */
 export const userProfile = {
   name: "Naresh Madhur",
-  titles: ["AI Enthusiast", "Musician", "Photographer"],
-  bio: "Leveraging expertise in the Data Science industry, Naresh Madhur drives impactful business solutions while passionately engaging in the artistic disciplines of music and photography.",
-  shortBio: "Driven by a relentless pursuit of excellence, novelty, and quality, Naresh actively engages with the latest advancements in his fields of passion. His dedication extends from globally teaching music to immersive street photography, reflecting a commitment to high-caliber work in all endeavors. Discover more about his diverse projects below.",
+  titles: ["Data Science & AI Professional", "Musician", "Photographer"], // Updated titles
+  bio: "Born in 1998 in Kerala, Naresh Madhur is a Data Science & AI Professional with a B.Tech in Computer Science Engineering from Amrita University. His career spans impactful roles at METRO Global Solution Center and Makro Nederland, focusing on BI, Data Science, and AI solutions. Fluent in Tulu, English, and Malayalam, with working proficiency in Tamil, Kannada, Dutch, and Hindi, Naresh's diverse linguistic skills complement his technical expertise. His formative college years were pivotal, shaping his character and deepening his passion for music, particularly Carnatic vocals and guitar. An avid photographer, he finds inspiration in capturing unique moments, a passion nurtured by his uncle. Naresh's journey reflects a blend of technical acumen, artistic talent, and a constant pursuit of learning and growth.",
+  shortBio: "Driven by a relentless pursuit of excellence, novelty, and quality, Naresh (born 1998, Kerala) actively engages with the latest advancements in Data Science, AI, Music, and Photography. His upbringing involved frequent moves, instilling adaptability. College was a transformative period, enhancing his musical talents and shaping his worldview through diverse experiences and influential thinkers. He is passionate about the impact of dedicated teaching, a realization from his own studies. Today, he applies this dedication to his tech career, music instruction, and photography.",
   contactEmail: "nareshmadhur@gmail.com",
   socialLinks: {
     linkedin: "https://linkedin.com/in/nareshmadhur",
-    github: "https://github.com/nareshmadhur",
-    youtube: "https://www.youtube.com/@NareshMadhur",
-    flickr: "https://www.flickr.com/photos/nareshmadhur",
+    github: "https://github.com/nareshmadhur", // Assuming this is the correct GitHub username
+    youtubeMusic: "https://www.youtube.com/@nareshmadhur", // Specific channel for music videos
+    youtubeTeaching: "https://www.youtube.com/@nareshteaches", // Specific channel for teaching
+    flickr: "https://www.flickr.com/photos/68265102@N05/",
   },
-  education: [ // This section is for general display, aiKnowledgeBase will be more specific for AI
-    "Amrita University Coimbatore - B.tech in Computer Science Engineering",
-    "Several schools in Kerala, India.",
+  languages: [
+    { language: "Tulu", proficiency: "Native" },
+    { language: "English", proficiency: "Proficient" },
+    { language: "Malayalam", proficiency: "Proficient" },
+    { language: "Tamil", proficiency: "A2 Proficiency" },
+    { language: "Kannada", proficiency: "A2 Proficiency" },
+    { language: "Dutch", proficiency: "A2 Proficiency" },
+    { language: "Hindi", proficiency: "A2 Proficiency" },
   ],
-  career: [ // This section is for general display, aiKnowledgeBase will be more specific for AI
-    "Makro Nederland: BI & AI Engineer (2019 - Present)",
-    "METRO Global Solution Center, India: Senior Analyst & Team Lead (2013 - 2019)",
-    "METRO Global Solution Center, India: Analyst (2010 - 2013)",
-  ],
-  music: {
-    instruments: ["Carnatic Guitar", "Vocals"],
-    description: "An avid musician specializing in Carnatic Guitar and vocals, Naresh Madhur also possesses global experience in teaching music.",
+  music: { // This section is for general display; aiKnowledgeBase will have specifics for AI
+    instruments: ["Carnatic Vocals", "Carnatic Guitar", "Keyboard"],
+    description: "Primarily a Carnatic vocalist, Naresh significantly developed his skills in Western Music theory, keyboard, and Carnatic guitar during college. Since 2021, he has taught Carnatic guitar to over 25 students globally and offers an online course for beginners, alongside personalized lessons for advanced students.",
     youtubeChannels: [
-      { name: "Music Videos", url: "https://www.youtube.com/@NareshMadhur" },
-      { name: "Guitar musings & lessons", url: "https://www.youtube.com/@nareshteaches" },
+      { name: "Music Videos & Singing", url: "https://www.youtube.com/@nareshmadhur" },
+      { name: "Carnatic Guitar & Teaching", url: "https://www.youtube.com/@nareshteaches" },
     ],
   },
-  photography: {
-    description: "Dedicated photographer capturing visual narratives. He primarily uses Fujifilm cameras and processes his RAW files with RawTherapee.",
-    flickrProfileUrl: "https://www.flickr.com/photos/nareshmadhur",
-    examplePhotos: [
-      { title: "Example Photo 1", url: "https://placehold.co/600x400.png", flickrUrl: "https://www.flickr.com/photos/nareshmadhur/example_id_1" },
-    ]
+  photography: { // This for general display; aiKnowledgeBase will have specifics for AI
+    description: "Inspired by his uncle, Naresh is a dedicated photographer who values capturing the perfect shot. He uses a Fujifilm X-T4 and RawTherapee for processing. His approach is more conventional, focusing on quality over quantity.",
+    flickrProfileUrl: "https://www.flickr.com/photos/68265102@N05/",
+    gear: "Fujifilm X-T4, RawTherapee",
   }
 };
 
-// --- AI Knowledge Base (To be filled by the user) ---
+// --- AI Knowledge Base (To be filled/refined by the user, especially private GitHub projects) ---
 /**
  * @description Contains summarized information from Naresh Madhur's resume and GitHub profile
  * to be used as context for the "Ask Me Anything" AI feature.
- * The user (Naresh Madhur) should populate these fields with their specific details.
+ * The user (Naresh Madhur) should populate/refine these fields with their specific details.
  */
 export const aiKnowledgeBase = {
+  personalSummary: {
+    birthYear: 1998,
+    birthPlace: "Kerala, India",
+    languages: [
+      { language: "Tulu", proficiency: "Native (spoken at home)" },
+      { language: "English", proficiency: "Proficient" },
+      { language: "Malayalam", proficiency: "Proficient" },
+      { language: "Tamil", proficiency: "A2 Proficiency" },
+      { language: "Kannada", proficiency: "A2 Proficiency" },
+      { language: "Dutch", proficiency: "A2 Proficiency" },
+      { language: "Hindi", proficiency: "A2 Proficiency" },
+    ],
+    formativeExperiences: "Frequent school changes due to father's judicial transfers (6 schools by class 12) fostered adaptability. College years at Amrita University were highly formative, focusing on spiritual growth, character development, and love, alongside academic learning. Influential experiences included navigating social dynamics, a shift from leftist ideologies towards thinkers like Sam Harris and Jordan Peterson, and significant growth in music (Carnatic vocals and guitar) through peer interactions. An internship at Reliance, Mumbai (2019) provided corporate exposure.",
+  },
   resume: {
-    summary: "Provide a 2-3 sentence overview of your professional background, key expertise, and career goals. Example: A seasoned BI & AI Engineer with X years of experience in Y industries, specializing in Z technologies. Passionate about leveraging data to drive business value and innovative AI solutions.",
+    summary: "A Data Science and AI professional with a B.Tech in Computer Science Engineering from Amrita University. Experienced in BI & Data Science roles at METRO Global Solution Center and Makro Nederland, focusing on delivering data-driven solutions, leading BI transformations, and developing machine learning models. Proven ability in project management, team leadership, and cross-country collaboration. Passionate about leveraging data strategies and LLMs to enhance business operations and democratize data access.",
     keySkills: [
-      "Data Analysis & Visualization (Tableau, Power BI, Python)",
-      "Machine Learning (Scikit-learn, TensorFlow, Keras)",
-      "Programming (Python, SQL, JavaScript, TypeScript)",
-      "Cloud Platforms (GCP, AWS - specify services used)",
-      "GenAI & LLMs (Genkit, LangChain, Prompt Engineering)",
-      "Web Development (Next.js, React)",
-      "Database Management (SQL, NoSQL)",
-      "Agile Methodologies & Project Management",
-      // Add more specific skills
+      "Business Intelligence (BI)",
+      "Data Science",
+      "Machine Learning (ML)",
+      "Data Strategies",
+      "Large Language Models (LLM)",
+      "Semantic Layers / Data Mesh",
+      "Data Engineering (SQL, Google BigQuery)",
+      "Data Visualization (MicroStrategy, Looker Studio)",
+      "Python (for Data Science, Automation)",
+      "Customer Segmentation",
+      "RFM Analytics",
+      "Project Management (Resource & Cost)",
+      "Team Leadership",
+      "Consulting",
+      "Agile Methodologies",
+      "Data Governance",
+      "Cloud Platforms (Google Cloud Platform - GCP)",
+      // Add more specific software/tools if desired e.g., specific Python libraries
     ],
     experienceHighlights: [
       {
-        role: "BI & AI Engineer",
-        company: "Makro Nederland (Part of METRO AG)",
-        period: "2019 - Present",
-        details: "Key achievements: Developed X, implemented Y, improved Z by X%. Technologies used: A, B, C. Focus on delivering BI solutions and exploring AI applications for retail."
+        role: "Business Intelligence Expert",
+        company: "Makro Nederland",
+        location: "Amsterdam, North Holland, Netherlands (Hybrid)",
+        period: "Mar 2024 – Present",
+        details: "Leading Makro NL’s transition to a data-proficient organization. Streamlined internal reporting activities for efficiency. Established a shared data space using Semantic Layers to democratize data access and implemented data governance. Enhanced transparency between business domains to foster win-win collaborations. Skills: Large Language Models (LLM), Data Strategies."
       },
       {
-        role: "Senior Analyst & Team Lead",
-        company: "METRO Global Solution Center, India",
-        period: "2013 - 2019",
-        details: "Led a team of X analysts. Responsible for Y. Delivered Z projects. Specialized in BI reporting and data modeling."
+        role: "Assistant Group Manager, Data Science",
+        company: "METRO Global Solution Center IN",
+        location: "Bengaluru, Karnataka, India (Hybrid)",
+        period: "Oct 2023 – Mar 2024 (6 mos)",
+        details: "Delivered BI & Data Science solutions with a team of 6 for local and international clients. Supported an international BI transformation program, handling project management (resource & cost management) and development (Semantic Layer/Materialized View in Google BigQuery, front-end in MicroStrategy) as both developer and team leader. Led a cross-country community: organized on-site events and trained Supply Chain counterparts in Google Cloud and Semantic Layer/Data Mesh usage. Skills: Team Leadership, Consulting."
       },
       {
-        role: "Analyst",
-        company: "METRO Global Solution Center, India",
-        period: "2010 - 2013",
-        details: "Initial role focusing on data extraction, report generation, and supporting analytics tasks."
+        role: "Sr. Data Scientist",
+        company: "METRO Global Solution Center IN",
+        location: "Pune, Maharashtra, India",
+        period: "Oct 2021 – Sep 2023 (2 yrs)",
+        details: "Developed country-specific solutions to drive local innovations. Built an MVP for Customer Segmentation (Slovakia, Italy) integrating RFM analytics with price/brand affinity insights (Python, MicroStrategy). Developed an end-to-end BI solution for global productivity and fulfillment monitoring (Looker Studio, security layers, efficient data modeling). Skills: Data Science, Marketing Analytics."
       },
-      // Add other relevant experiences if any, or elaborate on these.
+      {
+        role: "Machine Learning Engineer",
+        company: "METRO Global Solution Center IN",
+        location: "Pune Area, India",
+        period: "Jan 2020 – Sep 2021 (1 yr 9 mos)",
+        details: "Hired as Jr. Machine Learning Engineer. Supported internal initiatives with data-driven insights. Developed and tested supplier lead time prediction models. Automated PPT workflows using Python. Created Python-based daily productivity reports for operational teams. Skills: Data Science, Marketing Analytics."
+      },
     ],
     educationHighlights: [
       {
         degree: "B.Tech in Computer Science Engineering",
-        institution: "Amrita Vishwa Vidyapeetham, Coimbatore",
-        period: "YYYY - YYYY", // Fill in your graduation year
-        details: "Key coursework included Data Structures, Algorithms, Database Management, AI Fundamentals. Final year project on X."
+        institution: "Amrita University, Coimbatore",
+        period: "YYYY - YYYY", // User to fill in graduation year
+        details: "Key learnings included spirituality, strength of character, and love, alongside academics. Internship at Reliance, Mumbai (2 months, 2019) focusing on [User to specify internship domain/project if desired]."
       },
-      // Add other significant certifications or courses if applicable.
     ],
-    // You can add other custom sections like "Projects" (from resume), "Awards", "Publications"
-    // For example:
-    // resumeProjects: [
-    //   { name: "Resume Project Alpha", description: "Details about this project...", technologies: ["Tech1", "Tech2"] }
-    // ],
   },
   githubProfile: {
-    username: "nareshmadhur", // For reference, used in the prompt to frame context
-    publicRepoHighlights: [ // Summarize key PUBLIC repositories
+    username: "nareshmadhur", // Confirm if this is the primary GitHub profile for professional projects
+    publicRepoHighlights: [
       {
         name: "Tri-Folio (This Portfolio)",
         description: "The Next.js and Genkit powered portfolio website showcasing my skills in web development and AI integration.",
         keyTechnologies: ["Next.js", "React", "TypeScript", "Genkit", "Tailwind CSS", "ShadCN UI"],
-        repoUrl: "https://github.com/nareshmadhur/tri-folio" // Example, replace with actual if public
+        repoUrl: "https://github.com/nareshmadhur/tri-folio" // Replace with actual if public and different
       },
-      // Add 1-2 more public repositories that are significant.
+      // User should add 1-2 more public repositories that are significant for professional context.
+      // Example:
       // {
-      //   name: "Another Public Project",
-      //   description: "Brief description of what this project does and its purpose.",
-      //   keyTechnologies: ["Python", "Flask", "SQL"],
-      //   repoUrl: "https://github.com/nareshmadhur/another-project"
+      //   name: "Public Project Name",
+      //   description: "Brief description of what this project does and its purpose in a professional context.",
+      //   keyTechnologies: ["Python", "Specific Library", "API Used"],
+      //   repoUrl: "https://github.com/nareshmadhur/your-project-name"
       // },
     ],
-    privateProjectSummaries: [ // Summarize key aspects of PRIVATE repositories (DO NOT PASTE CODE)
+    privateProjectSummaries: [ // USER: CRITICAL TO FILL THIS SECTION for AI to answer about private work
       {
-        name: "Internal Sales Analytics Dashboard (Confidential)",
+        name: "Example: Internal Sales Analytics Dashboard (Confidential)",
         purpose: "To provide real-time sales insights and forecasting for internal business units.",
         myRole: "Lead Developer & Data Analyst",
         keyFeatures: [
@@ -209,20 +235,20 @@ export const aiKnowledgeBase = {
         technologiesUsed: ["Python (Flask/Django)", "Pandas", "Scikit-learn", "Tableau/PowerBI for frontend", "PostgreSQL"],
         learningsAndImpact: "Gained significant experience in end-to-end BI solution development for a sensitive business domain. The solution led to a X% improvement in forecast accuracy."
       },
-      // Add 1-2 more private project summaries if relevant.
+      // User should add 1-2 more summaries of key private GitHub projects.
       // {
-      //   name: "Private Utility Script Collection (Confidential)",
-      //   purpose: "A collection of Python scripts to automate various data processing and reporting tasks.",
-      //   myRole: "Sole Developer",
-      //   keyFeatures: [
-      //     "Automated ETL from multiple sources.",
-      //     "Scheduled report generation and email distribution.",
-      //     "Data validation and error logging."
-      //   ],
-      //   technologiesUsed: ["Python", "Pandas", "SQLAlchemy", "SMTP lib"],
-      //   learningsAndImpact: "Enhanced personal productivity and streamlined data workflows for the team. Reduced manual effort for reporting by Y hours/week."
+      //   name: "Your Private Project Name (Confidential)",
+      //   purpose: "Purpose of this project.",
+      //   myRole: "Your role in this project.",
+      //   keyFeatures: ["Feature A", "Feature B", "Feature C"],
+      //   technologiesUsed: ["Tech X", "Tech Y", "Tech Z"],
+      //   learningsAndImpact: "Key learnings and the impact this project had."
       // }
     ]
+  },
+  musicAndPhotography: { // For the AI to have context about these pursuits
+    musicSummary: "Primarily a Carnatic vocalist, also skilled in Western Music theory, keyboard, and Carnatic guitar. Began teaching Carnatic guitar in 2021, instructing over 25 students in 4 years. Manages an online course for beginners and provides 1-1/group lessons for intermediate/advanced students. Maintains two YouTube channels: one for Carnatic Guitar/teaching (@nareshteaches - e.g., video SASDA2AkFFk) and another for singing/music videos (@nareshmadhur - e.g., video dMxUJIKYplE).",
+    photographySummary: "Inspired by his uncle, photography is a significant passion. Prefers taking one perfect shot over many, adopting a more conventional, quality-focused approach. Uses a Fujifilm X-T4 mirrorless camera and RawTherapee for processing. Shares work on Flickr (profile: 68265102@N05, example photos: flic.kr/p/2q3ki8V, flic.kr/p/2q3epgT)."
   }
 };
 
@@ -270,21 +296,21 @@ export const siteContent = {
         title: "Musical Pursuits",
         description: "Explore musical performances, original arrangements, and educational content.",
         imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/guitar-65Wzc1cVPra94zU6ikj0S731rWZqh4.jpg",
-        imageAiHint: "guitar stage lights", // Specific hint
+        imageAiHint: "guitar stage lights",
         linkUrl: "/music",
       },
       biAi: {
         title: "Data Science Explorations",
-        description: "Discover use cases in BI, Data Analytics, and Artificial Intelligence.",
+        description: "Discover use cases in BI, Data Analytics, and Artificial Intelligence, and ask my AI assistant questions about my work.",
         imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSC09308%20%281%29-UdBMIYLlILXq18JM2yBKnYyLlZ5SXK.jpeg",
-        imageAiHint: "data network nodes", // Specific hint
+        imageAiHint: "data network nodes",
         linkUrl: "/bi-ai",
       },
       photography: {
         title: "Photography",
         description: "View diverse photographs captured during travels and street explorations.",
         imageUrl: "https://ufpehsjmkipou2zt.public.blob.vercel-storage.com/images/DSCF1726-8UZLZmtCQTAMWVScGAWwSGjZcJBMvG.jpeg",
-        imageAiHint: "vintage camera travel", // Specific hint
+        imageAiHint: "vintage camera travel",
         linkUrl: "/photography",
       }
     },
@@ -298,9 +324,9 @@ export const siteContent = {
   },
   biAiPage: {
     title: "Tech. Pursuits: AI Q&A",
-    description: "A showcase of my work in Business Intelligence and Data Analytics, featuring an interactive AI assistant that can answer questions about my professional profile and projects based on provided information.",
-    interactiveToolsTitle: "AI Assistant",
-    askMeAnything: {
+    description: "A showcase of my work in Business Intelligence and Data Analytics, featuring an interactive AI assistant that can answer questions about my professional profile and projects based on the summarized information I've provided from my resume and GitHub.",
+    interactiveToolsTitle: "AI Assistant", // This title can be reused or made more specific
+    askMeAnything: { // New section for the "Ask Me Anything" feature
       title: "Ask My AI Assistant",
       description: `Curious about my skills, projects, or experience? Ask a question below. My AI assistant has been provided with summarized information from my resume and GitHub profile (including public and private project overviews) to answer your questions.`,
       inputLabel: "Your question about Naresh Madhur:",
@@ -313,6 +339,7 @@ export const siteContent = {
         generalError: "Sorry, I couldn't process your question at this time. Please try again.",
         noModelOutput: "The AI assistant didn't provide a response. This could be due to the nature of the question or a temporary issue.",
         emptyInput: "Please type a question.",
+        // Add any other specific error messages if needed
       }
     },
     projectsTitle: "Portfolio Projects", // This section remains for static projects
@@ -329,25 +356,25 @@ export const siteContent = {
         musicVideos: {
           title: "Music Videos & Arrangements",
           description: "Original songs, covers, and full song arrangements where Naresh performs vocals and music.",
-          channelName: "@NareshMadhur",
-          channelUrl: "https://www.youtube.com/@NareshMadhur",
-          featuredVideoId: "mWC9ra1V0zw",
+          channelName: "@nareshmadhur",
+          channelUrl: userProfile.socialLinks.youtubeMusic,
+          featuredVideoId: "mWC9ra1V0zw", // From original constants, user can update
           featuredVideoTitle: "Kadhal Sadugudu - Alaipayuthey | Cover by Naresh Madhur",
           otherExampleVideos: [
-            { id: 'mv2', videoId: 'xcOTmEt9K_U', title: 'Tere Jeya Hor Disda | Cover by Naresh Madhur' },
-            { id: 'mv3', videoId: 'Yt74NHxlU3o', title: 'Nee Kavithaigala | Cover by Naresh Madhur' },
+            { id: 'mv_nm_1', videoId: 'dMxUJIKYplE', title: 'Chaiyya Chaiyya | Cover by Naresh Madhur' },
+            { id: 'mv_nm_2', videoId: 'xcOTmEt9K_U', title: 'Tere Jeya Hor Disda | Cover by Naresh Madhur' },
           ] as ExampleVideo[],
         },
         guitarTeaching: {
           title: "Guitar & Music Lessons",
           description: "In-depth guitar lessons, Carnatic music insights, and tips for aspiring musicians.",
           channelName: "@nareshteaches",
-          channelUrl: "https://www.youtube.com/@nareshteaches",
+          channelUrl: userProfile.socialLinks.youtubeTeaching,
           featuredVideoId: "SASDA2AkFFk",
           featuredVideoTitle: "Carnatic Guitar lessons for beginners - Demo",
           otherExampleVideos: [
-            { id: 'gt2', videoId: 'iIOJGpQaONM', title: 'Carnatic Guitar - Geetham Lesson 1' },
-            { id: 'gt3', videoId: 'YNMIxGcvzzQ', title: 'Carnatic Guitar - Geetham Lesson 2' },
+            { id: 'gt_nt_1', videoId: 'iIOJGpQaONM', title: 'Carnatic Guitar - Geetham Lesson 1' },
+            { id: 'gt_nt_2', videoId: 'YNMIxGcvzzQ', title: 'Carnatic Guitar - Geetham Lesson 2' },
           ] as ExampleVideo[],
         },
         performances: {
@@ -364,7 +391,7 @@ export const siteContent = {
       },
       teachingJourney: {
         title: "My Teaching Journey & Online Course",
-        description: "With over three years of experience teaching Carnatic Guitar to more than 20 students globally, Naresh Madhur offers instruction for both beginner and intermediate levels. His passion for sharing musical knowledge led to the creation of a comprehensive online course, meticulously designed to guide aspiring guitarists. Explore his flagship course on Thinkific for structured lessons and personalized guidance.",
+        description: "With over three years of experience teaching Carnatic Guitar to more than 25 students globally (since 2021), Naresh Madhur offers instruction for both beginner and intermediate levels. His passion for sharing musical knowledge led to the creation of a comprehensive online course, meticulously designed to guide aspiring guitarists. Explore his flagship course on Thinkific for structured lessons and personalized guidance.",
         courseUrl: "https://naresh-madhur-onlinecourses.thinkific.com/courses/carnatic-guitar-beginners",
         enrollButton: "Enroll in Course",
       },
@@ -372,7 +399,7 @@ export const siteContent = {
   },
   photographyPage: {
     title: "Photography Gallery",
-    description: "Welcome to a visual journal by Naresh Madhur. Here, moments captured through his lens are shared, from cityscapes to natural wonders. Each photo tells a story.",
+    description: `Welcome to a visual journal by ${userProfile.name}. Here, moments captured through his lens are shared, from cityscapes to natural wonders. Each photo tells a story. He uses a ${userProfile.photography.gear}.`,
     viewOnFlickrButton: "View More on Flickr",
   },
   contactPage: {
@@ -404,16 +431,16 @@ export const siteContent = {
     viewOnFlickrLink: "View on Flickr",
   },
   metadata: {
-    defaultTitle: `Naresh Madhur | Portfolio`,
-    defaultDescription: `Portfolio of Naresh Madhur, showcasing expertise in Data Science & AI, music, and photography.`,
-    biAiTitle: `AI Q&A with Naresh Madhur`,
-    biAiDescription: `Ask questions about Naresh Madhur's professional profile, skills, and projects using an AI-powered assistant informed by his summarized resume and GitHub information.`,
-    musicTitle: `Music & Teaching | Naresh Madhur`,
-    musicDescription: `Listen to original compositions, covers, live performances, and explore music teaching by Naresh Madhur.`,
-    photographyTitle: `Photography Gallery | Naresh Madhur`,
-    photographyDescription: `Browse a collection of photographs by Naresh Madhur capturing moments, landscapes, and stories.`,
-    contactTitle: `Contact Me | Naresh Madhur`,
-    contactDescription: `Get in touch with Naresh Madhur for inquiries related to data science, music, or photography.`,
+    defaultTitle: `${userProfile.name} | Portfolio`,
+    defaultDescription: `Portfolio of ${userProfile.name}, showcasing expertise in Data Science & AI, music, and photography.`,
+    biAiTitle: `AI Q&A with ${userProfile.name}`,
+    biAiDescription: `Ask questions about ${userProfile.name}'s professional profile, skills, and projects using an AI-powered assistant informed by his summarized resume and GitHub information.`,
+    musicTitle: `Music & Teaching | ${userProfile.name}`,
+    musicDescription: `Listen to original compositions, covers, live performances, and explore music teaching by ${userProfile.name}.`,
+    photographyTitle: `Photography Gallery | ${userProfile.name}`,
+    photographyDescription: `Browse a collection of photographs by ${userProfile.name} capturing moments, landscapes, and stories.`,
+    contactTitle: `Contact Me | ${userProfile.name}`,
+    contactDescription: `Get in touch with ${userProfile.name} for inquiries related to data science, music, or photography.`,
   }
 };
 
@@ -422,35 +449,36 @@ export const siteContent = {
 /**
  * Array of Business Intelligence and AI projects.
  * Each object conforms to the `Project` interface.
+ * These are examples and should be replaced by Naresh's actual projects or removed if AI Q&A covers projects.
  */
 export const biAiProjects: Project[] = [
   {
     id: 'project-1',
-    title: 'AI-Powered Sales Forecaster',
-    description: 'A machine learning model that predicts sales trends with high accuracy, helping businesses optimize inventory and marketing strategies.',
-    technologies: ['Python', 'TensorFlow', 'Scikit-learn', 'Flask', 'React'],
-    githubUrl: 'https://github.com/example/sales-forecaster',
-    liveDemoUrl: '#',
+    title: 'Customer Segmentation MVP',
+    description: 'Developed an MVP for Customer Segmentation for clients in Slovakia and Italy, integrating RFM analytics with price/brand affinity insights and branch-level adjustments. Utilized Python for development, with analytics presented in MicroStrategy.',
+    technologies: ['Python', 'RFM Analytics', 'MicroStrategy', 'Data Science', 'Marketing Analytics'],
+    // githubUrl: 'https://github.com/nareshmadhur/customer-segmentation', // Example, if public
+    // liveDemoUrl: '#', // Example
     imageUrl: 'https://placehold.co/800x450.png',
-    dataAiHint: 'AI analytics',
+    dataAiHint: 'customer analytics chart',
   },
   {
     id: 'project-2',
-    title: 'BI Dashboard for Retail Analytics',
-    description: 'An interactive business intelligence dashboard providing real-time insights into retail performance, customer behavior, and product trends.',
-    technologies: ['Tableau', 'SQL', 'Python', 'ETL'],
-    liveDemoUrl: '#',
+    title: 'Global Productivity & Fulfillment BI Solution',
+    description: 'Developed an end-to-end BI solution for global productivity and fulfillment monitoring. Incorporated BI best practices such as security layers and efficient data modeling. Implemented in Looker Studio.',
+    technologies: ['Looker Studio', 'BI Best Practices', 'Data Modeling', 'Security Implementation'],
+    // liveDemoUrl: '#', // Example
     imageUrl: 'https://placehold.co/800x450.png',
-    dataAiHint: 'dashboard chart',
+    dataAiHint: 'BI dashboard logistics',
   },
   {
     id: 'project-3',
-    title: 'Natural Language Query Interface for Databases',
-    description: 'Developed an NLP system allowing users to query databases using plain English, significantly improving data accessibility for non-technical users.',
-    technologies: ['Python', 'NLTK', 'spaCy', 'SQLAlchemy'],
-    githubUrl: 'https://github.com/example/nlq-database',
+    title: 'Supplier Lead Time Prediction Model',
+    description: 'Developed and tested supplier lead time prediction models to support internal initiatives with data-driven insights for METRO Global Solution Center.',
+    technologies: ['Machine Learning', 'Python', 'Predictive Modeling', 'Data Analysis'],
+    // githubUrl: 'https://github.com/nareshmadhur/lead-time-prediction', // Example
     imageUrl: 'https://placehold.co/800x450.png',
-    dataAiHint: 'NLP code',
+    dataAiHint: 'supply chain graph',
   },
 ];
 
@@ -462,36 +490,36 @@ export const biAiProjects: Project[] = [
  */
 export const photographyItems: Photo[] = [
   {
-    id: 'photo-1',
-    title: 'City Sunset',
-    description: 'A breathtaking sunset over the city skyline, captured from a rooftop.',
-    imageUrl: 'https://placehold.co/600x400.png',
-    flickrUrl: 'https://flic.kr/p/2q3ki8V', // Example Flickr URL
-    dataAiHint: 'city sunset',
+    id: 'photo-nm-1',
+    title: 'Flickr Photo 1', // User can provide actual titles
+    description: 'Description for photo 1.', // User can provide actual descriptions
+    imageUrl: 'https://placehold.co/600x400.png', // Placeholder, use actual image URL if available or keep for consistency
+    flickrUrl: 'https://flic.kr/p/2q3ki8V',
+    dataAiHint: 'urban architecture', // Example hint
   },
   {
-    id: 'photo-2',
-    title: 'Forest Path',
-    description: 'A serene forest path in autumn, with golden leaves covering the ground.',
+    id: 'photo-nm-2',
+    title: 'Flickr Photo 2',
+    description: 'Description for photo 2.',
     imageUrl: 'https://placehold.co/600x400.png',
-    flickrUrl: 'https://www.flickr.com/photos/68265102@N05/53846502717/', // Example Flickr URL
-    dataAiHint: 'forest path',
+    flickrUrl: 'https://flic.kr/p/2q3epgT',
+    dataAiHint: 'nature detail', // Example hint
   },
   {
-    id: 'photo-3',
-    title: 'Mountain Peaks',
-    description: 'Majestic snow-capped mountain peaks under a clear blue sky.',
+    id: 'photo-nm-3',
+    title: 'Flickr Photo 3',
+    description: 'Description for photo 3.',
     imageUrl: 'https://placehold.co/600x400.png',
-    flickrUrl: 'https://flic.kr/p/2q3ki9X', // Example Flickr URL
-    dataAiHint: 'mountain landscape',
+    flickrUrl: 'https://flic.kr/p/2q3ki9X',
+    dataAiHint: 'landscape mountains', // Example hint
   },
-  {
-    id: 'photo-4',
-    title: 'Coastal Waves',
-    description: 'Powerful waves crashing against a rocky coastline during a storm.',
-    imageUrl: 'https://placehold.co/600x400.png',
-    flickrUrl: 'https://www.flickr.com/photos/example/photoid4', // Example Flickr URL
-    dataAiHint: 'ocean waves',
-  },
+  // Add more photos from user's Flickr if desired
+  // {
+  //   id: 'photo-4',
+  //   title: 'Coastal Waves',
+  //   description: 'Powerful waves crashing against a rocky coastline during a storm.',
+  //   imageUrl: 'https://placehold.co/600x400.png',
+  //   flickrUrl: 'https://www.flickr.com/photos/example/photoid4', // Example Flickr URL
+  //   dataAiHint: 'ocean waves',
+  // },
 ];
-    
