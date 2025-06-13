@@ -173,19 +173,19 @@ h1, h2, h3, h4, h5, h6, strong, b, .font-semibold, .font-bold {
   .animated-gemini-border-wrapper {
     --gemini-blue-hsl: 220 80% 70%;
     --gemini-pink-hsl: 300 70% 70%;
-    --gemini-light-blue-hsl: 200 100% 85%;
+    /* --gemini-light-blue-hsl: 200 100% 85%; /* No longer needed for this version */
     
     position: relative;
     padding: 3px; /* Border thickness */
     border-radius: var(--radius); /* Match card's border-radius */
     background: conic-gradient(
       from var(--gradient-angle, 0deg), 
-      hsl(var(--gemini-blue-hsl)), 
-      hsl(var(--gemini-pink-hsl)), 
-      hsl(var(--gemini-light-blue-hsl)), 
-      hsl(var(--gemini-blue-hsl)) /* Loop back */
+      hsl(var(--gemini-blue-hsl)) 0deg, /* Start blue */
+      hsl(var(--gemini-blue-hsl)) 180deg, /* Blue for half of the border */
+      hsl(var(--gemini-pink-hsl)) 180deg, /* Sharp switch to pink */
+      hsl(var(--gemini-pink-hsl)) 360deg /* Pink for the other half */
     );
-    animation: rotateGradientBorder 4s linear infinite;
+    animation: rotateGradientBorder 2s linear infinite; /* Increased speed */
     overflow: hidden; /* To ensure rounded corners clip the gradient correctly */
   }
 
@@ -197,5 +197,3 @@ h1, h2, h3, h4, h5, h6, strong, b, .font-semibold, .font-bold {
     width: 100%;  /* Ensure the inner card fills the wrapper */
   }
 }
-
-    
