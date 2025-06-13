@@ -193,45 +193,25 @@ export const siteContent = {
     },
   },
   biAiPage: {
-    title: "Tech. Pursuits: BI & AI",
-    description: "A showcase of my work in Business Intelligence, Data Analytics, and Artificial Intelligence, alongside interactive AI tools to explore practical AI applications and considerations.",
-    interactiveToolsTitle: "Interactive AI Explorers",
-    ethicalScenarioAnalyzer: {
-      title: "Ethical AI Scenario Analyzer",
-      description: "Explore potential ethical dilemmas in AI. Enter a topic or let the AI suggest one.",
-      inputLabel: "Optional: Topic for ethical scenario (e.g., 'AI in healthcare', 'facial recognition')",
-      inputPlaceholder: "Leave blank for a general scenario or type a topic...",
-      buttonText: "Analyze Scenario",
-      buttonLoadingText: "Analyzing...",
-      scenarioTitleLabel: "Generated Scenario:",
-      ethicalConsiderationsLabel: "Ethical Considerations:",
-      reflectionQuestionsLabel: "Questions for Reflection:",
+    title: "Tech. Pursuits: AI Q&A",
+    description: "A showcase of my work in Business Intelligence and Data Analytics, featuring an interactive AI assistant that can answer questions about my professional profile and projects.",
+    interactiveToolsTitle: "AI Assistant", // Changed title
+    askMeAnything: { // New section for the Q&A AI
+      title: "Ask My AI Assistant",
+      description: "Curious about my skills, projects, or experience? Ask a question below, and my AI assistant, trained on my resume and public GitHub information, will do its best to answer.",
+      inputLabel: "Your question about Naresh Madhur:",
+      inputPlaceholder: "e.g., What are your key skills in AI? Tell me about your experience with BI tools.",
+      buttonText: "Ask Question",
+      buttonLoadingText: "Thinking...",
+      answerTitleLabel: "AI's Answer:",
       errorMessages: {
-        errorTitle: "Analysis Error",
-        generalError: "Failed to analyze scenario at this time. Please try again.",
-        noModelOutput: "The AI model did not return a valid response. This might be due to content restrictions or an issue with the query."
+        errorTitle: "Assistant Error",
+        generalError: "Sorry, I couldn't process your question at this time. Please try again.",
+        noModelOutput: "The AI assistant didn't provide a response. This could be due to the nature of the question or a temporary issue.",
+        emptyInput: "Please type a question.",
       }
     },
-    historicalPlaceSummarizer: {
-      title: "Historical Place Summarizer",
-      description: "Enter the name of a place and get a concise historical summary, key events, interesting facts, and more.",
-      inputLabel: "Name of the historical place (e.g., 'Rome', 'Machu Picchu', 'Kyoto')",
-      inputPlaceholder: "Enter place name...",
-      buttonText: "Get Summary",
-      buttonLoadingText: "Summarizing...",
-      summaryTitleLabel: "Historical Snapshot:",
-      keyEventsLabel: "Key Historical Events:",
-      interestingFactsLabel: "Did You Know?",
-      learnMoreButton: "Learn More",
-      visualPlaceholderAlt: "Visual representation of",
-      errorMessages: {
-        errorTitle: "Summarization Error",
-        emptyInput: "Please enter a place name.",
-        generalError: "Failed to retrieve historical summary at this time. Please try again.",
-        noModelOutput: "The AI model did not return a valid response for this place. This might be due to content restrictions, the specific place name, or an inability to format the data as requested."
-      }
-    },
-    projectsTitle: "Portfolio Projects",
+    projectsTitle: "Portfolio Projects", // This section can remain if you still want to showcase static projects
   },
   musicPage: {
     title: "Music & Teaching",
@@ -322,8 +302,8 @@ export const siteContent = {
   metadata: {
     defaultTitle: `Naresh Madhur | Portfolio`,
     defaultDescription: `Portfolio of Naresh Madhur, showcasing expertise in Data Science & AI, music, and photography.`,
-    biAiTitle: `Tech. Pursuits & AI Tools | Naresh Madhur`,
-    biAiDescription: `Explore BI & AI projects by Naresh Madhur and interact with AI-powered tools.`,
+    biAiTitle: `AI Q&A with Naresh Madhur`, // Updated title
+    biAiDescription: `Ask questions about Naresh Madhur's professional profile, skills, and projects using an AI-powered assistant.`, // Updated description
     musicTitle: `Music & Teaching | Naresh Madhur`,
     musicDescription: `Listen to original compositions, covers, live performances, and explore music teaching by Naresh Madhur.`,
     photographyTitle: `Photography Gallery | Naresh Madhur`,

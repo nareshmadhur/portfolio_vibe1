@@ -7,8 +7,8 @@ import BiAiPageClientContent from "@/components/sections/BiAiPageClientContent";
  * Metadata for the BI & AI Projects page.
  */
 export const metadata = {
-  title: siteContent.metadata.biAiTitle,
-  description: siteContent.metadata.biAiDescription,
+  title: siteContent.metadata.biAiTitle, // Updated by constants change
+  description: siteContent.metadata.biAiDescription, // Updated by constants change
 };
 
 /**
