@@ -47,13 +47,13 @@ export default function BiAiPageClientContent() {
     setIsLoading(true);
     setAiAnswer(null);
     setError(null);
-    // Clear question input now that it's "submitted" to the chat log
-    setQuestion(''); 
+    
 
     try {
-      const input: AskNareshAIInput = { question };
+      const input: AskNareshAIInput = { question: question.trim() }; // Use trimmed question
       const result = await askNareshAI(input);
       setAiAnswer(result.answer);
+      setQuestion(''); // Clear input after successful submission and response cycle
     } catch (e: any) {
       console.error("Error fetching AI answer:", e);
       setError(e.message || siteContent.biAiPage.askMeAnything.errorMessages.generalError);
@@ -82,8 +82,8 @@ export default function BiAiPageClientContent() {
       <AnimatedSection delay="delay-50">
         <div className={cn(
           "max-w-3xl mx-auto",
-          "gemini-border-static", // Always show static border
-          isLoading && "gemini-border-animate-rotation" // Animate border only when loading
+          "gemini-border-static", 
+          isLoading && "gemini-border-animate-rotation" 
         )}>
           <Card className="flex flex-col min-h-[500px] max-h-[70vh]"> {/* Outer constraint for chat widget height */}
             <CardHeader>
@@ -95,10 +95,10 @@ export default function BiAiPageClientContent() {
 
             <CardContent className={cn(
               "flex flex-col flex-grow space-y-4 p-4 md:p-6",
-              "min-h-0" // Crucial for making the inner scrollable div work correctly
+              "min-h-0" 
             )}>
               {/* Chat Messages Log */}
-              <div className="space-y-4 flex-grow overflow-y-auto pr-2"> {/* This div will scroll */}
+              <div className="space-y-4 flex-grow overflow-y-auto pr-2 min-h-0"> {/* Added min-h-0 here */}
                 {/* Initial AI Message */}
                 <AnimatedSection animationType="fadeIn" className="p-3 rounded-md bg-primary/5 shadow">
                   <p className="font-semibold text-primary">AI Assistant:</p>
@@ -209,3 +209,4 @@ export default function BiAiPageClientContent() {
     </SectionWrapper>
   );
 }
+
