@@ -241,7 +241,7 @@ export const siteContent = {
     appName: `Naresh Madhur | Portfolio`,
     footer: {
       copyright: `© ${new Date().getFullYear()} ${userProfile.name}. All rights reserved.`,
-      tagline: "Designed with passion.", // This will be updated based on user's choice in the next step.
+      tagline: "Co-created with AI: A Vibe coding experiment",
     }
   },
   nav: {
