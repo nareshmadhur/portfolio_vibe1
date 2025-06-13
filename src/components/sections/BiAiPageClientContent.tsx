@@ -26,6 +26,20 @@ export default function BiAiPageClientContent() {
   const [aiAnswer, setAiAnswer] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const processMarkdown = (text: string): string => {
+    let html = text;
+    // Convert **bold** to <strong>bold</strong>
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    // Convert *italic* to <em>italic</em> (optional, but good to have)
+    // html = html.replace(/\*(.*?)\*/g, '<em>$1</em>'); 
+    // Basic list item handling (can be expanded)
+    // html = html.replace(/^\s*-\s+(.*)/gm, '<li>$1</li>'); 
+    // Convert newlines to <br />
+    html = html.replace(/\n/g, "<br />");
+    return html;
+  };
+  
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!question.trim()) {
@@ -36,11 +50,13 @@ export default function BiAiPageClientContent() {
     setIsLoading(true);
     setAiAnswer(null);
     setError(null);
+    // setQuestion(''); // Clear input after submission is initiated
 
     try {
       const input: AskNareshAIInput = { question };
       const result = await askNareshAI(input);
       setAiAnswer(result.answer);
+      setQuestion(''); // Clear input after successful response
     } catch (e: any) {
       console.error("Error fetching AI answer:", e);
       setError(e.message || siteContent.biAiPage.askMeAnything.errorMessages.generalError);
@@ -49,15 +65,11 @@ export default function BiAiPageClientContent() {
     }
   };
   
-  // Clear submitted question and AI answer when main question input is cleared by user.
   useEffect(() => {
-    if (question.trim() === '' && (submittedQuestion || aiAnswer)) {
-      // Optionally, you might want to clear these only if a new submission is NOT loading.
-      // For now, let's clear if the input becomes empty.
-      // setSubmittedQuestion(null);
-      // setAiAnswer(null);
-      // setError(null); // also clear previous errors
-    }
+    // This effect could be used to auto-clear submittedQuestion/aiAnswer if the main question input is cleared MANUALLY by user,
+    // but with the current logic of clearing `question` on submit, it's less critical.
+    // If `question` (the Textarea) is empty and there was a previous conversation, clearing them might feel abrupt.
+    // For now, explicit clearing is handled in handleSubmit.
   }, [question, submittedQuestion, aiAnswer]);
 
 
@@ -73,8 +85,8 @@ export default function BiAiPageClientContent() {
       <AnimatedSection delay="delay-50">
         <div className={cn(
           "max-w-3xl mx-auto",
-          "gemini-border-static", // Always apply static border
-          isLoading && "gemini-border-animate-rotation" // Conditionally apply animation
+          "gemini-border-static", 
+          isLoading && "gemini-border-animate-rotation" 
         )}>
           <Card className="flex flex-col">
             <CardHeader>
@@ -127,7 +139,7 @@ export default function BiAiPageClientContent() {
                 </Button>
               </form>
 
-              {error && (
+              {error && !isLoading && ( // Only show error if not loading and error exists
                 <div 
                   id="ai-question-error" 
                   role="alert" 
@@ -144,22 +156,25 @@ export default function BiAiPageClientContent() {
               {/* Chatbot-style display area */}
               <div className="mt-6 space-y-4">
                 {submittedQuestion && (
-                  <div className="p-4 rounded-md bg-secondary/50 shadow animate-fadeIn">
+                  <AnimatedSection animationType="fadeIn" className="p-4 rounded-md bg-secondary/50 shadow">
                     <p className="font-semibold text-secondary-foreground">You:</p>
                     <p className="text-secondary-foreground/90 whitespace-pre-line">{submittedQuestion}</p>
-                  </div>
+                  </AnimatedSection>
                 )}
                 {isLoading && (
-                  <div className="p-4 rounded-md bg-muted/30 shadow flex items-center animate-fadeIn">
+                  <AnimatedSection animationType="fadeIn" className="p-4 rounded-md bg-muted/30 shadow flex items-center">
                     <Loader2 className="mr-3 h-5 w-5 animate-spin text-muted-foreground" />
                     <p className="text-sm text-muted-foreground">AI Assistant is thinking...</p>
-                  </div>
+                  </AnimatedSection>
                 )}
                 {aiAnswer && !isLoading && (
-                  <div className="p-4 rounded-md bg-primary/5 shadow animate-fadeIn">
+                  <AnimatedSection animationType="fadeIn" className="p-4 rounded-md bg-primary/5 shadow">
                     <p className="font-semibold text-primary">AI Assistant:</p>
-                    <div className="text-foreground/90 whitespace-pre-line leading-relaxed" dangerouslySetInnerHTML={{ __html: aiAnswer.replace(/\n/g, "<br />") }} />
-                  </div>
+                    <div 
+                        className="text-foreground/90 whitespace-pre-line leading-relaxed" 
+                        dangerouslySetInnerHTML={{ __html: processMarkdown(aiAnswer) }} 
+                    />
+                  </AnimatedSection>
                 )}
               </div>
 
