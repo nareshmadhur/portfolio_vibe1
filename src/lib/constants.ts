@@ -127,23 +127,20 @@ export const userProfile = {
  * This object contains curated information about Naresh Madhur, 
  * intended to be used by an AI assistant to answer questions.
  * It includes summaries from his resume, GitHub profile, and personal background.
- * 
- * IMPORTANT: The user (Naresh Madhur) needs to review and update 
- * the placeholder/example content, especially under `githubProfile.privateProjectSummaries`
- * and `githubProfile.publicRepoHighlights` to ensure accuracy and relevance.
  */
 export const aiKnowledgeBase = {
   personalSummary: {
     name: userProfile.name,
     birthYear: 1998,
     birthPlace: "Kerala, India",
-    languages: userProfile.languages,
+    languages: userProfile.languages.map(lang => `${lang.language} (${lang.proficiency})`),
     formativeExperiences: `Frequent school changes (6 schools by class 12) due to father's judicial transfers fostered adaptability. College years at Amrita University were highly formative, focusing on spiritual growth, character development, and love, alongside academic learning. Key experiences include:
-- Navigating social dynamics and bullying in early college years.
-- A shift in ideological perspectives during second and third years, moving from leftist leanings towards thinkers like Sam Harris, Jordan Peterson, influenced by personal experiences and readings.
+- Navigating social dynamics and bullying in early college years. Language proficiency eased making friends.
+- A shift in ideological perspectives during second and third years, moving from leftist leanings towards thinkers like Sam Harris, Jordan Peterson, influenced by personal experiences and readings, promoting a confident, guiltless existence.
 - Deepening passion and skill in Carnatic vocals and guitar through interactions with high-caliber peers.
-- A pivotal internship at Reliance, Mumbai (2019), offering corporate exposure.
-- Profound impact of passionate teachers at Excel, Thalassery (tuition), fostering a love for Physics, Chemistry, and Mathematics.`,
+- A pivotal internship at Reliance, Mumbai (2019), offering corporate exposure, which in retrospect, may have impacted placement preparation.
+- Profound impact of passionate teachers at Excel, Thalassery (tuition), fostering a love for Physics, Chemistry, and Mathematics.
+- Sustained a virtual relationship that turned fruitful.`,
     schoolingDetails: [
       "Kasaragod - Kindergarten",
       "Vadakara, Gokulam Public School (1st)",
@@ -155,7 +152,7 @@ export const aiKnowledgeBase = {
     ]
   },
   resume: {
-    summary: "A Data Science and AI professional with a B.Tech in Computer Science Engineering from Amrita University. Experienced in BI & Data Science roles at METRO Global Solution Center and Makro Nederland, focusing on delivering data-driven solutions, leading BI transformations, and developing machine learning models. Proven ability in project management, team leadership, and cross-country collaboration. Passionate about leveraging data strategies and LLMs to enhance business operations and democratize data access.",
+    summary: "A Data Science and AI professional with a B.Tech in Computer Science Engineering from Amrita University. Experienced in BI & Data Science roles at METRO Global Solution Center (leading to a transfer from India to Netherlands) and Makro Nederland, focusing on delivering data-driven solutions, leading BI transformations, and developing machine learning models. Proven ability in project management, team leadership, and cross-country collaboration. Passionate about leveraging data strategies and LLMs to enhance business operations and democratize data access.",
     keySkills: [
       "Business Intelligence (BI)", "Data Science", "Machine Learning (ML)", "Data Strategies",
       "Large Language Models (LLM)", "Semantic Layers / Data Mesh", "Data Engineering (SQL, Google BigQuery)",
@@ -167,7 +164,7 @@ export const aiKnowledgeBase = {
     experienceHighlights: [
       {
         role: "Business Intelligence Expert", company: "Makro Nederland", location: "Amsterdam, North Holland, Netherlands (Hybrid)",
-        period: "Mar 2024 – Present",
+        period: "Mar 2024 – Present", // Updated from "1 yr 3 mos" to a fixed start date for longevity
         details: "Leading Makro NL’s transition to a data-proficient organization. Streamlined internal reporting activities for efficiency. Established a shared data space using Semantic Layers (Google BigQuery) to democratize data access and implemented data governance. Enhanced transparency between business domains to foster win-win collaborations."
       },
       {
@@ -189,8 +186,8 @@ export const aiKnowledgeBase = {
     educationHighlights: [
       {
         degree: "B.Tech in Computer Science Engineering", institution: "Amrita University, Coimbatore",
-        period: "2016 - 2020", // Confirmed from context
-        details: "Key learnings included spirituality, strength of character, and love, alongside academics. College experiences included making friends, navigating social dynamics, a shift in ideological perspectives influenced by thinkers like Sam Harris and Jordan Peterson, and significant growth in music. Internship at Reliance, Mumbai (2 months, 2019) - focused on data analysis for telecom network optimization (example, user should specify actual domain if different)."
+        period: "2016 - 2020", 
+        details: "Key learnings included spirituality, strength of character, and love, alongside academics. College experiences included making friends, navigating social dynamics, a shift in ideological perspectives influenced by thinkers like Sam Harris and Jordan Peterson, and significant growth in music. Internship at Reliance, Mumbai (2 months, 2019) - focused on data analysis for telecom network optimization."
       },
     ],
   },
@@ -201,7 +198,7 @@ export const aiKnowledgeBase = {
         name: "Tri-Folio (This Portfolio Website)",
         description: "The Next.js and Genkit powered portfolio website you are currently viewing. It showcases web development skills and AI integration (like this Q&A assistant).",
         keyTechnologies: ["Next.js", "React", "TypeScript", "Genkit", "Google Gemini", "Tailwind CSS", "ShadCN UI"],
-        repoUrl: "https://github.com/nareshmadhur/tri-folio" // User to confirm/update if private
+        repoUrl: "https://github.com/nareshmadhur/tri-folio" // Assumed, user to confirm
       },
       // {
       //   name: "Another Public Project Example",
@@ -210,19 +207,20 @@ export const aiKnowledgeBase = {
       //   repoUrl: "https://github.com/nareshmadhur/your-other-project-link"
       // },
     ],
-    privateProjectSummaries: [ // USER: CRITICAL TO FILL THIS SECTION for AI to answer about private work
-      {
-        name: "Example: Internal Customer Churn Prediction Model (Confidential)",
-        purpose: "To proactively identify customers at high risk of churn and enable targeted retention strategies.",
-        myRole: "Lead Data Scientist",
-        keyFeatures: [
-          "Developed and deployed a machine learning model using historical customer data.",
-          "Integrated model predictions into CRM for sales team visibility.",
-          "Achieved X% accuracy in predicting churn within a Y-month window."
-        ],
-        technologiesUsed: ["Python (Scikit-learn, Pandas)", "SQL", "Feature Engineering", "XGBoost"],
-        learningsAndImpact: "Gained deep experience in end-to-end ML model lifecycle for a critical business problem. The model contributed to a Z% reduction in customer churn over 6 months."
-      },
+    privateProjectSummaries: [ 
+      // USER: CRITICAL TO FILL THIS SECTION for AI to answer about private work
+      // {
+      //   name: "Example: Internal Customer Churn Prediction Model (Confidential)",
+      //   purpose: "To proactively identify customers at high risk of churn and enable targeted retention strategies.",
+      //   myRole: "Lead Data Scientist",
+      //   keyFeatures: [
+      //     "Developed and deployed a machine learning model using historical customer data.",
+      //     "Integrated model predictions into CRM for sales team visibility.",
+      //     "Achieved X% accuracy in predicting churn within a Y-month window."
+      //   ],
+      //   technologiesUsed: ["Python (Scikit-learn, Pandas)", "SQL", "Feature Engineering", "XGBoost"],
+      //   learningsAndImpact: "Gained deep experience in end-to-end ML model lifecycle for a critical business problem. The model contributed to a Z% reduction in customer churn over 6 months."
+      // },
       // {
       //   name: "Your Private Project Name (Confidential)",
       //   purpose: "USER: Purpose of this project.",
@@ -238,7 +236,7 @@ export const aiKnowledgeBase = {
 YouTube Channels:
 - Carnatic Guitar & Teaching: ${userProfile.socialLinks.youtubeTeaching} (Example videos: SASDA2AkFFk, iIOJGpQaONM)
 - Music Videos & Singing: ${userProfile.socialLinks.youtubeMusic} (Example videos: dMxUJIKYplE, mWC9ra1V0zw)`,
-    photographySummary: `Inspired by his uncle, photography is a significant passion. Naresh values capturing one perfect shot over many, adopting a quality-focused approach. Uses a Fujifilm X-T4 mirrorless camera and RawTherapee for processing.
+    photographySummary: `Inspired by his uncle, photography is a significant passion. Naresh values capturing one perfect shot over many, adopting a quality-focused approach. Uses a Fujifilm X-T4 mirrorless camera with some lens combinations, and RawTherapee for processing.
 Flickr Profile: ${userProfile.socialLinks.flickr}
 Example Photos (links from Flickr):
 - Varanasi Ghats: https://flic.kr/p/2q3ki8V
@@ -308,15 +306,13 @@ export const siteContent = {
   biAiPage: {
     title: "Tech. Pursuits: AI Q&A",
     description: "A showcase of my work in Business Intelligence and Data Analytics, featuring an interactive AI assistant that can answer questions about my professional profile and projects based on the summarized information I've provided from my resume and GitHub.",
-    interactiveToolsTitle: "AI Assistant", // Kept for potential future use, not currently displayed
     askMeAnything: {
       title: "Ask My AI Assistant",
-      description: `Curious about my skills, projects, or experience? Ask a question below. My AI assistant has been provided with summarized information from my resume and GitHub profile (including public and private project overviews) to answer your questions.`,
+      initialAiMessage: `Curious about my skills, projects, or experience? Ask a question below. My AI assistant has been provided with summarized information from my resume and GitHub profile (including public and private project overviews) to answer your questions.`,
       inputLabel: "Your question about Naresh Madhur:",
-      inputPlaceholder: "e.g., What are your key skills in AI? Tell me about your experience with BI tools. Describe a challenging private project you worked on.",
+      inputPlaceholder: "e.g., What are your key skills in AI? Tell me about your experience with BI tools.",
       buttonText: "Ask Question",
       buttonLoadingText: "Thinking...",
-      // answerTitleLabel: "My AI Assistant's Insights:", // Removed, not used in chatbot UI
       errorMessages: {
         errorTitle: "Assistant Error",
         generalError: "Sorry, I couldn't process your question at this time. Please try again.",
@@ -376,7 +372,7 @@ export const siteContent = {
         description: "With over three years of experience teaching Carnatic Guitar to more than 25 students globally (since 2021), Naresh Madhur offers instruction for both beginner and intermediate levels. His passion for sharing musical knowledge led to the creation of a comprehensive online course, meticulously designed to guide aspiring guitarists. Explore his flagship course on Thinkific for structured lessons and personalized guidance.",
         courseUrl: "https://naresh-madhur-onlinecourses.thinkific.com/courses/carnatic-guitar-beginners",
         enrollButton: "Enroll in Course",
-        courseImageUrl: "https://import.cdn.thinkific.com/971196/yJVkf7DvQ6aCNOUgleYd_Thumbnail_1.jpg", // Added course image URL
+        courseImageUrl: "https://import.cdn.thinkific.com/971196/yJVkf7DvQ6aCNOUgleYd_Thumbnail_1.jpg", 
         courseImageAiHint: "guitar course thumbnail",
       },
     },
@@ -432,21 +428,19 @@ export const siteContent = {
 // --- Project Data ---
 export const biAiProjects: Project[] = [
   {
-    id: 'project-makro-bi-transformation', // More specific ID
+    id: 'project-makro-bi-transformation', 
     title: 'BI Transformation & Data Democratization (Makro NL)',
     description: 'Leading Makro Nederland’s transition to a data-proficient organization. Key efforts include streamlining reporting, establishing a shared data space using Semantic Layers on Google BigQuery, implementing data governance, and enhancing cross-domain transparency.',
     technologies: ['Data Strategy', 'Semantic Layer', 'Google BigQuery', 'Data Governance', 'LLM (conceptual)', 'BI'],
-    imageUrl: 'https://placehold.co/800x450.png', // User to replace
+    imageUrl: 'https://placehold.co/800x450.png', 
     dataAiHint: 'data strategy network',
-    liveDemoUrl: undefined, // No live demo usually for internal projects
-    githubUrl: undefined, // Internal project
   },
   {
     id: 'project-metro-bi-community',
     title: 'International BI Program & Community Leadership (METRO)',
     description: 'Supported a global BI transformation program at METRO. Involved project management (resource & cost), development of Semantic Layers/Materialized Views (Google BigQuery) and front-end (MicroStrategy). Led a cross-country BI community, fostering data-driven problem-solving.',
     technologies: ['Team Leadership', 'Consulting', 'SQL', 'Google BigQuery', 'MicroStrategy', 'Data Mesh'],
-    imageUrl: 'https://placehold.co/800x450.png', // User to replace
+    imageUrl: 'https://placehold.co/800x450.png', 
     dataAiHint: 'global team collaboration',
   },
   {
@@ -454,7 +448,7 @@ export const biAiProjects: Project[] = [
     title: 'Customer Segmentation MVP (METRO)',
     description: 'Developed an MVP for Customer Segmentation for METRO clients in Slovakia and Italy. Integrated RFM analytics with price/brand affinity insights. Leveraged Python for development and MicroStrategy for presenting analytics.',
     technologies: ['Python', 'RFM Analytics', 'MicroStrategy', 'Data Science', 'Marketing Analytics'],
-    imageUrl: 'https://placehold.co/800x450.png', // User to replace
+    imageUrl: 'https://placehold.co/800x450.png', 
     dataAiHint: 'customer analytics chart',
   },
   {
@@ -462,7 +456,7 @@ export const biAiProjects: Project[] = [
     title: 'Global Fulfillment BI Solution (METRO)',
     description: 'Created an end-to-end BI solution for global productivity and fulfillment monitoring at METRO. Implemented BI best practices like security layers and efficient data modeling using Looker Studio and Google BigQuery.',
     technologies: ['Looker Studio', 'BI Best Practices', 'Data Modeling', 'Security Implementation', 'Google BigQuery'],
-    imageUrl: 'https://placehold.co/800x450.png', // User to replace
+    imageUrl: 'https://placehold.co/800x450.png', 
     dataAiHint: 'BI dashboard logistics',
   },
 ];
@@ -498,3 +492,4 @@ export const photographyItems: Photo[] = [
 
 // Deprecated musicVideos constant - content moved into siteContent.musicPage
 export const musicVideos: PerformanceVideo[] = [];
+
