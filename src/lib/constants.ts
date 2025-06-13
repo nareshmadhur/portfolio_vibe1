@@ -97,11 +97,11 @@ export const userProfile = {
     youtube: "https://www.youtube.com/@NareshMadhur",
     flickr: "https://www.flickr.com/photos/nareshmadhur",
   },
-  education: [
+  education: [ // This section is for general display, aiKnowledgeBase will be more specific for AI
     "Amrita University Coimbatore - B.tech in Computer Science Engineering",
     "Several schools in Kerala, India.",
   ],
-  career: [
+  career: [ // This section is for general display, aiKnowledgeBase will be more specific for AI
     "Makro Nederland: BI & AI Engineer (2019 - Present)",
     "METRO Global Solution Center, India: Senior Analyst & Team Lead (2013 - 2019)",
     "METRO Global Solution Center, India: Analyst (2010 - 2013)",
@@ -122,6 +122,110 @@ export const userProfile = {
     ]
   }
 };
+
+// --- AI Knowledge Base (To be filled by the user) ---
+/**
+ * @description Contains summarized information from Naresh Madhur's resume and GitHub profile
+ * to be used as context for the "Ask Me Anything" AI feature.
+ * The user (Naresh Madhur) should populate these fields with their specific details.
+ */
+export const aiKnowledgeBase = {
+  resume: {
+    summary: "Provide a 2-3 sentence overview of your professional background, key expertise, and career goals. Example: A seasoned BI & AI Engineer with X years of experience in Y industries, specializing in Z technologies. Passionate about leveraging data to drive business value and innovative AI solutions.",
+    keySkills: [
+      "Data Analysis & Visualization (Tableau, Power BI, Python)",
+      "Machine Learning (Scikit-learn, TensorFlow, Keras)",
+      "Programming (Python, SQL, JavaScript, TypeScript)",
+      "Cloud Platforms (GCP, AWS - specify services used)",
+      "GenAI & LLMs (Genkit, LangChain, Prompt Engineering)",
+      "Web Development (Next.js, React)",
+      "Database Management (SQL, NoSQL)",
+      "Agile Methodologies & Project Management",
+      // Add more specific skills
+    ],
+    experienceHighlights: [
+      {
+        role: "BI & AI Engineer",
+        company: "Makro Nederland (Part of METRO AG)",
+        period: "2019 - Present",
+        details: "Key achievements: Developed X, implemented Y, improved Z by X%. Technologies used: A, B, C. Focus on delivering BI solutions and exploring AI applications for retail."
+      },
+      {
+        role: "Senior Analyst & Team Lead",
+        company: "METRO Global Solution Center, India",
+        period: "2013 - 2019",
+        details: "Led a team of X analysts. Responsible for Y. Delivered Z projects. Specialized in BI reporting and data modeling."
+      },
+      {
+        role: "Analyst",
+        company: "METRO Global Solution Center, India",
+        period: "2010 - 2013",
+        details: "Initial role focusing on data extraction, report generation, and supporting analytics tasks."
+      },
+      // Add other relevant experiences if any, or elaborate on these.
+    ],
+    educationHighlights: [
+      {
+        degree: "B.Tech in Computer Science Engineering",
+        institution: "Amrita Vishwa Vidyapeetham, Coimbatore",
+        period: "YYYY - YYYY", // Fill in your graduation year
+        details: "Key coursework included Data Structures, Algorithms, Database Management, AI Fundamentals. Final year project on X."
+      },
+      // Add other significant certifications or courses if applicable.
+    ],
+    // You can add other custom sections like "Projects" (from resume), "Awards", "Publications"
+    // For example:
+    // resumeProjects: [
+    //   { name: "Resume Project Alpha", description: "Details about this project...", technologies: ["Tech1", "Tech2"] }
+    // ],
+  },
+  githubProfile: {
+    username: "nareshmadhur", // For reference, used in the prompt to frame context
+    publicRepoHighlights: [ // Summarize key PUBLIC repositories
+      {
+        name: "Tri-Folio (This Portfolio)",
+        description: "The Next.js and Genkit powered portfolio website showcasing my skills in web development and AI integration.",
+        keyTechnologies: ["Next.js", "React", "TypeScript", "Genkit", "Tailwind CSS", "ShadCN UI"],
+        repoUrl: "https://github.com/nareshmadhur/tri-folio" // Example, replace with actual if public
+      },
+      // Add 1-2 more public repositories that are significant.
+      // {
+      //   name: "Another Public Project",
+      //   description: "Brief description of what this project does and its purpose.",
+      //   keyTechnologies: ["Python", "Flask", "SQL"],
+      //   repoUrl: "https://github.com/nareshmadhur/another-project"
+      // },
+    ],
+    privateProjectSummaries: [ // Summarize key aspects of PRIVATE repositories (DO NOT PASTE CODE)
+      {
+        name: "Internal Sales Analytics Dashboard (Confidential)",
+        purpose: "To provide real-time sales insights and forecasting for internal business units.",
+        myRole: "Lead Developer & Data Analyst",
+        keyFeatures: [
+          "Interactive visualizations of sales trends and KPIs.",
+          "Predictive model for short-term sales forecasting.",
+          "User authentication and role-based access control."
+        ],
+        technologiesUsed: ["Python (Flask/Django)", "Pandas", "Scikit-learn", "Tableau/PowerBI for frontend", "PostgreSQL"],
+        learningsAndImpact: "Gained significant experience in end-to-end BI solution development for a sensitive business domain. The solution led to a X% improvement in forecast accuracy."
+      },
+      // Add 1-2 more private project summaries if relevant.
+      // {
+      //   name: "Private Utility Script Collection (Confidential)",
+      //   purpose: "A collection of Python scripts to automate various data processing and reporting tasks.",
+      //   myRole: "Sole Developer",
+      //   keyFeatures: [
+      //     "Automated ETL from multiple sources.",
+      //     "Scheduled report generation and email distribution.",
+      //     "Data validation and error logging."
+      //   ],
+      //   technologiesUsed: ["Python", "Pandas", "SQLAlchemy", "SMTP lib"],
+      //   learningsAndImpact: "Enhanced personal productivity and streamlined data workflows for the team. Reduced manual effort for reporting by Y hours/week."
+      // }
+    ]
+  }
+};
+
 
 // --- Site Content (UI Text Strings & Image URLs) ---
 
@@ -194,13 +298,13 @@ export const siteContent = {
   },
   biAiPage: {
     title: "Tech. Pursuits: AI Q&A",
-    description: "A showcase of my work in Business Intelligence and Data Analytics, featuring an interactive AI assistant that can answer questions about my professional profile and projects.",
-    interactiveToolsTitle: "AI Assistant", // Changed title
-    askMeAnything: { // New section for the Q&A AI
+    description: "A showcase of my work in Business Intelligence and Data Analytics, featuring an interactive AI assistant that can answer questions about my professional profile and projects based on provided information.",
+    interactiveToolsTitle: "AI Assistant",
+    askMeAnything: {
       title: "Ask My AI Assistant",
-      description: "Curious about my skills, projects, or experience? Ask a question below, and my AI assistant, trained on my resume and public GitHub information, will do its best to answer.",
+      description: `Curious about my skills, projects, or experience? Ask a question below. My AI assistant has been provided with summarized information from my resume and GitHub profile (including public and private project overviews) to answer your questions.`,
       inputLabel: "Your question about Naresh Madhur:",
-      inputPlaceholder: "e.g., What are your key skills in AI? Tell me about your experience with BI tools.",
+      inputPlaceholder: "e.g., What are your key skills in AI? Tell me about your experience with BI tools. Describe a challenging private project you worked on.",
       buttonText: "Ask Question",
       buttonLoadingText: "Thinking...",
       answerTitleLabel: "AI's Answer:",
@@ -211,7 +315,7 @@ export const siteContent = {
         emptyInput: "Please type a question.",
       }
     },
-    projectsTitle: "Portfolio Projects", // This section can remain if you still want to showcase static projects
+    projectsTitle: "Portfolio Projects", // This section remains for static projects
   },
   musicPage: {
     title: "Music & Teaching",
@@ -302,8 +406,8 @@ export const siteContent = {
   metadata: {
     defaultTitle: `Naresh Madhur | Portfolio`,
     defaultDescription: `Portfolio of Naresh Madhur, showcasing expertise in Data Science & AI, music, and photography.`,
-    biAiTitle: `AI Q&A with Naresh Madhur`, // Updated title
-    biAiDescription: `Ask questions about Naresh Madhur's professional profile, skills, and projects using an AI-powered assistant.`, // Updated description
+    biAiTitle: `AI Q&A with Naresh Madhur`,
+    biAiDescription: `Ask questions about Naresh Madhur's professional profile, skills, and projects using an AI-powered assistant informed by his summarized resume and GitHub information.`,
     musicTitle: `Music & Teaching | Naresh Madhur`,
     musicDescription: `Listen to original compositions, covers, live performances, and explore music teaching by Naresh Madhur.`,
     photographyTitle: `Photography Gallery | Naresh Madhur`,
