@@ -146,3 +146,30 @@ h1, h2, h3, h4, h5, h6, strong, b, .font-semibold, .font-bold {
 .text-xl .typewriter-caret, .text-2xl .typewriter-caret {
   height: 1.2em; /* Or match line-height if more precise control needed */
 }
+
+/* Custom Animations for AI Assistant */
+@keyframes gentle-sparkle-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+.animate-gentle-sparkle-pulse {
+  animation: gentle-sparkle-pulse 2.5s infinite ease-in-out;
+}
+
+@keyframes breathing-glow-border {
+  0%, 100% {
+    border-color: hsl(var(--accent) / 0.4);
+    box-shadow: 0 0 8px 0px hsl(var(--accent) / 0.1); /* Subtle outer glow */
+  }
+  50% {
+    border-color: hsl(var(--accent) / 0.7);
+    box-shadow: 0 0 16px 2px hsl(var(--accent) / 0.25); /* Brighter outer glow */
+  }
+}
+
+.animate-breathing-glow-border {
+  animation: breathing-glow-border 3.5s infinite ease-in-out;
+  border-width: 1px; 
+  border-style: solid;
+}
