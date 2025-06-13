@@ -87,7 +87,7 @@ export default function BiAiPageClientContent() {
                   aria-describedby={error ? "ai-question-error" : undefined}
                 />
               </div>
-              <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
+              <Button type="submit" disabled={isLoading || !question.trim()} className="w-full sm:w-auto">
                 {isLoading ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
@@ -98,7 +98,7 @@ export default function BiAiPageClientContent() {
             </form>
 
             {error && (
-              <div id="ai-question-error" role="alert" className="mt-4 p-3 rounded-md bg-destructive/10 text-destructive border border-destructive/30 flex items-start space-x-2">
+              <div id="ai-question-error" role="alert" className="mt-4 p-3 rounded-md bg-destructive/10 text-destructive border border-destructive/30 flex items-start space-x-2 animate-fadeIn">
                 <AlertTriangle className="h-5 w-5 shrink-0 mt-0.5" />
                 <div>
                   <p className="text-sm font-semibold">{siteContent.biAiPage.askMeAnything.errorMessages.errorTitle}</p>
@@ -108,7 +108,7 @@ export default function BiAiPageClientContent() {
             )}
 
             {aiAnswer && (
-              <Card className="mt-6 bg-background shadow-inner transition-opacity duration-500 ease-in-out opacity-100">
+              <Card className="mt-6 bg-background shadow-inner animate-fadeIn">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-lg text-primary">{siteContent.biAiPage.askMeAnything.answerTitleLabel}</CardTitle>
                 </CardHeader>
