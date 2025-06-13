@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState, type FormEvent } from 'react';
-import { Loader2, AlertTriangle, MessageCircle } from "lucide-react";
+import { Loader2, AlertTriangle, Sparkles } from "lucide-react"; // Changed MessageCircle to Sparkles
 
 import { askNareshAI, type AskNareshAIInput, type AskNareshAIOutput } from '@/ai/flows/ask-me-flow';
 
@@ -59,10 +59,10 @@ export default function BiAiPageClientContent() {
 
       <AnimatedSection delay="delay-50">
         <SectionTitle>{siteContent.biAiPage.interactiveToolsTitle}</SectionTitle>
-        <Card className="shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col max-w-3xl mx-auto">
+        <Card className="shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col max-w-3xl mx-auto bg-gradient-to-br from-card via-card to-secondary/20 dark:from-card dark:via-card dark:to-secondary/10">
           <CardHeader>
             <div className="flex items-center space-x-3">
-              <MessageCircle className="h-7 w-7 text-accent" />
+              <Sparkles className="h-7 w-7 text-accent" />
               <CardTitle className="text-xl">{siteContent.biAiPage.askMeAnything.title}</CardTitle>
             </div>
             <CardDescription className="pt-1">{siteContent.biAiPage.askMeAnything.description}</CardDescription>
@@ -91,7 +91,7 @@ export default function BiAiPageClientContent() {
                 {isLoading ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
-                  <MessageCircle className="mr-2 h-4 w-4" />
+                  <Sparkles className="mr-2 h-4 w-4" />
                 )}
                 {isLoading ? siteContent.biAiPage.askMeAnything.buttonLoadingText : siteContent.biAiPage.askMeAnything.buttonText}
               </Button>
@@ -118,6 +118,9 @@ export default function BiAiPageClientContent() {
               </Card>
             )}
           </CardContent>
+          <CardFooter className="text-xs text-muted-foreground pt-4 justify-end">
+            <p>Powered by Google Gemini</p>
+          </CardFooter>
         </Card>
       </AnimatedSection>
 
