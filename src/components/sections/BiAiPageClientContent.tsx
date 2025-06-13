@@ -12,7 +12,7 @@ import { useState, type FormEvent, useEffect } from 'react';
 import { Loader2, AlertTriangle, Sparkles } from "lucide-react";
 import { askNareshAI, type AskNareshAIInput } from '@/ai/flows/ask-me-flow';
 import { cn } from "@/lib/utils";
-import SectionWrapper from "@/components/shared/SectionWrapper"; // Added missing import
+import SectionWrapper from "@/components/shared/SectionWrapper";
 
 /**
  * Client-side content for the BI & AI Projects page, including the "Ask My AI Assistant" tool.
@@ -30,6 +30,8 @@ export default function BiAiPageClientContent() {
     let html = text;
     // Convert **bold** to <strong>bold</strong>
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    // Convert *italic* to <em>italic</em> (optional, but good for completeness)
+    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
     // Convert newlines to <br />
     html = html.replace(/\n/g, "<br />");
     return html;
@@ -46,13 +48,13 @@ export default function BiAiPageClientContent() {
     setIsLoading(true);
     setAiAnswer(null);
     setError(null);
-
+    // Clear question input now that it's "submitted" to the chat log
+    setQuestion(''); 
 
     try {
       const input: AskNareshAIInput = { question };
       const result = await askNareshAI(input);
       setAiAnswer(result.answer);
-      setQuestion(''); // Clear input only after successful response
     } catch (e: any) {
       console.error("Error fetching AI answer:", e);
       setError(e.message || siteContent.biAiPage.askMeAnything.errorMessages.generalError);
@@ -92,15 +94,20 @@ export default function BiAiPageClientContent() {
               </div>
             </CardHeader>
 
-            <CardContent className="flex flex-col flex-grow space-y-4 overflow-hidden p-4 md:p-6">
+            {/* Removed overflow-hidden from CardContent */}
+            <CardContent className="flex flex-col flex-grow space-y-4 p-4 md:p-6">
+              {/* Chat Messages Log */}
               <div className="space-y-4 flex-grow overflow-y-auto pr-2">
+                {/* Initial AI Message */}
                 <AnimatedSection animationType="fadeIn" className="p-3 rounded-md bg-primary/5 shadow">
                   <p className="font-semibold text-primary">AI Assistant:</p>
-                  <div className="text-foreground/90 whitespace-pre-line leading-relaxed">
-                    {siteContent.biAiPage.askMeAnything.initialAiMessage}
-                  </div>
+                  <div 
+                    className="text-foreground/90 whitespace-pre-line leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: processMarkdown(siteContent.biAiPage.askMeAnything.initialAiMessage) }}
+                  />
                 </AnimatedSection>
 
+                {/* Submitted Question Display */}
                 {submittedQuestion && (
                   <AnimatedSection animationType="fadeIn" className="p-3 rounded-md bg-secondary/50 shadow mt-3">
                     <p className="font-semibold text-secondary-foreground">You:</p>
@@ -108,6 +115,7 @@ export default function BiAiPageClientContent() {
                   </AnimatedSection>
                 )}
 
+                {/* Loading Indicator */}
                 {isLoading && (
                   <AnimatedSection animationType="fadeIn" className="p-3 rounded-md bg-muted/30 shadow flex items-center mt-3">
                     <Loader2 className="mr-3 h-5 w-5 animate-spin text-muted-foreground" />
@@ -115,6 +123,7 @@ export default function BiAiPageClientContent() {
                   </AnimatedSection>
                 )}
 
+                {/* AI Answer Display */}
                 {aiAnswer && !isLoading && (
                   <AnimatedSection animationType="fadeIn" className="p-3 rounded-md bg-primary/5 shadow mt-3">
                     <p className="font-semibold text-primary">AI Assistant:</p>
@@ -126,10 +135,12 @@ export default function BiAiPageClientContent() {
                 )}
               </div>
 
+              {/* Error Display */}
               {error && !isLoading && (
                 <div
                   id="ai-question-error"
                   role="alert"
+                  // Added shrink-0 to ensure it doesn't grow
                   className="mt-auto p-3 rounded-md bg-destructive/10 text-destructive border border-destructive/30 flex items-start space-x-2 animate-fadeIn shrink-0"
                 >
                   <AlertTriangle className="h-5 w-5 shrink-0 mt-0.5" />
@@ -140,6 +151,7 @@ export default function BiAiPageClientContent() {
                 </div>
               )}
 
+              {/* Input Form */}
               <form onSubmit={handleSubmit} className="space-y-3 pt-4 border-t border-border/50 mt-auto shrink-0">
                 <div>
                   <Textarea
@@ -197,3 +209,4 @@ export default function BiAiPageClientContent() {
     </SectionWrapper>
   );
 }
+
