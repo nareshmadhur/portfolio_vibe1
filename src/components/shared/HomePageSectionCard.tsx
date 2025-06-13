@@ -54,14 +54,14 @@ export default function HomePageSectionCard({ title, description, imageUrl, imag
       <Image
         src={imageUrl}
         alt={title} // Use title for alt text for better accessibility
-        layout="fill"
+        fill
         className={cn(
-            "transition-transform duration-300 ease-in-out group-hover:grayscale", 
+            "object-cover transition-transform duration-300 ease-in-out group-hover:grayscale",
             isHovered ? "scale-105" : ""
         )}
-        objectFit="cover"
         data-ai-hint={imageAiHint}
         priority={false} // Not LCP usually
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />
       {/* Adjusted gradient to be darker for text readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/40 group-hover:from-black/90 group-hover:via-black/20 group-hover:to-black/0 transition-all duration-300" />

@@ -323,10 +323,10 @@ export default function MusicPage() {
                                 <Image
                                   src={`https://i.ytimg.com/vi/${videoToShow.videoId}/mqdefault.jpg`}
                                   alt={`Thumbnail for ${videoToShow.title}`}
-                                  layout="fill"
-                                  objectFit="cover"
-                                  className="transition-transform duration-300 group-hover:scale-105"
+                                  fill
+                                  className="object-cover transition-transform duration-300 group-hover:scale-105"
                                   priority={slotIndex === 1}
+                                  sizes="(max-width: 768px) 100vw, 33vw"
                                 />
                                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                                   <PlayCircle className="w-10 h-10 text-white/70 group-hover:text-white transition-opacity" />
@@ -391,9 +391,10 @@ export default function MusicPage() {
                   <Image
                     src="https://import.cdn.thinkific.com/971196/yJVkf7DvQ6aCNOUgleYd_Thumbnail_1.jpg"
                     alt="Carnatic Guitar Beginners Course Thumbnail"
-                    layout="fill"
-                    objectFit="cover"
+                    fill
+                    className="object-cover"
                     data-ai-hint="guitar course thumbnail"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
               </div>

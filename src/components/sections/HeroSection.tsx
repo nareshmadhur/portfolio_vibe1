@@ -1,3 +1,4 @@
+
 /**
  * @fileoverview Defines the HeroSection component.
  * This component displays the main hero section of the website,
@@ -76,11 +77,11 @@ export default function HeroSection() {
           src={siteContent.heroSection.backgroundImageUrl}
           alt={siteContent.heroSection.backgroundImageAlt || "Hero background"}
           fill
-          objectFit="cover"
-          objectPosition="center top" // Prioritize the top-center of the image
-          className="absolute inset-0 z-0"
+          className="absolute inset-0 z-0 object-cover"
+          style={{ objectPosition: "center top" }} // Prioritize the top-center of the image
           data-ai-hint={siteContent.heroSection.backgroundImageAiHint || "landscape"}
           priority
+          sizes="100vw"
         />
       )}
       {/* Gradient overlay for text readability (bottom-to-top) */}

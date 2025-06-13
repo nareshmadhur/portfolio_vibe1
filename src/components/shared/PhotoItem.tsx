@@ -1,3 +1,4 @@
+
 /**
  * @fileoverview Defines the PhotoItem component.
  * Displays a single photography item in a card format.
@@ -33,10 +34,10 @@ export default function PhotoItem({ photo }: PhotoItemProps) {
           <Image
             src={photo.imageUrl}
             alt={photo.title}
-            layout="fill"
-            objectFit="cover"
-            className="group-hover:scale-105 transition-transform duration-300"
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
             data-ai-hint={photo.dataAiHint}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
           <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
             <ExternalLink className="h-8 w-8 text-white" />
