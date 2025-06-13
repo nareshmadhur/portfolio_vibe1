@@ -157,19 +157,45 @@ h1, h2, h3, h4, h5, h6, strong, b, .font-semibold, .font-bold {
   animation: gentle-sparkle-pulse 2.5s infinite ease-in-out;
 }
 
-@keyframes breathing-glow-border {
-  0%, 100% {
-    border-color: hsl(var(--accent) / 0.4);
-    box-shadow: 0 0 8px 0px hsl(var(--accent) / 0.1); /* Subtle outer glow */
+@keyframes rotateGradientBorder {
+  0% { --gradient-angle: 0deg; }
+  100% { --gradient-angle: 360deg; }
+}
+
+@layer utilities {
+  /* For smoother animation if browser supports Houdini @property */
+  @property --gradient-angle { 
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
   }
-  50% {
-    border-color: hsl(var(--accent) / 0.7);
-    box-shadow: 0 0 16px 2px hsl(var(--accent) / 0.25); /* Brighter outer glow */
+
+  .animated-gemini-border-wrapper {
+    --gemini-blue-hsl: 220 80% 70%;
+    --gemini-pink-hsl: 300 70% 70%;
+    --gemini-light-blue-hsl: 200 100% 85%;
+    
+    position: relative;
+    padding: 3px; /* Border thickness */
+    border-radius: var(--radius); /* Match card's border-radius */
+    background: conic-gradient(
+      from var(--gradient-angle, 0deg), 
+      hsl(var(--gemini-blue-hsl)), 
+      hsl(var(--gemini-pink-hsl)), 
+      hsl(var(--gemini-light-blue-hsl)), 
+      hsl(var(--gemini-blue-hsl)) /* Loop back */
+    );
+    animation: rotateGradientBorder 4s linear infinite;
+    overflow: hidden; /* To ensure rounded corners clip the gradient correctly */
+  }
+
+  /* Ensure the actual card inside this wrapper has a solid background and fills the wrapper */
+  .animated-gemini-border-wrapper > * { 
+    background: hsl(var(--card));
+    border-radius: var(--radius); /* Match ShadCN's card radius */
+    height: 100%; /* Ensure the inner card fills the wrapper */
+    width: 100%;  /* Ensure the inner card fills the wrapper */
   }
 }
 
-.animate-breathing-glow-border {
-  animation: breathing-glow-border 3.5s infinite ease-in-out;
-  border-width: 1px; 
-  border-style: solid;
-}
+    

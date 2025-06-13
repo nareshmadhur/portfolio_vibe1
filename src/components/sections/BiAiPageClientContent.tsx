@@ -9,9 +9,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { useState, type FormEvent } from 'react';
 import { Loader2, AlertTriangle, Sparkles } from "lucide-react";
 import { askNareshAI, type AskNareshAIInput } from '@/ai/flows/ask-me-flow';
-import SectionTitle from "@/components/shared/SectionTitle"; // Re-added as it's used for projects section
-import BiAiPortfolio from "@/components/sections/BiAiPortfolio"; // Re-added
-import SectionWrapper from "@/components/shared/SectionWrapper"; // Re-added
+import SectionTitle from "@/components/shared/SectionTitle";
+import BiAiPortfolio from "@/components/sections/BiAiPortfolio";
+import SectionWrapper from "@/components/shared/SectionWrapper";
 import { cn } from "@/lib/utils";
 
 
@@ -57,101 +57,98 @@ export default function BiAiPageClientContent() {
       </AnimatedSection>
 
       <AnimatedSection delay="delay-50">
-        <SectionTitle>{siteContent.biAiPage.interactiveToolsTitle}</SectionTitle>
-        <Card className={cn(
-          "shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col max-w-3xl mx-auto",
-          "bg-gradient-to-br from-card via-card to-secondary/20 dark:from-card dark:via-card dark:to-secondary/10",
-          "animate-breathing-glow-border" // Added breathing glow border animation
-        )}>
-          <CardHeader>
-            <div className="flex items-center space-x-3">
-              <Sparkles className="h-7 w-7 text-accent animate-gentle-sparkle-pulse" /> {/* Added pulse animation */}
-              <CardTitle className="text-xl">{siteContent.biAiPage.askMeAnything.title}</CardTitle>
-            </div>
-            <CardDescription className="pt-1">{siteContent.biAiPage.askMeAnything.description}</CardDescription>
-          </CardHeader>
-          <CardContent className="flex-grow space-y-4">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="ai-question" className="block text-sm font-medium text-foreground mb-1.5">
-                  {siteContent.biAiPage.askMeAnything.inputLabel}
-                </label>
-                <Textarea
-                  id="ai-question"
-                  value={question}
-                  onChange={(e) => {
-                      setQuestion(e.target.value);
-                      if (error && e.target.value.trim()) setError(null);
-                  }}
-                  placeholder={siteContent.biAiPage.askMeAnything.inputPlaceholder}
-                  disabled={isLoading}
-                  className={cn(
-                    "w-full min-h-[80px]",
-                    "transition-all duration-300 ease-in-out", // Base transition for textarea
-                    "focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background dark:focus-visible:ring-offset-card", // Enhanced focus
-                    "focus-visible:border-transparent" // Hide default border on focus if ring is prominent
-                  )}
-                  rows={3}
-                  aria-describedby={error ? "ai-question-error" : undefined}
-                />
+        <div className="animated-gemini-border-wrapper max-w-3xl mx-auto">
+          <Card className={cn(
+            "flex flex-col" // Basic layout, specific background/shadow handled by wrapper or direct style
+          )}>
+            <CardHeader>
+              <div className="flex items-center space-x-3">
+                <Sparkles className="h-7 w-7 text-accent animate-gentle-sparkle-pulse" />
+                <CardTitle className="text-xl">{siteContent.biAiPage.askMeAnything.title}</CardTitle>
               </div>
-              <Button 
-                type="submit" 
-                disabled={isLoading || !question.trim()} 
-                className={cn(
-                  "w-full sm:w-auto",
-                  "transition-all duration-200 ease-in-out", // Base transition for button
-                  "hover:scale-105 hover:brightness-110 focus-visible:scale-105 focus-visible:brightness-110" // Hover/focus enhancements
-                )}
-              >
-                {isLoading ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ) : (
-                  <Sparkles className="mr-2 h-4 w-4" />
-                )}
-                {isLoading ? siteContent.biAiPage.askMeAnything.buttonLoadingText : siteContent.biAiPage.askMeAnything.buttonText}
-              </Button>
-            </form>
-
-            {error && (
-              <div 
-                id="ai-question-error" 
-                role="alert" 
-                className="mt-4 p-3 rounded-md bg-destructive/10 text-destructive border border-destructive/30 flex items-start space-x-2 animate-fadeIn"
-              >
-                <AlertTriangle className="h-5 w-5 shrink-0 mt-0.5" />
+              <CardDescription className="pt-1">{siteContent.biAiPage.askMeAnything.description}</CardDescription>
+            </CardHeader>
+            <CardContent className="flex-grow space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <p className="text-sm font-semibold">{siteContent.biAiPage.askMeAnything.errorMessages.errorTitle}</p>
-                  <p className="text-sm">{error}</p>
+                  <label htmlFor="ai-question" className="block text-sm font-medium text-foreground mb-1.5">
+                    {siteContent.biAiPage.askMeAnything.inputLabel}
+                  </label>
+                  <Textarea
+                    id="ai-question"
+                    value={question}
+                    onChange={(e) => {
+                        setQuestion(e.target.value);
+                        if (error && e.target.value.trim()) setError(null);
+                    }}
+                    placeholder={siteContent.biAiPage.askMeAnything.inputPlaceholder}
+                    disabled={isLoading}
+                    className={cn(
+                      "w-full min-h-[80px]",
+                      "transition-all duration-300 ease-in-out",
+                      "focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background dark:focus-visible:ring-offset-card",
+                      "focus-visible:border-transparent"
+                    )}
+                    rows={3}
+                    aria-describedby={error ? "ai-question-error" : undefined}
+                  />
                 </div>
-              </div>
-            )}
-            
-            {/* Animated Answer Card Container */}
-            <div className={cn(
-              "mt-6 transition-all duration-500 ease-out",
-              aiAnswer ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
-            )}>
-              {aiAnswer && (
-                <Card className="bg-background shadow-inner">
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-lg text-primary">{siteContent.biAiPage.askMeAnything.answerTitleLabel}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="text-sm space-y-2">
-                    <p className="text-foreground/90 whitespace-pre-line leading-relaxed">{aiAnswer}</p>
-                  </CardContent>
-                </Card>
-              )}
-            </div>
+                <Button 
+                  type="submit" 
+                  disabled={isLoading || !question.trim()} 
+                  className={cn(
+                    "w-full sm:w-auto",
+                    "transition-all duration-200 ease-in-out",
+                    "hover:scale-105 hover:brightness-110 focus-visible:scale-105 focus-visible:brightness-110"
+                  )}
+                >
+                  {isLoading ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <Sparkles className="mr-2 h-4 w-4" />
+                  )}
+                  {isLoading ? siteContent.biAiPage.askMeAnything.buttonLoadingText : siteContent.biAiPage.askMeAnything.buttonText}
+                </Button>
+              </form>
 
-          </CardContent>
-          <CardFooter className="text-xs text-muted-foreground pt-4 justify-end">
-            <p>Powered by Google Gemini</p>
-          </CardFooter>
-        </Card>
+              {error && (
+                <div 
+                  id="ai-question-error" 
+                  role="alert" 
+                  className="mt-4 p-3 rounded-md bg-destructive/10 text-destructive border border-destructive/30 flex items-start space-x-2 animate-fadeIn"
+                >
+                  <AlertTriangle className="h-5 w-5 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-semibold">{siteContent.biAiPage.askMeAnything.errorMessages.errorTitle}</p>
+                    <p className="text-sm">{error}</p>
+                  </div>
+                </div>
+              )}
+              
+              <div className={cn(
+                "mt-6 transition-all duration-500 ease-out", // Base for initial state
+                aiAnswer ? "opacity-100 translate-y-0 animate-fadeIn" : "opacity-0 translate-y-10 pointer-events-none" // Animate in
+              )}>
+                {aiAnswer && (
+                  <Card className="bg-background shadow-inner">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-lg text-primary">{siteContent.biAiPage.askMeAnything.answerTitleLabel}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="text-sm space-y-2">
+                      <p className="text-foreground/90 whitespace-pre-line leading-relaxed">{aiAnswer}</p>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+
+            </CardContent>
+            <CardFooter className="text-xs text-muted-foreground pt-4 justify-end">
+              <p>Powered by Google Gemini</p>
+            </CardFooter>
+          </Card>
+        </div>
       </AnimatedSection>
 
-      {/* Optional: Keep the static projects section if desired */}
       <AnimatedSection delay="delay-100" className="mt-12 md:mt-16">
         <SectionTitle>{siteContent.biAiPage.projectsTitle}</SectionTitle>
         <BiAiPortfolio />
@@ -159,3 +156,5 @@ export default function BiAiPageClientContent() {
     </SectionWrapper>
   );
 }
+
+    
