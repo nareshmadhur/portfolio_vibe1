@@ -234,17 +234,30 @@ export default function BiAiPageClientContent() {
                       <CardTitle className="text-lg text-primary">{historicalResult.summaryTitle || `${siteContent.biAiPage.historicalPlaceSummarizer.summaryTitleLabel} ${historicalResult.placeNameDisplay}`}</CardTitle>
                   </CardHeader>
                   <CardContent className="text-sm space-y-3">
-                    {historicalResult.suggestedImageKeywords && historicalResult.suggestedImageKeywords.trim() !== "" && (
-                        <div className="my-3 aspect-video relative rounded-md overflow-hidden bg-muted/50">
-                            <Image
-                                src={`https://source.unsplash.com/600x400/?${encodeURIComponent(historicalResult.suggestedImageKeywords.trim().replace(/\s+/g, ','))}`}
-                                alt={`${siteContent.biAiPage.historicalPlaceSummarizer.visualPlaceholderAlt} ${historicalResult.placeNameDisplay}`}
-                                layout="fill"
-                                objectFit="cover"
-                                data-ai-hint={historicalResult.suggestedImageKeywords.trim()}
-                            />
-                        </div>
-                    )}
+                    {(historicalResult.placeNameDisplay) && (() => {
+                        let imageAiHintValue: string;
+                        const rawKeywords = historicalResult.suggestedImageKeywords?.trim() || "";
+
+                        if (rawKeywords) {
+                          let cleanedKeywords = rawKeywords.replace(/,/g, ' '); // Replace commas with space
+                          cleanedKeywords = cleanedKeywords.split(/\s+/).filter(Boolean).slice(0, 2).join(' '); // Get first two actual words
+                          imageAiHintValue = cleanedKeywords || rawKeywords || "historical place"; 
+                        } else {
+                          imageAiHintValue = "historical place"; // Generic hint
+                        }
+                        
+                        return (
+                            <div className="my-3 aspect-video relative rounded-md overflow-hidden bg-muted/50">
+                                <Image
+                                    src={`https://placehold.co/600x400.png`}
+                                    alt={`${siteContent.biAiPage.historicalPlaceSummarizer.visualPlaceholderAlt} ${historicalResult.placeNameDisplay}`}
+                                    layout="fill"
+                                    objectFit="cover"
+                                    data-ai-hint={imageAiHintValue}
+                                />
+                            </div>
+                        );
+                    })()}
                     <p className="text-foreground/90 whitespace-pre-line leading-relaxed">{historicalResult.historicalSummary}</p>
                     {renderKeyEvents(historicalResult.keyEvents, siteContent.biAiPage.historicalPlaceSummarizer.keyEventsLabel)}
                     {renderList(historicalResult.interestingFacts, siteContent.biAiPage.historicalPlaceSummarizer.interestingFactsLabel)}
