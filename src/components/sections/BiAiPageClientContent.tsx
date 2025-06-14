@@ -8,11 +8,11 @@ import BiAiPortfolio from "@/components/sections/BiAiPortfolio";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { useState, type FormEvent, useEffect } from 'react';
-import { Loader2, AlertTriangle, Sparkles } from "lucide-react";
+import { useState, type FormEvent, useEffect, useRef, useCallback } from 'react';
+import { Loader2, AlertTriangle, Sparkles, ArrowDown } from "lucide-react";
 import { askNareshAI, type AskNareshAIInput } from '@/ai/flows/ask-me-flow';
 import { cn } from "@/lib/utils";
-import SectionWrapper from "@/components/shared/SectionWrapper"; // Ensure this import is present
+import SectionWrapper from "@/components/shared/SectionWrapper";
 
 /**
  * Client-side content for the BI & AI Projects page, including the "Ask My AI Assistant" tool.
@@ -24,36 +24,50 @@ export default function BiAiPageClientContent() {
   const [isLoading, setIsLoading] = useState(false);
   const [aiAnswer, setAiAnswer] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const chatLogRef = useRef<HTMLDivElement>(null);
+  const [showScrollIndicator, setShowScrollIndicator] = useState(false);
 
   const processMarkdown = (text: string): string => {
     if (!text) return '';
     let html = text;
     // Convert **bold** to <strong>bold</strong>
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    // Convert *italic* to <em>italic</em>
-    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    // Convert *italic* to <em>italic</em> (if needed, though current prompt doesn't explicitly ask for it)
+    // html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
     // Convert newlines to <br />
     html = html.replace(/\n/g, "<br />");
     return html;
   };
 
+  const checkScrollIndicator = useCallback(() => {
+    if (chatLogRef.current) {
+      const { scrollHeight, scrollTop, clientHeight } = chatLogRef.current;
+      const isScrollable = scrollHeight > clientHeight;
+      // Show indicator if scrollable and not within ~10px of the bottom
+      const isNotAtBottom = scrollTop + clientHeight < scrollHeight - 10; 
+      setShowScrollIndicator(isScrollable && isNotAtBottom);
+    } else {
+      setShowScrollIndicator(false);
+    }
+  }, []);
+
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!question.trim()) {
-      setError(siteContent.biAiPage.askMeAnything.errorMessages.emptyInput);
+    if (!question.trim() || isLoading) {
+      if(!question.trim()) setError(siteContent.biAiPage.askMeAnything.errorMessages.emptyInput);
       return;
     }
     setSubmittedQuestion(question);
     setIsLoading(true);
-    setAiAnswer(null);
+    setAiAnswer(null); // Clear previous answer
     setError(null);
-    
+    setQuestion(''); // Clear input immediately after submission
 
     try {
-      const input: AskNareshAIInput = { question: question.trim() }; // Use trimmed question
+      const input: AskNareshAIInput = { question: question.trim() };
       const result = await askNareshAI(input);
       setAiAnswer(result.answer);
-      setQuestion(''); // Clear input after successful submission and response cycle
     } catch (e: any) {
       console.error("Error fetching AI answer:", e);
       setError(e.message || siteContent.biAiPage.askMeAnything.errorMessages.generalError);
@@ -63,11 +77,40 @@ export default function BiAiPageClientContent() {
   };
 
   useEffect(() => {
-    // Auto-clear error when user starts typing a new question
     if (error && question.trim() && !isLoading) {
       setError(null);
     }
   }, [question, error, isLoading]);
+
+  // Auto-scroll to bottom when new messages appear and update scroll indicator
+  useEffect(() => {
+    if (chatLogRef.current) {
+      chatLogRef.current.scrollTop = chatLogRef.current.scrollHeight;
+    }
+    // Check scroll indicator after DOM updates and scrolling
+    const timer = setTimeout(checkScrollIndicator, 100);
+    return () => clearTimeout(timer);
+  }, [aiAnswer, submittedQuestion, checkScrollIndicator]);
+
+  // Check scroll indicator on mount and window resize
+  useEffect(() => {
+    checkScrollIndicator(); // Initial check
+    window.addEventListener('resize', checkScrollIndicator);
+    return () => {
+      window.removeEventListener('resize', checkScrollIndicator);
+    };
+  }, [checkScrollIndicator]);
+
+  // Add scroll event listener to the chat log div
+  useEffect(() => {
+    const currentChatLog = chatLogRef.current;
+    if (currentChatLog) {
+      currentChatLog.addEventListener('scroll', checkScrollIndicator);
+      return () => {
+        currentChatLog.removeEventListener('scroll', checkScrollIndicator);
+      };
+    }
+  }, [checkScrollIndicator]); // Re-attach if checkScrollIndicator changes
 
 
   return (
@@ -85,7 +128,7 @@ export default function BiAiPageClientContent() {
           "gemini-border-static", 
           isLoading && "gemini-border-animate-rotation" 
         )}>
-          <Card className="flex flex-col min-h-[500px] max-h-[70vh]"> {/* Outer constraint for chat widget height */}
+          <Card className="flex flex-col min-h-[500px] max-h-[70vh]">
             <CardHeader>
               <div className="flex items-center space-x-3">
                 <Sparkles className="h-7 w-7 text-accent animate-gentle-sparkle-pulse" />
@@ -98,7 +141,10 @@ export default function BiAiPageClientContent() {
               "min-h-0" 
             )}>
               {/* Chat Messages Log */}
-              <div className="space-y-4 flex-grow overflow-y-auto pr-2 min-h-0"> {/* Added min-h-0 here */}
+              <div 
+                ref={chatLogRef} 
+                className="space-y-4 flex-grow overflow-y-auto pr-2 min-h-0 relative" // Added position: relative
+              >
                 {/* Initial AI Message */}
                 <AnimatedSection animationType="fadeIn" className="p-3 rounded-md bg-primary/5 shadow">
                   <p className="font-semibold text-primary">AI Assistant:</p>
@@ -133,6 +179,12 @@ export default function BiAiPageClientContent() {
                         dangerouslySetInnerHTML={{ __html: processMarkdown(aiAnswer) }}
                     />
                   </AnimatedSection>
+                )}
+                {/* Scroll Down Indicator */}
+                {showScrollIndicator && (
+                  <div className="sticky bottom-2 left-1/2 -translate-x-1/2 p-1 bg-accent/80 dark:bg-accent/90 backdrop-blur-sm rounded-full animate-bounce z-20 shadow-lg">
+                    <ArrowDown className="h-5 w-5 text-accent-foreground" />
+                  </div>
                 )}
               </div>
 
@@ -209,4 +261,3 @@ export default function BiAiPageClientContent() {
     </SectionWrapper>
   );
 }
-
