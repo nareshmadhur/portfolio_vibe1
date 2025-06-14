@@ -4,7 +4,7 @@
 This is a Next.js portfolio website for Naresh Madhur, showcasing his expertise in Data Science & AI, his musical pursuits, and his photography.
 
 <!-- TODO: Replace with your live deployment link -->
-**Live Demo**: [Your Live Site URL Here]
+**Live Demo**: [https://nareshm.vercel.app](https://nareshm.vercel.app)
 
 ## Features
 
@@ -46,25 +46,25 @@ This project is built with a modern, performant, and maintainable tech stack:
 
 *   **Content (Text & Image URLs)**:
     *   `src/lib/constants.ts`: Centralized file for almost all user-facing text (titles, descriptions, labels, social links) and primary image URLs.
-*   **Pages (Routes)**:
-    *   `src/app/`: Contains directories for each route (e.g., `/`, `/music`, `/contact`).
-    *   `src/app/[route]/page.tsx`: The main component for each page.
-    *   `src/app/layout.tsx`: The root layout for the entire application, including `<html>`, `<body>`, global font setup, Navbar, and Footer.
-*   **Components**:
-    *   `src/components/shared/`: Reusable components used across multiple pages (e.g., `SectionWrapper.tsx`, `ProjectCard.tsx`, `AnimatedSection.tsx`).
-    *   `src/components/sections/`: Larger, page-specific section components (e.g., `HeroSection.tsx`, `ContactSection.tsx`).
-    *   `src/components/layout/`: Components related to the overall site layout (e.g., `Navbar.tsx`, `Footer.tsx`, `Logo.tsx`).
-    *   `src/components/ui/`: Base ShadCN UI components.
+*   **Pages (Routes) - Files within `/src/app/`**:
+    *   `/[route]/page.tsx`: The main component for each route (e.g., `/src/app/page.tsx` for the homepage, `/src/app/music/page.tsx` for the music page).
+    *   `/layout.tsx`: The root layout for the entire application, including `<html>`, `<body>`, global font setup, Navbar, and Footer (`/src/app/layout.tsx`).
+*   **Components - Files within `/src/components/`**:
+    *   `/shared/`: Reusable components used across multiple pages (e.g., `/src/components/shared/SectionWrapper.tsx`, `/src/components/shared/ProjectCard.tsx`, `/src/components/shared/AnimatedSection.tsx`).
+    *   `/sections/`: Larger, page-specific section components (e.g., `/src/components/sections/HeroSection.tsx`, `/src/components/sections/ContactSection.tsx`).
+    *   `/layout/`: Components related to the overall site layout (e.g., `/src/components/layout/Navbar.tsx`, `/src/components/layout/Footer.tsx`, `/src/components/layout/Logo.tsx`).
+    *   `/ui/`: Base ShadCN UI components (e.g., `/src/components/ui/button.tsx`, `/src/components/ui/card.tsx`).
 *   **Styling & Configuration**:
-    *   `src/app/globals.css`: Global styles, Tailwind CSS base layers, and theme (CSS variables for colors, fonts).
-    *   `tailwind.config.ts`: Tailwind CSS configuration (e.g., extending theme, plugins).
-    *   `next.config.ts`: Next.js specific configurations (e.g., image optimization domains).
-    *   `tsconfig.json`: TypeScript compiler options.
+    *   `/src/app/globals.css`: Global styles, Tailwind CSS base layers, and theme (CSS variables for colors, fonts).
+    *   `/tailwind.config.ts`: Tailwind CSS configuration (e.g., extending theme, plugins).
+    *   `/next.config.ts`: Next.js specific configurations (e.g., image optimization domains).
+    *   `/tsconfig.json`: TypeScript compiler options.
+    *   `/postcss.config.mjs`: PostCSS configuration (used by Tailwind CSS).
 *   **Server-Side Logic**:
-    *   `src/app/actions.ts`: Contains Server Actions, currently used for the contact form submission.
+    *   `/src/app/actions.ts`: Contains Server Actions, currently used for the contact form submission.
 
 ## Getting Started / Running Locally
-
+<!-- explain your prereqs and steps -->
 **Prerequisites**:
 *   Node.js (v18.x or later recommended)
 *   npm or yarn
