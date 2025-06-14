@@ -320,7 +320,7 @@ export const siteContent = {
         emptyInput: "Please type a question.",
       }
     },
-    projectsTitle: "Portfolio Projects",
+    projectsTitle: "Major Projects",
   },
   musicPage: {
     title: "Music & Teaching",

@@ -31,18 +31,8 @@ export default function BiAiPageClientContent() {
     if (!text) return '';
     let html = text;
 
-    // 1. Headings (must be at the start of a line)
-    html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
-    html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
-    
-    // 2. Bold text: Convert **text** to <strong>text</strong>
+    // General bold pass first
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-
-    // 3. Unordered Lists: Convert lines starting with '- ' to <li>, then wrap in <ul>
-    // This regex handles multi-line lists and converts them in one go.
-    // It first converts '- item' to '<li>item</li>', then groups consecutive <li> into <ul>.
-    // This might be too simplistic if lists are interrupted by non-list items that shouldn't break the ul.
-    // A line-by-line approach is more robust for complex list structures.
 
     const lines = html.split('\n');
     const newLines = [];
@@ -51,53 +41,65 @@ export default function BiAiPageClientContent() {
     for (let i = 0; i < lines.length; i++) {
         let line = lines[i];
 
-        // If already an HTML tag for heading, pass through
-        if (line.startsWith('<h3>') || line.startsWith('<h2>')) {
-             if (inList) {
+        if (line.startsWith('<h3>') || line.startsWith('<h2>')) { // Already processed
+            if (inList) {
                 newLines.push('</ul>');
                 inList = false;
             }
             newLines.push(line);
             continue;
         }
-        
-        // Handle list items
-        if (line.trim().startsWith('- ')) {
+
+        if (line.startsWith('### ')) {
+            if (inList) {
+                newLines.push('</ul>');
+                inList = false;
+            }
+            newLines.push('<h3>' + line.substring(4) + '</h3>');
+        } else if (line.startsWith('## ')) {
+            if (inList) {
+                newLines.push('</ul>');
+                inList = false;
+            }
+            newLines.push('<h2>' + line.substring(3) + '</h2>');
+        } else if (line.trim().startsWith('- ')) {
             if (!inList) {
                 newLines.push('<ul>');
                 inList = true;
             }
-            // Remove leading '- ' and process bold within the list item text
-            let listItemContent = line.trim().substring(2);
-            listItemContent = listItemContent.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            newLines.push('<li>' + listItemContent + '</li>');
+            newLines.push('<li>' + line.trim().substring(2) + '</li>');
         } else {
             if (inList) {
                 newLines.push('</ul>');
                 inList = false;
             }
-            // For non-list lines that are not headings, just push them (bold already handled for headings or will be by a general pass if needed)
-            // If this line itself contains bold, it should have been handled if it was part of a heading or list item.
-            // A general bold pass can be done before splitting lines or after rejoining if some bolds are missed.
-            // For now, assume bold is primarily within these structures or handled by the initial pass.
-            newLines.push(line);
+            if (line.trim() === '') { // Keep empty lines if they are meant for paragraph breaks outside lists
+              newLines.push('<br />'); 
+            } else {
+              newLines.push(line);
+            }
         }
     }
     if (inList) {
         newLines.push('</ul>');
     }
-    html = newLines.join('\n');
+    html = newLines.join('\n'); // Rejoin with \n, then convert to <br> if not part of a block
+    
+    // Convert remaining newlines to <br />, but be careful around block elements
+    html = html.replace(/<\/h[23]>\n/g, '</h3>') // Remove \n after headings
+               .replace(/<\/ul>\n/g, '</ul>')   // Remove \n after lists
+               .replace(/<\/li>\n/g, '</li>')   // Remove \n after list items
+               .replace(/\n/g, '<br />'); // Convert remaining newlines
 
-    // 4. Convert remaining newlines to <br /> for explicit line breaks.
-    // The `prose` classes will handle paragraph spacing for block elements like <ul>, <h2>, <h3>.
-    html = html.replace(/\n/g, '<br />');
+    // Clean up excessive <br> tags, especially those from empty lines or around blocks
+    html = html.replace(/<br \s*\/?>\s*(<(h[23]|ul|li))/gi, '$1'); 
+    html = html.replace(/(<\/(h[23]|ul|li)>)\s*<br \s*\/?>/gi, '$1');
+    html = html.replace(/<li><br \s*\/?>/gi, '<li>'); 
+    html = html.replace(/<br \s*\/?>\s*<\/li>/gi, '</li>'); 
+    html = html.replace(/(<br \s*\/?>\s*){2,}/gi, '<br />'); // Multiple breaks to one
+    html = html.replace(/^<br \s*\/?>/, ''); // Leading breaks
+    html = html.replace(/<br \s*\/?>$/, ''); // Trailing breaks
 
-    // 5. Clean up <br /> tags that might be inappropriately added around block elements by the general \n to <br /> conversion.
-    html = html.replace(/<br \s*\/?>\s*(<(h[23]|ul|li))/gi, '$1'); // <br> before block
-    html = html.replace(/(<\/(h[23]|ul|li)>)\s*<br \s*\/?>/gi, '$1'); // <br> after block
-    html = html.replace(/<li><br \s*\/?>/gi, '<li>'); // <br> at start of li
-    html = html.replace(/<br \s*\/?>\s*<\/li>/gi, '</li>'); // <br> at end of li
-    html = html.replace(/<br \s*\/?>\s*<br \s*\/?>/gi, '<br />'); // Consolidate multiple <br> to one, if desired, or handle as paragraphs.
 
     return html;
   };
@@ -131,25 +133,22 @@ export default function BiAiPageClientContent() {
     setIsLoading(true);
     setAiAnswer(null); 
     setError(null);
-    setSubmittedQuestion(question); // Set submitted question here to display it
-    // Do not clear question state here, clear it after AI response or error
+    setSubmittedQuestion(question); 
     
     try {
       const input: AskNareshAIInput = { question: question.trim() };
       const result = await askNareshAI(input);
       setAiAnswer(result.answer);
-      setQuestion(''); // Clear input after successful AI response
+      setQuestion(''); 
     } catch (e: any) {
       console.error("Error fetching AI answer:", e);
       setError(e.message || siteContent.biAiPage.askMeAnything.errorMessages.generalError);
-      // Don't clear question on error, so user can retry/edit
     } finally {
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    // Removed error clearing on type, user should see error until next submit attempt.
   }, [question, error, isLoading]);
 
   useEffect(() => {
@@ -198,8 +197,7 @@ export default function BiAiPageClientContent() {
             </CardHeader>
 
             <CardContent className={cn(
-              "flex flex-col flex-grow space-y-4 p-4 md:p-6",
-              "min-h-0" 
+              "flex flex-col flex-grow space-y-4 p-4 md:p-6 min-h-0" 
             )}>
               <div 
                 ref={chatLogRef} 
