@@ -12,7 +12,7 @@ import { useState, type FormEvent, useEffect, useRef, useCallback } from 'react'
 import { Loader2, AlertTriangle, Sparkles, ArrowDown } from "lucide-react";
 import { askNareshAI, type AskNareshAIInput } from '@/ai/flows/ask-me-flow';
 import { cn } from "@/lib/utils";
-import SectionWrapper from "@/components/shared/SectionWrapper";
+import SectionWrapper from "@/components/shared/SectionWrapper"; // Ensure this is imported
 
 /**
  * Client-side content for the BI & AI Projects page, including the "Ask My AI Assistant" tool.
@@ -32,18 +32,21 @@ export default function BiAiPageClientContent() {
     let html = text;
     // Convert **bold** to <strong>bold</strong>
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    // Convert *italic* to <em>italic</em> (if needed, though current prompt doesn't explicitly ask for it)
-    // html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
     // Convert newlines to <br />
     html = html.replace(/\n/g, "<br />");
     return html;
+  };
+
+  const scrollToBottom = () => {
+    if (chatLogRef.current) {
+      chatLogRef.current.scrollTop = chatLogRef.current.scrollHeight;
+    }
   };
 
   const checkScrollIndicator = useCallback(() => {
     if (chatLogRef.current) {
       const { scrollHeight, scrollTop, clientHeight } = chatLogRef.current;
       const isScrollable = scrollHeight > clientHeight;
-      // Show indicator if scrollable and not within ~10px of the bottom
       const isNotAtBottom = scrollTop + clientHeight < scrollHeight - 10; 
       setShowScrollIndicator(isScrollable && isNotAtBottom);
     } else {
@@ -60,7 +63,7 @@ export default function BiAiPageClientContent() {
     }
     setSubmittedQuestion(question);
     setIsLoading(true);
-    setAiAnswer(null); // Clear previous answer
+    setAiAnswer(null); 
     setError(null);
     setQuestion(''); // Clear input immediately after submission
 
@@ -82,35 +85,26 @@ export default function BiAiPageClientContent() {
     }
   }, [question, error, isLoading]);
 
-  // Auto-scroll to bottom when new messages appear and update scroll indicator
   useEffect(() => {
-    if (chatLogRef.current) {
-      chatLogRef.current.scrollTop = chatLogRef.current.scrollHeight;
-    }
-    // Check scroll indicator after DOM updates and scrolling
-    const timer = setTimeout(checkScrollIndicator, 100);
+    scrollToBottom();
+    const timer = setTimeout(checkScrollIndicator, 100); // Check after scroll
     return () => clearTimeout(timer);
   }, [aiAnswer, submittedQuestion, checkScrollIndicator]);
 
-  // Check scroll indicator on mount and window resize
   useEffect(() => {
-    checkScrollIndicator(); // Initial check
+    checkScrollIndicator();
     window.addEventListener('resize', checkScrollIndicator);
-    return () => {
-      window.removeEventListener('resize', checkScrollIndicator);
-    };
-  }, [checkScrollIndicator]);
-
-  // Add scroll event listener to the chat log div
-  useEffect(() => {
     const currentChatLog = chatLogRef.current;
     if (currentChatLog) {
       currentChatLog.addEventListener('scroll', checkScrollIndicator);
-      return () => {
-        currentChatLog.removeEventListener('scroll', checkScrollIndicator);
-      };
     }
-  }, [checkScrollIndicator]); // Re-attach if checkScrollIndicator changes
+    return () => {
+      window.removeEventListener('resize', checkScrollIndicator);
+      if (currentChatLog) {
+        currentChatLog.removeEventListener('scroll', checkScrollIndicator);
+      }
+    };
+  }, [checkScrollIndicator]);
 
 
   return (
@@ -143,7 +137,7 @@ export default function BiAiPageClientContent() {
               {/* Chat Messages Log */}
               <div 
                 ref={chatLogRef} 
-                className="space-y-4 flex-grow overflow-y-auto pr-2 min-h-0 relative" // Added position: relative
+                className="space-y-4 flex-grow overflow-y-auto pr-2 min-h-0 relative" 
               >
                 {/* Initial AI Message */}
                 <AnimatedSection animationType="fadeIn" className="p-3 rounded-md bg-primary/5 shadow">
@@ -182,9 +176,13 @@ export default function BiAiPageClientContent() {
                 )}
                 {/* Scroll Down Indicator */}
                 {showScrollIndicator && (
-                  <div className="sticky bottom-2 left-1/2 -translate-x-1/2 p-1 bg-accent/80 dark:bg-accent/90 backdrop-blur-sm rounded-full animate-bounce z-20 shadow-lg">
+                  <button
+                    onClick={scrollToBottom}
+                    aria-label="Scroll to bottom"
+                    className="absolute bottom-2 left-1/2 -translate-x-1/2 p-2 bg-accent/80 hover:bg-accent dark:bg-accent/90 dark:hover:bg-accent/100 backdrop-blur-sm rounded-full z-20 shadow-lg transition-colors"
+                  >
                     <ArrowDown className="h-5 w-5 text-accent-foreground" />
-                  </div>
+                  </button>
                 )}
               </div>
 
@@ -261,3 +259,6 @@ export default function BiAiPageClientContent() {
     </SectionWrapper>
   );
 }
+
+
+    
