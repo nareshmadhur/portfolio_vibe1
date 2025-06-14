@@ -12,7 +12,7 @@ import { useState, type FormEvent, useEffect, useRef, useCallback } from 'react'
 import { Loader2, AlertTriangle, Sparkles, ArrowDown } from "lucide-react";
 import { askNareshAI, type AskNareshAIInput } from '@/ai/flows/ask-me-flow';
 import { cn } from "@/lib/utils";
-import SectionWrapper from "@/components/shared/SectionWrapper"; // Ensure this is imported
+import SectionWrapper from "@/components/shared/SectionWrapper"; 
 
 /**
  * Client-side content for the BI & AI Projects page, including the "Ask My AI Assistant" tool.
@@ -30,18 +30,81 @@ export default function BiAiPageClientContent() {
   const processMarkdown = (text: string): string => {
     if (!text) return '';
     let html = text;
-    // Convert **bold** to <strong>bold</strong>
+
+    // 1. Headings (process h3 before h2 to avoid ## matching ###)
+    html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
+    html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
+
+    // 2. Bold text
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    // Convert newlines to <br />
-    html = html.replace(/\n/g, "<br />");
+
+    // 3. Unordered list items
+    // Convert '- item' lines to <li>item</li>
+    // Then, wrap consecutive <li> blocks in <ul></ul>
+    const lines = html.split('\n');
+    const newLines = [];
+    let listOpen = false;
+
+    for (const line of lines) {
+        const trimmedLine = line.trim();
+        // Check if the line is a Markdown list item
+        if (trimmedLine.startsWith('- ')) {
+            if (!listOpen) {
+                newLines.push('<ul>');
+                listOpen = true;
+            }
+            // Remove the leading '- ' and wrap in <li>
+            newLines.push('<li>' + trimmedLine.substring(2) + '</li>');
+        } 
+        // Check if the line is already part of an HTML list or heading (from previous replacements)
+        else if (trimmedLine.startsWith('<li>') || trimmedLine.startsWith('<ul>') || trimmedLine.startsWith('<h2>') || trimmedLine.startsWith('<h3>') || trimmedLine.startsWith('<strong>')) {
+             if (listOpen && !(trimmedLine.startsWith('<li>') || trimmedLine.startsWith('<ul>'))) {
+                // If we were in a list, and this line is not a list item, close the list.
+                // This specifically checks if the line is not ALREADY an li or ul tag.
+                newLines.push('</ul>');
+                listOpen = false;
+            }
+            newLines.push(line); // Keep the original line as it's already processed or special
+        }
+        else { // Not a list item, not already processed HTML
+            if (listOpen) {
+                newLines.push('</ul>');
+                listOpen = false;
+            }
+            newLines.push(line);
+        }
+    }
+    if (listOpen) { // Close any list that's still open at the end
+        newLines.push('</ul>');
+    }
+    html = newLines.join('\n');
+
+    // 4. Convert remaining newlines (those not part of list/heading structure) to <br />
+    html = html.replace(/\n/g, '<br />');
+
+    // 5. Cleanup common <br /> issues
+    // Remove <br /> immediately after closing block tags
+    html = html.replace(/<\/(ul|li|h2|h3|strong)><br \s*\/>/gi, '</$1>');
+    // Remove <br /> immediately after opening block tags if content starts there
+    html = html.replace(/<(ul|li|h2|h3|strong)><br \s*\/>/gi, '<$1>');
+     // Remove <br /> if it's the very last thing
+    html = html.replace(/<br \s*\/>$/, '');
+    // Clean up <br/> inside li tags if they are empty or at start/end
+    html = html.replace(/<li><br \s*\/>/gi, '<li>');
+    html = html.replace(/<br \s*\/>\s*<\/li>/gi, '</li>');
+     // Clean up <br /> between </ul> or </h#> and a following <p>, <ul>, or <h#>
+    html = html.replace(/<\/(ul|h[23])><br \s*\/>(\s*<(p|ul|h[23]))/gi, '</$1>$2');
+
+
     return html;
   };
 
-  const scrollToBottom = () => {
+
+  const scrollToBottom = useCallback(() => {
     if (chatLogRef.current) {
       chatLogRef.current.scrollTop = chatLogRef.current.scrollHeight;
     }
-  };
+  }, []);
 
   const checkScrollIndicator = useCallback(() => {
     if (chatLogRef.current) {
@@ -65,15 +128,18 @@ export default function BiAiPageClientContent() {
     setIsLoading(true);
     setAiAnswer(null); 
     setError(null);
-    setQuestion(''); // Clear input immediately after submission
+    // Do not clear question state here, clear it after AI response or error
+    // setQuestion(''); 
 
     try {
       const input: AskNareshAIInput = { question: question.trim() };
       const result = await askNareshAI(input);
       setAiAnswer(result.answer);
+      setQuestion(''); // Clear input after successful AI response
     } catch (e: any) {
       console.error("Error fetching AI answer:", e);
       setError(e.message || siteContent.biAiPage.askMeAnything.errorMessages.generalError);
+      // Don't clear question on error, so user can retry/edit
     } finally {
       setIsLoading(false);
     }
@@ -81,18 +147,19 @@ export default function BiAiPageClientContent() {
 
   useEffect(() => {
     if (error && question.trim() && !isLoading) {
-      setError(null);
+      // Clear error if user starts typing a new question after an error
+      // setError(null); // This might be too aggressive, let user see error until next submit
     }
   }, [question, error, isLoading]);
 
   useEffect(() => {
     scrollToBottom();
-    const timer = setTimeout(checkScrollIndicator, 100); // Check after scroll
+    const timer = setTimeout(checkScrollIndicator, 150); // Check after scroll and DOM update
     return () => clearTimeout(timer);
-  }, [aiAnswer, submittedQuestion, checkScrollIndicator]);
+  }, [aiAnswer, submittedQuestion, checkScrollIndicator, scrollToBottom]);
 
   useEffect(() => {
-    checkScrollIndicator();
+    checkScrollIndicator(); // Initial check
     window.addEventListener('resize', checkScrollIndicator);
     const currentChatLog = chatLogRef.current;
     if (currentChatLog) {
@@ -122,7 +189,7 @@ export default function BiAiPageClientContent() {
           "gemini-border-static", 
           isLoading && "gemini-border-animate-rotation" 
         )}>
-          <Card className="flex flex-col min-h-[500px] max-h-[70vh]">
+          <Card className="flex flex-col min-h-[500px] max-h-[70vh]"> {/* Ensure Card itself allows children to flex */}
             <CardHeader>
               <div className="flex items-center space-x-3">
                 <Sparkles className="h-7 w-7 text-accent animate-gentle-sparkle-pulse" />
@@ -132,18 +199,18 @@ export default function BiAiPageClientContent() {
 
             <CardContent className={cn(
               "flex flex-col flex-grow space-y-4 p-4 md:p-6",
-              "min-h-0" 
+              "min-h-0" // Crucial for allowing internal scrolling
             )}>
               {/* Chat Messages Log */}
               <div 
                 ref={chatLogRef} 
-                className="space-y-4 flex-grow overflow-y-auto pr-2 min-h-0 relative" 
+                className="space-y-4 flex-grow overflow-y-auto pr-2 min-h-0 relative" // min-h-0 here too
               >
                 {/* Initial AI Message */}
                 <AnimatedSection animationType="fadeIn" className="p-3 rounded-md bg-primary/5 shadow">
                   <p className="font-semibold text-primary">AI Assistant:</p>
                   <div 
-                    className="text-foreground/90 whitespace-pre-line leading-relaxed"
+                    className="text-foreground/90 whitespace-pre-line leading-relaxed prose prose-sm dark:prose-invert max-w-none"
                     dangerouslySetInnerHTML={{ __html: processMarkdown(siteContent.biAiPage.askMeAnything.initialAiMessage) }}
                   />
                 </AnimatedSection>
@@ -157,7 +224,7 @@ export default function BiAiPageClientContent() {
                 )}
 
                 {/* Loading Indicator */}
-                {isLoading && (
+                {isLoading && !aiAnswer && ( // Show loader only if no answer yet
                   <AnimatedSection animationType="fadeIn" className="mt-3 p-3 rounded-md bg-muted/30 shadow flex items-center">
                     <Loader2 className="mr-3 h-5 w-5 animate-spin text-muted-foreground" />
                     <p className="text-sm text-muted-foreground">AI Assistant is thinking...</p>
@@ -165,11 +232,11 @@ export default function BiAiPageClientContent() {
                 )}
 
                 {/* AI Answer Display */}
-                {aiAnswer && !isLoading && (
+                {aiAnswer && ( // Render AI answer as soon as it's available
                   <AnimatedSection animationType="fadeIn" className="mt-3 p-3 rounded-md bg-primary/5 shadow">
                     <p className="font-semibold text-primary">AI Assistant:</p>
                     <div
-                        className="text-foreground/90 whitespace-pre-line leading-relaxed"
+                        className="text-foreground/90 whitespace-pre-line leading-relaxed prose prose-sm dark:prose-invert max-w-none" // Added prose for better default styling of HTML from Markdown
                         dangerouslySetInnerHTML={{ __html: processMarkdown(aiAnswer) }}
                     />
                   </AnimatedSection>
@@ -186,12 +253,12 @@ export default function BiAiPageClientContent() {
                 )}
               </div>
 
-              {/* Error Display */}
+              {/* Error Display - Placed below scrollable area, but above input form */}
               {error && !isLoading && (
                 <div
                   id="ai-question-error"
                   role="alert"
-                  className="mt-auto p-3 rounded-md bg-destructive/10 text-destructive border border-destructive/30 flex items-start space-x-2 animate-fadeIn shrink-0"
+                  className="mt-2 p-3 rounded-md bg-destructive/10 text-destructive border border-destructive/30 flex items-start space-x-2 animate-fadeIn shrink-0"
                 >
                   <AlertTriangle className="h-5 w-5 shrink-0 mt-0.5" />
                   <div>
@@ -207,7 +274,10 @@ export default function BiAiPageClientContent() {
                   <Textarea
                     id="ai-question"
                     value={question}
-                    onChange={(e) => setQuestion(e.target.value)}
+                    onChange={(e) => {
+                      setQuestion(e.target.value);
+                      if (error) setError(null); // Clear error when user starts typing
+                    }}
                     placeholder={siteContent.biAiPage.askMeAnything.inputPlaceholder}
                     disabled={isLoading}
                     className={cn(
@@ -259,6 +329,4 @@ export default function BiAiPageClientContent() {
     </SectionWrapper>
   );
 }
-
-
     
